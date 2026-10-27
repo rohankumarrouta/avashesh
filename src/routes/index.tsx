@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Page } from "@/components/SiteHeader";
-import { BrandLogo } from "@/components/BrandLogo";
 import hero from "@/assets/hero.jpg";
 import { Button } from "@/components/ui/button";
 import { PollutionStory, ReuseFlow, EnvironmentalGoals, MaterialOpportunities, PollutionImpact, mission } from '@/components/MissionSections';
@@ -28,9 +27,6 @@ function Index() {
   useEffect(() => { if (!user || !role) return; const next = window.sessionStorage.getItem("avashesh.auth-next"); if (!next) return; window.sessionStorage.removeItem("avashesh.auth-next"); if (next === "/marketplace/sell" && role === "farmer") void navigate({ to: "/marketplace/sell" }); else if (next.startsWith("/marketplace/") && next !== "/marketplace/sell") void navigate({ to: "/marketplace/$listingId", params: { listingId: next.split("/")[2] ?? "" } }); }, [user, role, navigate]);
   return (
     <Page>
-      <section className="rounded-lg border border-border bg-card px-4 py-6">
-        <BrandLogo className="mx-auto w-64 sm:w-80" />
-      </section>
       <section className="relative isolate -mx-4 overflow-hidden bg-primary px-5 py-7 text-primary-foreground sm:py-10">
         <img src={hero} alt="Paddy straw bales collected in a harvested field" width={1280} height={960} className="absolute inset-0 -z-20 h-full w-full object-cover" />
         <div className="absolute inset-0 -z-10 bg-primary/85" />
