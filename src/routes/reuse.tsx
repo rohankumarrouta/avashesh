@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { DemoBadge, Page } from "@/components/SiteHeader";
+import { SampleBadge, Page } from "@/components/SiteHeader";
 import { useRecords } from "@/hooks/use-records";
 import { recommend, type RecommendationResult } from "@/lib/reuse-rules";
 import { practiceLabel, WASTE_TYPES, wasteLabel, type WasteTypeId } from "@/lib/waste";
@@ -43,7 +43,7 @@ function ReusePage() {
         <div>
           <h1 className="text-2xl font-bold">Reuse options</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            For {record.quantityKg.toLocaleString("en-IN")} kg of {wasteLabel(record.wasteType).toLowerCase()} in {record.district} · {practiceLabel(record.practice)} {record.isDemo && <DemoBadge />}
+            For {record.quantityKg.toLocaleString("en-IN")} kg of {wasteLabel(record.wasteType).toLowerCase()} in {record.district} · {practiceLabel(record.practice)} {record.isDemo && <SampleBadge />}
           </p>
         </div>
         <Results result={result} plannedId={record.plannedReuseId} onPlan={(id) => setPlan(record.id, id)} />

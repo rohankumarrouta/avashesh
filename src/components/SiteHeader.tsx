@@ -1,10 +1,13 @@
 import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 const links = [
   { to: "/", label: "Home" },
   { to: "/record", label: "Record" },
   { to: "/reuse", label: "Reuse" },
   { to: "/dashboard", label: "Dashboard" },
+  { to: "/records", label: "Records" },
+  { to: "/about", label: "About" },
 ] as const;
 
 export function SiteHeader() {
@@ -14,7 +17,7 @@ export function SiteHeader() {
         <Link to="/" className="text-lg font-bold text-primary">
           Avashesh
         </Link>
-        <nav className="-mx-1 mt-1 flex text-sm">
+        <nav className="-mx-1 mt-1 flex overflow-x-auto whitespace-nowrap text-sm">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -32,7 +35,7 @@ export function SiteHeader() {
   );
 }
 
-export function Page({ children }: { children: React.ReactNode }) {
+export function Page({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -44,6 +47,6 @@ export function Page({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function DemoBadge() {
-  return <span className="rounded bg-accent px-1.5 py-0.5 text-xs font-semibold text-accent-foreground">DEMO</span>;
+export function SampleBadge() {
+  return <span className="rounded bg-accent px-1.5 py-0.5 text-xs font-semibold text-accent-foreground">SAMPLE</span>;
 }

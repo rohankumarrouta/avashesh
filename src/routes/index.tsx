@@ -28,6 +28,7 @@ function Index() {
         <Link to="/record" className="rounded-md bg-primary px-4 py-3 text-center font-semibold text-primary-foreground">Record waste</Link>
         <Link to="/reuse" className="rounded-md border border-border bg-card px-4 py-3 text-center font-semibold">Explore reuse ideas</Link>
         <Link to="/dashboard" className="rounded-md border border-border bg-card px-4 py-3 text-center font-semibold">View dashboard</Link>
+        <Link to="/about" className="rounded-md border border-border bg-card px-4 py-3 text-center font-semibold sm:col-span-3">About the project</Link>
       </div>
       <section className="rounded-lg border border-border bg-card p-4">
         <h2 className="font-semibold">How it works</h2>
@@ -38,9 +39,9 @@ function Index() {
         </ol>
       </section>
       <section className="rounded-lg border border-border bg-muted p-4 text-sm">
-        <h2 className="font-semibold">About this project</h2>
+        <h2 className="font-semibold">The problem</h2>
         <p className="mt-1">
-          We are starting with Odisha and want to improve the tool based on what farmers actually need. This is an early prototype: suggestions come from fixed rules, not AI, and we have not yet worked with any farmers, buyers or partner organisations.
+          Farmers produce a lot of paddy straw, coconut husk and other residue. Much of it is burned or left unused because people don't always know the options. We are starting with Odisha and want to improve the tool based on what farmers actually need. This is an early prototype: suggestions come from fixed rules, not AI, and we have not yet worked with any farmers, buyers or partner organisations.
         </p>
         <p className="mt-2 text-muted-foreground">Your records are saved only on this device (in your browser).</p>
       </section>
