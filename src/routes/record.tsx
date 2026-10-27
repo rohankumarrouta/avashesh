@@ -7,6 +7,8 @@ import { LIMITS, ODISHA_DISTRICTS, PRACTICES, todayISO, toKg, validateRecord, WA
 export const Route = createFileRoute("/record")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Record waste — Avashesh" },
       { name: "description", content: "Record the type and quantity of agricultural waste you have." },
       { property: "og:title", content: "Record waste — Avashesh" },

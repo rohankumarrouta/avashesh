@@ -7,6 +7,8 @@ import { practiceLabel, wasteLabel } from "@/lib/waste";
 export const Route = createFileRoute("/records")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Waste records — Avashesh" },
       { name: "description", content: "View, export and delete the agricultural waste entries saved on this device." },
       { property: "og:title", content: "Waste records — Avashesh" },

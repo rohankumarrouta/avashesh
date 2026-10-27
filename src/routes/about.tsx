@@ -5,6 +5,8 @@ import type { ReactNode } from "react";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "About — Avashesh" },
       { name: "description", content: "Why we started Avashesh, what it does today and what we plan next." },
       { property: "og:title", content: "About — Avashesh" },

@@ -67,8 +67,6 @@ WasteRecord {
 - Reuse rules are not yet validated by experts or farmers.
 - Emission estimate assumes dry residue fully burned; ignores transport and processing.
 
-## Next steps
-
 ## Marketplace model and boundaries
 
 `avashesh.marketplace.v1` stores one versioned object containing a browser-local
