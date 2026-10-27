@@ -65,7 +65,7 @@ function Index() {
       <section className="space-y-4 border-t border-border pt-6"><h2 className="text-2xl font-semibold">Record and explore reuse</h2><div className="grid gap-3 sm:grid-cols-3"><Button asChild variant="outline"><Link to="/record"><ClipboardPlus />Record waste</Link></Button><Button asChild variant="outline"><Link to="/reuse"><Recycle />Explore reuse ideas</Link></Button><Button asChild variant="outline"><Link to="/dashboard"><ChartNoAxesCombined />View dashboard</Link></Button></div><p className="text-xs text-muted-foreground">Waste records stay on this device. Marketplace listings and inquiries are shared through signed-in accounts. Suggestions use fixed rules, not AI.</p><Button asChild variant="link"><Link to="/about">About the project<ArrowUpRight /></Link></Button></section>
       <section className="rounded-2xl bg-primary px-6 py-8 text-center text-primary-foreground sm:px-10">
         <h2 className="text-2xl font-semibold">Have residue after harvest?</h2>
-        <p className="mx-auto mt-2 max-w-md text-sm opacity-90">Post it on the marketplace so a buyer can reuse it instead of it being burned.</p>
+        <p className="mx-auto mt-2 max-w-md text-sm opacity-90">Find a buyer on the marketplace or record it to explore reuse ideas instead of burning.</p>
         <div className="mt-5 flex flex-wrap justify-center gap-3"><Button asChild size="lg" variant="secondary"><Link to="/marketplace">Browse listings<ArrowUpRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-primary-foreground/60 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/record"><ClipboardPlus />Record waste</Link></Button></div>
       </section>
     </Page>
