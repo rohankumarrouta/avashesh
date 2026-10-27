@@ -6,7 +6,7 @@ import { PollutionStory, ReuseFlow, EnvironmentalGoals, MaterialOpportunities, P
 import { useAccount } from "@/hooks/use-account";
 import { useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { ArrowUpRight, ShoppingBasket, Sprout, MapPin, ClipboardPlus, Recycle, ChartNoAxesCombined } from 'lucide-react';
+import { ArrowUpRight, ShoppingBasket, Sprout, ClipboardPlus, Recycle, ChartNoAxesCombined } from 'lucide-react';
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,7 +31,6 @@ function Index() {
       <section className="relative isolate -mx-4 overflow-hidden bg-hero-shade px-6 py-10 text-hero-foreground sm:-mx-8 sm:px-10 sm:py-14">
         <img src={hero} alt="Paddy straw bales collected in a harvested field" width={1280} height={960} className="absolute inset-0 -z-20 h-full w-full object-cover" />
         <div className="absolute inset-0 -z-10 bg-hero-shade/65" />
-        <p className="mb-5 flex items-center gap-2 text-xs font-semibold"><MapPin className="size-4" />Starting with Odisha</p>
         <h1 className="text-4xl font-semibold sm:text-5xl">Avashesh</h1>
         <p className="mt-3 text-xl font-medium sm:text-2xl">Waste Less. Create More.</p>
         <p className="mt-5 max-w-lg text-sm leading-relaxed sm:text-base">Working towards cleaner air by preventing unnecessary agricultural waste burning and promoting reuse.</p>
