@@ -22,3 +22,4 @@
 - [x] Competition README, technical design, sample data, test cases and MIT copyright placeholder; application code untouched for this documentation request
 - [ ] Real mailbox signup confirmation/reset completion — needs controlled receiving mailboxes
 - [ ] Published/standalone deployment verification — not requested to deploy; requires deployed target
+- [x] Homepage: Buy/Sell labels large, other text smaller
