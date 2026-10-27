@@ -20,3 +20,4 @@
 - Public marketplace routes use inline sign-in actions; private dashboards use the authenticated layout and account context; why: anonymous browsing must remain available while writes require real auth.
 - Store full locations separately with owner/inquiry-participant SELECT policies and save atomically through an ownership-checked RPC; why: public listing rows must never carry private addresses.
 - Storage reads are owner-only; public media signing accepts a listing ID and verifies a published row before privileged signing; why: preserve published photos without broad cross-user storage access.
+- Shared mission, goals, material opportunities and pending impact presentation live in MissionSections; why: homepage and About must use consistent claims without changing marketplace or local impact calculations.
