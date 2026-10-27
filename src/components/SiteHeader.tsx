@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { useAccount } from "@/hooks/use-account";
@@ -18,16 +18,12 @@ const links = [
 export function SiteHeader() {
   const { user, role, logout } = useAccount();
   const [error, setError] = useState("");
-  const isHome = useRouterState({ select: (s) => s.location.pathname === "/" });
   return (
     <header className="border-b border-border bg-card">
       <a href="#main-content" className="skip-link">Skip to content</a>
       <div className="mx-auto max-w-5xl px-4 pt-4 sm:px-8">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between"><Link to="/" aria-label="Avashesh home" className="min-w-0">
-          {isHome ? <BrandLogo className="h-auto w-44 sm:w-52" /> : <>
-            <span className="block text-xl font-bold text-primary">AVASHESH</span>
-            <span className="block text-[11px] text-muted-foreground">Waste Less. Create More.</span>
-          </>}
+          <BrandLogo className="h-auto w-44 sm:w-52" />
         </Link>
         <div className="flex shrink-0 flex-col items-end gap-1 text-xs sm:flex-row sm:items-center sm:gap-2 sm:text-sm">{user ? <>
           {role && <Button asChild variant="outline" size="sm"><Link to={role === "farmer" ? "/farmer" : "/buyer"}>My account<ArrowUpRight /></Link></Button>}
