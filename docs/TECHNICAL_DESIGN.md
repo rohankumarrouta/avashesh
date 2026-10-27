@@ -32,9 +32,9 @@ Existing waste recording is intentionally still local, separate from shared mark
 ## Buyer flow
 
 1. Buy Waste opens `/marketplace` without login. Search/type/location and normalized price/quantity filters operate on published database records.
-2. Details show available quantity, asking price, location, seller-supplied name/contact and photo, if supplied.
+2. Details show available quantity, asking price, public district/state, seller-supplied name/contact and photo, if supplied.
 3. Buyer login is required to send an inquiry. Return action preserves the chosen listing.
-4. Validated name, phone/email and message are stored against Buyer ID and listing ID. Seller reads it from another account/browser; Buyer sees own status/history at `/buyer`.
+4. Submitting a successful inquiry unlocks full location only for that Buyer; calling/WhatsApp alone does not. Validated name, phone/email and message are stored against Buyer ID and listing ID. Seller reads it from another account/browser; Buyer sees own status/history at `/buyer`.
 5. Buyer cannot create/edit listings or access another user's private profile. Calls/WhatsApp are external user-initiated actions; no automatic delivery is implied.
 
 ## Database schema (actual)
@@ -43,7 +43,8 @@ Existing waste recording is intentionally still local, separate from shared mark
 |---|---|
 | `profiles` | `id` UUID PK references auth user (cascade), `display_name`, `contact`, `created_at` |
 | `user_roles` | `user_id` UUID PK references auth user (cascade), `role` enum `market_role`: farmer/buyer |
-| `listings` | UUID `id`, `seller_id` references profiles, `waste_type`, `quantity`, `unit`, `price`, `location`, `description`, `photo`, `seller_name`, `seller_contact`, `status`, `is_demo`, `created_at`, `updated_at` |
+| `listings` | UUID `id`, `seller_id` references profiles, `waste_type`, `quantity`, `unit`, `price`, `district`, `state`, deprecated sanitized `location`, `description`, `photo`, `seller_name`, `seller_contact`, `status`, `is_demo`, `created_at`, `updated_at` |
+| `listing_locations` | `listing_id` UUID PK references listings (cascade), `full_location`; owner and inquiry-participant reads only |
 | `inquiries` | UUID `id`, `listing_id` references listings (cascade on hard delete), `buyer_id` references profiles, `buyer_name`, `contact`, `message`, `status`, `created_at` |
 
 Listing statuses: draft/published/sold/deleted. Inquiry statuses: new/read/closed. `is_demo` is constrained false for shared listings; no sample rows are seeded. Table grants, indexes, triggers and policies are tracked in `drizzle/migrations/`. Bucket creation is a Storage API operation, not a migration insert.
@@ -54,6 +55,7 @@ Listing statuses: draft/published/sold/deleted. Inquiry statuses: new/read/close
 - `profiles`: authenticated own SELECT/UPDATE; no public profile reads.
 - `user_roles`: authenticated own SELECT only; no client INSERT/UPDATE/DELETE. Signup initializes role once; later editable metadata is not permission authority.
 - `listings`: public SELECT only published; own SELECT includes private statuses. Farmer create/update/delete requires authenticated ownership. Identity fields cannot change through update.
+- `listing_locations`: owner SELECT or Buyer SELECT after an own inquiry; no client writes. Ownership-checked `save_listing_with_location` atomically saves listing and private location; legacy addresses are backfilled privately without guessing district/state. A trigger keeps the compatibility `listings.location` field sanitized.
 - `inquiries`: Buyer creates only against published listings; read is Buyer-own or listing seller-own. Seller updates status only; trigger prevents identity/content changes.
 - `has_market_role` uses SECURITY INVOKER and protected role rows. `market_signup` is a restricted auth lifecycle trigger, not a public callable account-provisioning API.
 - `_authenticated` gates account dashboards. Endpoint middleware and RLS protect data independently; public Sell UI is not the security boundary.
@@ -61,9 +63,9 @@ Listing statuses: draft/published/sold/deleted. Inquiry statuses: new/read/close
 
 ## Photos and privacy
 
-Private `waste-photos` bucket, 500 KB per file. Farmer upload uses own UUID directory; allowed image extensions are JPG/JPEG/PNG/WebP. The form checks MIME/decoding. Owners read their media; published-listing media may be read through a five-minute signed URL. Signed URLs can remain valid until expiration after availability changes.
+Private `waste-photos` bucket, 500 KB per file. Farmer upload uses own UUID directory; allowed image extensions are JPG/JPEG/PNG/WebP. The form checks MIME/decoding. Direct storage SELECT is owner-only. The public photo server function accepts only a listing ID, checks a published row through public RLS, then uses privileged signing for that exact seller-bound path; it never accepts arbitrary object paths. Published photos remain available through five-minute signed URLs. Signed URLs can remain valid until expiration after availability changes.
 
-There is no malware scan, metadata stripping, server image transcoding, old-photo cleanup, account deletion or automated retention policy. Private inquiry contact and published listing contact have different visibility rules. Do not enter full addresses or private image content. Original waste notes remain unencrypted browser data.
+There is no malware scan, metadata stripping, server image transcoding, old-photo cleanup, account deletion or automated retention policy. Private inquiry contact and published listing contact have different visibility rules. Enter full location only in its private field, never in public district/state, description or images. Original waste notes remain unencrypted browser data.
 
 ## Limits and pending work
 

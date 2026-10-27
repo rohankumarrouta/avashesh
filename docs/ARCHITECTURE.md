@@ -70,7 +70,7 @@ WasteRecord {
 
 `profiles` references auth users and stores private display name/contact. `user_roles` separately stores immutable-by-client Farmer/Buyer choice. An auth lifecycle trigger creates both; only Farmer/Buyer values are accepted once at signup. Role checks read protected table rows, never user-editable session metadata.
 
-`listings` references profiles through seller ID and stores material, quantity/unit, per-unit asking price, location, description, seller-supplied public name/contact, photo object path and status. `inquiries` references listing and Buyer profile; it stores Buyer name/contact/message and new/read/closed status. UUID identity/ownership fields cannot change. Quantities and prices have database bounds and finite-value constraints.
+`listings` references profiles through seller ID and stores material, quantity/unit, per-unit asking price, public district/state, sanitized compatibility location, description, seller-supplied public name/contact, photo object path and status. `inquiries` references listing and Buyer profile; it stores Buyer name/contact/message and new/read/closed status. UUID identity/ownership fields cannot change. Quantities and prices have database bounds and finite-value constraints.
 
 RLS: anon/authenticated may read published listings; owners may read their draft/sold/deleted rows. Farmer may create/update/delete only their own rows. Buyer may insert inquiries only against published listings; inquiry read is Buyer-own or listing seller-own. Only seller updates inquiry status; a trigger blocks changing its identity/message/contact. Profiles are own-read/own-update. Roles are own-read only; client role writes and callable signup trigger execution are explicitly revoked.
 
@@ -78,7 +78,9 @@ RLS: anon/authenticated may read published listings; owners may read their draft
 
 Client and server share Zod schemas; direct Data API writes remain database-validated. React escapes input text. WhatsApp URL values are encoded. Published listing reads fetch 500-row batches; dashboard reads currently have the Data API default row limit (1000), a scale limitation rather than a total-count claim.
 
-Private `waste-photos` storage: insert/delete own UUID folder; read own or media referenced by published listing. Signed URLs expire after five minutes. Only permitted image extensions and ≤500 KB/file are accepted; form decodes images. No server-side scanning or metadata stripping. Old media is not automatically purged.
+Private `waste-photos` storage: insert/delete own UUID folder; direct read own only. A listing-ID-only server function verifies a public published row before signing its exact seller-owned photo. Signed URLs expire after five minutes. Only permitted image extensions and ≤500 KB/file are accepted; form decodes images. No server-side scanning or metadata stripping. Old media is not automatically purged.
+
+`listing_locations` stores full addresses separately. SELECT is owner-only or Buyer-with-own-inquiry; an ownership-checked atomic save function writes both listing and location. Public search uses only district/state.
 
 Soft deletion hides listings while retaining inquiry history. No payments, transaction proof, email inquiry notifications, account deletion or retention automation. Real email confirmation/reset delivery remains unverified. Legacy local demo JSON is test-only and never mixed into public stock. Local waste records are unaffected.
 

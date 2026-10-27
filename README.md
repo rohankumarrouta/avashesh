@@ -25,7 +25,7 @@ of burning it or leaving it unused. We are starting with Odisha.
 | Records `/records` | View, delete, export as JSON, load/remove sample data, delete all |
 | About `/about` | Idea, purpose, what works, future plans, honest limits |
 | Buy Waste `/marketplace` | Published shared listings; search and type/location/quantity/price filters, no login required to browse |
-| Sell `/marketplace/sell` | Seller name, Indian mobile number, waste type, quantity/unit, asking price per unit, location, description, optional photo |
+| Sell `/marketplace/sell` | Seller name, Indian mobile number, waste type, quantity/unit, asking price per unit, public district/state, private full location, description, optional photo |
 | Listing `/marketplace/$listingId` | Shared details, supplied phone/WhatsApp links, Buyer-only inquiry submission |
 | Auth `/auth`, `/reset-password` | Email signup/login/logout and password recovery; Farmer/Buyer signup |
 | Farmer `/farmer` | Own listings, create/edit/publish/unavailable/delete, inquiries/status and private profile |
@@ -58,14 +58,14 @@ The connected Lovable environment provisions runtime variables. For an independe
 | `VITE_SUPABASE_PROJECT_ID` | Generated Cloud project configuration identifier |
 | `SUPABASE_URL` | Server runtime backend URL |
 | `SUPABASE_PUBLISHABLE_KEY` | Server user-scoped client configuration |
-| `SUPABASE_SERVICE_ROLE_KEY` | Generated privileged server client; not used by ordinary marketplace operations; server-only, never commit or expose |
+| `SUPABASE_SERVICE_ROLE_KEY` | Generated privileged server client; used only to sign a photo path from an independently verified published listing; server-only, never commit or expose |
 | `LOVABLE_DB_MIGRATION_URL` | Connection consumed by `drizzle.config.ts` for migration tooling, not a browser variable |
 
 No AI, payment or GitHub API key is required by the application. Do not copy managed secret values into repository docs. Local `.env` files must not be committed; the current `.gitignore` does not explicitly exclude `.env`, so keep configuration outside source control or add an ignore rule before your own Git submission.
 
 ### Actual backend configuration
 
-The connected project already has the four tables, auth trigger and RLS policies in `drizzle/migrations/0000` through `0003`. For a fresh independent backend, apply those SQL files in order using its database migration tools, preserving grants and policies. Create `waste-photos` through its Storage API as a **private** bucket with a 500 KB/file limit before exercising uploads. The storage policies are in migration `0001`. `drizzle/schema.ts` is intentionally not the source of truth; do not run an empty schema push. There is no repository database-migration script, one-command standalone installer or offline backend.
+The connected project already has the five tables, auth trigger and RLS policies in `drizzle/migrations/0000` through `0003`. For a fresh independent backend, apply those SQL files in order using its database migration tools, preserving grants and policies. Create `waste-photos` through its Storage API as a **private** bucket with a 500 KB/file limit before exercising uploads. Initial storage policies are in migration `0001`; migration `0004` replaces photo reads with owner-only access. `drizzle/schema.ts` is intentionally not the source of truth; do not run an empty schema push. There is no repository database-migration script, one-command standalone installer or offline backend.
 
 ### Deployment
 
@@ -89,10 +89,11 @@ Outside Lovable, this is a full-stack TanStack Start application, not a static-o
 - Roles live in a protected `user_roles` table, separate from private `profiles`. The signup trigger copies the initial Farmer/Buyer choice once; later metadata edits cannot change privileges. No admin role is available.
 - Public results contain **only published listings**. Draft and unavailable/sold listings stay accessible to their owner; deleted listings are hidden. Seller-marked sold is not proof of a transaction.
 - Asking price is INR per selected unit. Price filters normalize to INR/kg, quantity filters to kg. Quantity must be positive and ≤1,000,000 kg equivalent; price must be nonnegative and ≤10,000,000 INR/unit.
+- Public listings show only district/state, never the full-location field. Full locations live separately and are readable only by the seller and Buyers who submitted an inquiry; phone/WhatsApp clicks alone do not unlock them. Existing free-text locations were moved to private storage; sellers must provide district/state rather than having addresses guessed.
 - Published listings expose their seller-supplied name/contact and photo, not the private profile. Mobile formats are validated, not verified for ownership. Phone and WhatsApp actions use supplied numbers, encode messages and do not send automatically.
 - Buyer inquiries are stored in the shared database and read only by that Buyer and the listing's seller. Farmer can mark new/read/closed; these states do not imply a purchase. No email inquiry notifications are implemented.
 - Forms and authenticated server functions validate with Zod; database constraints/triggers and row-level policies enforce rules even through direct requests. Users cannot change another seller's listing, private profile or role.
-- Optional photos use private Cloud storage (JPEG/PNG/WebP ≤500 KB). Published listing media is accessible through temporary signed links; owners can read their private media. Client checks MIME and decoding; storage checks size and permitted path/extension. There is no malware scanning or server-side image transcoding; avoid personal images and embedded location metadata.
+- Optional photos use private Cloud storage (JPEG/PNG/WebP ≤500 KB). Direct storage reads are owner-only. A server function accepts a listing ID, verifies a published row through public RLS, and signs only that row’s seller-owned photo for five minutes; owners can read their private media. Client checks MIME and decoding; storage checks size and permitted path/extension. There is no malware scanning or server-side image transcoding; avoid personal images and embedded location metadata.
 - Delete is soft deletion; inquiry history remains available to authorized participants. Replaced/deleted photos are not automatically purged yet. No account-deletion or automatic retention policy is implemented.
 - Waste records remain isolated in their existing browser store. Old marketplace demo localStorage is no longer read or migrated; its fictional JSON remains a test fixture only. **No sample marketplace listings are seeded or shown as real stock.**
 - No payments, verified users/buyers, measured impact, actual transactions or partnerships are claimed.
@@ -134,7 +135,7 @@ N₂O 265 (IPCC AR5). Example: 1000 kg → 1609.15 kg CO₂e. A plan is not proo
 
 ## Verification and remaining checks
 
-65 automated tests passed on 27 October 2026. Two separate browser contexts with admin-created, confirmed test Farmer/Buyer accounts verified login/logout/refresh, draft hiding, publishing, cross-browser listing/photo visibility, combined filters, inquiry delivery/readback/status, profile update, editing, sold hiding, deletion and Buyer denial. Direct database requests confirmed private-profile isolation and blocked listing/role edits. Test fixtures were removed. The database security advisor returned no warnings; this is not a full penetration-test claim.
+The earlier baseline had 65 automated tests on 27 October 2026; the location/photo privacy change added six cases. Two separate browser contexts with admin-created, confirmed test Farmer/Buyer accounts verified login/logout/refresh, draft hiding, publishing, cross-browser listing/photo visibility, combined filters, inquiry delivery/readback/status, profile update, editing, sold hiding, deletion and Buyer denial. Direct database requests confirmed private-profile isolation and blocked listing/role edits. Test fixtures were removed. The earlier database security advisor returned no warnings; a later storage scan identified broad photo reads, now replaced with owner-only direct access; this is not a full penetration-test claim.
 
 Public signup was exercised with a reserved test email and correctly rejected by the email provider. Real mailbox signup confirmation and emailed password-reset completion remain **unverified**; confirmation was not disabled. Password recovery is implemented, but actual email delivery needs a real mailbox. Published deployment has not been tested or changed.
 
