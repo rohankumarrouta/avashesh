@@ -4,6 +4,8 @@ import hero from "@/assets/hero.jpg";
 import { Button } from "@/components/ui/button";
 import { Sprout, Tractor } from "lucide-react";
 import { useAccount } from "@/hooks/use-account";
+import { useEffect } from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,7 +22,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { user } = useAccount();
+  const { user, role } = useAccount();
+  const navigate = useNavigate();
+  useEffect(() => { if (!user || !role) return; const next = window.sessionStorage.getItem("avashesh.auth-next"); if (!next) return; window.sessionStorage.removeItem("avashesh.auth-next"); if (next === "/marketplace/sell" && role === "farmer") void navigate({ to: "/marketplace/sell" }); else if (next.startsWith("/marketplace/") && next !== "/marketplace/sell") void navigate({ to: "/marketplace/$listingId", params: { listingId: next.split("/")[2] ?? "" } }); }, [user, role, navigate]);
   return (
     <Page>
       <img src={hero} alt="Paddy straw bales in a harvested field" width={1280} height={960} className="aspect-[16/9] w-full rounded-lg object-cover" />
