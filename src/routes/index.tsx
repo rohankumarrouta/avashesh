@@ -1,14 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/SiteHeader";
+import { Page } from "@/components/SiteHeader";
 import hero from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Avashesh — Crop residue marketplace prototype" },
-      { name: "description", content: "Prototype marketplace where farmers list crop residue and buyers post demand, with a cited emissions estimate." },
-      { property: "og:title", content: "Avashesh — Crop residue marketplace prototype" },
-      { property: "og:description", content: "List crop residue instead of burning it. Prototype with fictional sample data." },
+      { title: "Avashesh — Waste Less. Create More." },
+      { name: "description", content: "Record agricultural waste like paddy straw and coconut husk, and find practical ways to reuse it instead of burning it." },
+      { property: "og:title", content: "Avashesh — Waste Less. Create More." },
+      { property: "og:description", content: "A student project to help reuse agricultural waste in Odisha." },
     ],
   }),
   component: Index,
@@ -16,45 +16,34 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen">
-      <SiteHeader />
-      <main className="mx-auto max-w-5xl px-4 py-10">
-        <section className="grid items-center gap-8 md:grid-cols-2">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-widest text-primary">Avashesh · अवशेष</p>
-            <h1 className="mt-3 font-display text-4xl font-semibold leading-tight md:text-5xl">
-              Residue is a resource, not something to burn.
-            </h1>
-            <p className="mt-4 text-muted-foreground">
-              Farmers list straw and stalks. Buyers post what they need. See how much smoke a sale could keep out of the air.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link to="/post" className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90">
-                Post a listing
-              </Link>
-              <Link to="/listings" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-secondary">
-                Browse listings
-              </Link>
-            </div>
-          </div>
-          <img src={hero} alt="Bales of rice straw stacked in a harvested field" className="aspect-[4/3] w-full rounded-2xl object-cover" width={1280} height={960} />
-        </section>
-        <section className="mt-14 grid gap-4 md:grid-cols-3">
-          {[
-            ["Farmers", "List residue type, quantity, location and an asking price."],
-            ["Buyers", "Biomass plants, pellet and board makers post their demand."],
-            ["Impact", "Estimate emissions avoided, using published IPCC factors."],
-          ].map(([t, d]) => (
-            <div key={t} className="rounded-2xl border border-border bg-card p-5">
-              <h2 className="font-display text-lg font-semibold">{t}</h2>
-              <p className="mt-1 text-sm text-muted-foreground">{d}</p>
-            </div>
-          ))}
-        </section>
-        <p className="mt-10 text-xs text-muted-foreground">
-          Prototype for a social-cause competition. No real farmers, buyers or partners are onboarded yet.
+    <Page>
+      <img src={hero} alt="Paddy straw bales in a harvested field" width={1280} height={960} className="aspect-[16/9] w-full rounded-lg object-cover" />
+      <div>
+        <h1 className="text-3xl font-bold">Waste Less. Create More.</h1>
+        <p className="mt-2 text-muted-foreground">
+          Avashesh helps you record agricultural waste — like paddy straw and coconut husk — and see simple ways to reuse it instead of burning or throwing it away.
         </p>
-      </main>
-    </div>
+      </div>
+      <div className="grid gap-2 sm:grid-cols-3">
+        <Link to="/record" className="rounded-md bg-primary px-4 py-3 text-center font-semibold text-primary-foreground">Record waste</Link>
+        <Link to="/reuse" className="rounded-md border border-border bg-card px-4 py-3 text-center font-semibold">Explore reuse ideas</Link>
+        <Link to="/dashboard" className="rounded-md border border-border bg-card px-4 py-3 text-center font-semibold">View dashboard</Link>
+      </div>
+      <section className="rounded-lg border border-border bg-card p-4">
+        <h2 className="font-semibold">How it works</h2>
+        <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm">
+          <li>Enter the waste type, quantity and your district.</li>
+          <li>See reuse options, ranked by simple rules (quantity and effort) — the reasons are shown for each.</li>
+          <li>Pick a plan and track everything you recorded on the dashboard.</li>
+        </ol>
+      </section>
+      <section className="rounded-lg border border-border bg-muted p-4 text-sm">
+        <h2 className="font-semibold">About this project</h2>
+        <p className="mt-1">
+          We are starting with Odisha and want to improve the tool based on what farmers actually need. This is an early prototype: suggestions come from fixed rules, not AI, and we have not yet worked with any farmers, buyers or partner organisations.
+        </p>
+        <p className="mt-2 text-muted-foreground">Your records are saved only on this device (in your browser).</p>
+      </section>
+    </Page>
   );
 }
