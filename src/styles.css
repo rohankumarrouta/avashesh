@@ -53,6 +53,8 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-hero-shade: var(--hero-shade);
+  --color-hero-foreground: var(--hero-foreground);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -64,7 +66,10 @@
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.5rem;
+  --hero-shade: oklch(0.22 0.045 145);
+  --hero-foreground: oklch(0.99 0.005 85);
+  --shadow-control: 0 2px 5px oklch(0.25 0.03 145 / 5%);
   --background: oklch(0.975 0.015 85);
   --foreground: oklch(0.25 0.03 55);
   --card: oklch(0.99 0.008 85);
@@ -100,6 +105,9 @@
 }
 
 .dark {
+  --hero-shade: oklch(0.22 0.045 145);
+  --hero-foreground: oklch(0.99 0.005 85);
+  --shadow-control: 0 2px 5px oklch(0 0 0 / 15%);
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.208 0.042 265.755);
@@ -142,5 +150,23 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    line-height: 1.65;
+    letter-spacing: 0;
   }
+  h1, h2 { font-family: var(--font-display); line-height: 1.25; text-wrap: balance; }
+  input:not([type="radio"]):not([type="checkbox"]), select, textarea {
+    min-height: 46px;
+    box-shadow: var(--shadow-control);
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  input[type="radio"], input[type="checkbox"] { accent-color: var(--primary); }
+  a:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+  .app-content > section.border-t { padding-top: 2rem; margin-top: 2rem; }
+  .skip-link { position: fixed; top: -100px; left: 1rem; z-index: 50; background: var(--card); padding: .75rem 1rem; }
+  .skip-link:focus { top: 1rem; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; } }
 }

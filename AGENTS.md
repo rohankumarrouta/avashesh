@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Project rules
+- Shared page layout and navigation live in SiteHeader with presentation tokens in src/styles.css; why: keep all screens consistent without changing marketplace or waste logic.
 - Business logic (validation, emissions math) lives in pure modules in `src/lib/` with tests in `src/test/`; why: keeps rules testable without rendering.
 - Emission factors must cite their source in `src/lib/impact.ts` and README; why: impact claims must be verifiable.
 - Waste records persist only in browser localStorage via `src/lib/waste.ts` and `src/hooks/use-records.ts`; why: preserve existing waste features independently of the Cloud marketplace.
