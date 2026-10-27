@@ -15,7 +15,7 @@ export const saveCloudListing = createServerFn({ method: "POST" }).middleware([r
     if (data.listing.photo && !data.listing.photo.startsWith(`${userId}/`)) throw new Error("Photo must belong to this seller.");
     const { full_location, ...fields } = data.listing;
     const listing = { ...fields, seller_contact: normalizePhone(fields.seller_contact) ?? "" };
-    const result = await supabase.rpc('save_listing_with_location', { listing_data: listing, full_location, listing_id: data.id });
+    const result = await supabase.rpc('save_listing_with_location', { listing_data: listing, full_location, ...(data.id ? { listing_id: data.id } : {}) });
     if (result.error || !result.data) throw new Error("Could not save listing. Check your details and permissions.");
     return { id: result.data };
   });
