@@ -3,7 +3,7 @@ import { Page } from "@/components/SiteHeader";
 import type { ReactNode } from "react";
 import { Button } from '@/components/ui/button';
 import { mission, EnvironmentalGoals, MaterialOpportunities, PollutionImpact } from '@/components/MissionSections';
-import { BrandLogo, BrandClarification } from '@/components/BrandLogo';
+import { BrandClarification } from '@/components/BrandLogo';
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -22,7 +22,6 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <Page>
-      <BrandLogo className="w-full max-w-lg" />
       <BrandClarification />
       <h1 className="text-2xl font-bold">About Avashesh</h1>
       <p className="text-sm italic text-muted-foreground">Avashesh (अवशेष) means "residue". Waste Less. Create More.</p>
