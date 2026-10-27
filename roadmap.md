@@ -1,6 +1,6 @@
 # Avashesh roadmap
 - [x] Update homepage/About with pollution-prevention mission, visual reuse flow, goals and honest impact placeholders
-- [ ] Apply uploaded official logo to header, About, login/signup, footer and subtle site watermark; preserve homepage and verify mobile sizing
+- [ ] Replace uploaded logo display with a new minimalist Avashesh logo; keep existing placements, homepage and mobile readability
 - [x] Fix blocking waste-photo storage access finding without breaking published listing photos
 - [x] Show district/state publicly; reveal full location only to the owner and buyers who submitted an inquiry
 - [x] Home, Record, Reuse suggestions, Dashboard pages
