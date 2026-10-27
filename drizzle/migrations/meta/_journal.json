@@ -15,6 +15,13 @@
       "when": 1793122092293,
       "tag": "0001_marketplace_media_permissions",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793122573228,
+      "tag": "0002_tighten_marketplace_function_grants",
+      "breakpoints": true
     }
   ]
 }
