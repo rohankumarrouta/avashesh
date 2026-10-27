@@ -10,63 +10,33 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ImpactRouteImport } from './routes/impact'
-import { Route as ListingsRouteImport } from './routes/listings'
-import { Route as PostRouteImport } from './routes/post'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ImpactRoute = ImpactRouteImport.update({
-  id: '/impact',
-  path: '/impact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ListingsRoute = ListingsRouteImport.update({
-  id: '/listings',
-  path: '/listings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PostRoute = PostRouteImport.update({
-  id: '/post',
-  path: '/post',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/impact': typeof ImpactRoute
-  '/listings': typeof ListingsRoute
-  '/post': typeof PostRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/impact': typeof ImpactRoute
-  '/listings': typeof ListingsRoute
-  '/post': typeof PostRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/impact': typeof ImpactRoute
-  '/listings': typeof ListingsRoute
-  '/post': typeof PostRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/impact' | '/listings' | '/post'
+  fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/impact' | '/listings' | '/post'
-  id: '__root__' | '/' | '/impact' | '/listings' | '/post'
+  to: '/'
+  id: '__root__' | '/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ImpactRoute: typeof ImpactRoute
-  ListingsRoute: typeof ListingsRoute
-  PostRoute: typeof PostRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -78,35 +48,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/impact': {
-      id: '/impact'
-      path: '/impact'
-      fullPath: '/impact'
-      preLoaderRoute: typeof ImpactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/listings': {
-      id: '/listings'
-      path: '/listings'
-      fullPath: '/listings'
-      preLoaderRoute: typeof ListingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/post': {
-      id: '/post'
-      path: '/post'
-      fullPath: '/post'
-      preLoaderRoute: typeof PostRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ImpactRoute: ImpactRoute,
-  ListingsRoute: ListingsRoute,
-  PostRoute: PostRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
