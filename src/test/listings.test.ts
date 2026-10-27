@@ -7,15 +7,15 @@ const ok: ListingInput = { kind: "offer", residue: "Rice straw", quantityKg: 500
 describe("listing validation", () => {
   it("accepts a valid listing", () => expect(validateListing(ok)).toEqual({}));
   it("rejects zero, negative and over 1,000,000 kg", () => {
-    for (const q of [0, -5, 1_000_001, NaN]) expect(validateListing({ ...ok, quantityKg: q }).quantityKg).toBeDefined();
+    for (const q of [0, -5, 1_000_001, NaN]) expect(validateListing({ ...ok, quantityKg: q })["quantityKg"]).toBeDefined();
   });
   it("price is optional but must be 0–100 ₹/kg", () => {
     expect(validateListing({ ...ok, pricePerKg: null })).toEqual({});
-    expect(validateListing({ ...ok, pricePerKg: 101 }).pricePerKg).toBeDefined();
-    expect(validateListing({ ...ok, pricePerKg: -1 }).pricePerKg).toBeDefined();
+    expect(validateListing({ ...ok, pricePerKg: 101 })["pricePerKg"]).toBeDefined();
+    expect(validateListing({ ...ok, pricePerKg: -1 })["pricePerKg"]).toBeDefined();
   });
   it("rejects blank or whitespace-only text fields", () => {
-    expect(validateListing({ ...ok, district: "   " }).district).toBeDefined();
+    expect(validateListing({ ...ok, district: "   " })["district"]).toBeDefined();
   });
 });
 

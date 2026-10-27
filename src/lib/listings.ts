@@ -33,14 +33,14 @@ export const STORAGE_KEY = "avashesh.listings.v1";
 
 export function validateListing(input: Partial<ListingInput>): Record<string, string> {
   const e: Record<string, string> = {};
-  if (input.kind !== "offer" && input.kind !== "request") e.kind = "Choose offer or request.";
-  if (!input.residue || !RESIDUE_TYPES.includes(input.residue)) e.residue = "Choose a residue type.";
+  if (input.kind !== "offer" && input.kind !== "request") e["kind"] = "Choose offer or request.";
+  if (!input.residue || !RESIDUE_TYPES.includes(input.residue)) e["residue"] = "Choose a residue type.";
   const q = input.quantityKg;
-  if (typeof q !== "number" || !Number.isFinite(q) || q <= 0) e.quantityKg = "Quantity must be more than 0 kg.";
-  else if (q > LIMITS.maxKg) e.quantityKg = `Quantity must be at most ${LIMITS.maxKg.toLocaleString("en-IN")} kg.`;
+  if (typeof q !== "number" || !Number.isFinite(q) || q <= 0) e["quantityKg"] = "Quantity must be more than 0 kg.";
+  else if (q > LIMITS.maxKg) e["quantityKg"] = `Quantity must be at most ${LIMITS.maxKg.toLocaleString("en-IN")} kg.`;
   const p = input.pricePerKg;
   if (p !== null && p !== undefined && (!Number.isFinite(p) || p < 0 || p > LIMITS.maxPrice))
-    e.pricePerKg = `Price must be between ₹0 and ₹${LIMITS.maxPrice} per kg.`;
+    e["pricePerKg"] = `Price must be between ₹0 and ₹${LIMITS.maxPrice} per kg.`;
   for (const f of ["district", "state", "name"] as const) {
     const v = (input[f] ?? "").trim();
     if (!v) e[f] = "Required.";
