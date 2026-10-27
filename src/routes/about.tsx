@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Page } from "@/components/SiteHeader";
+import type { ReactNode } from "react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -48,7 +49,7 @@ function About() {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="rounded-lg border border-border bg-card p-4 text-sm">
       <h2 className="mb-1 font-semibold">{title}</h2>

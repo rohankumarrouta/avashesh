@@ -10,13 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as RecordRouteImport } from './routes/record'
+import { Route as RecordsRouteImport } from './routes/records'
 import { Route as ReuseRouteImport } from './routes/reuse'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -29,6 +36,11 @@ const RecordRoute = RecordRouteImport.update({
   path: '/record',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecordsRoute = RecordsRouteImport.update({
+  id: '/records',
+  path: '/records',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReuseRoute = ReuseRouteImport.update({
   id: '/reuse',
   path: '/reuse',
@@ -37,35 +49,50 @@ const ReuseRoute = ReuseRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/dashboard': typeof DashboardRoute
   '/record': typeof RecordRoute
+  '/records': typeof RecordsRoute
   '/reuse': typeof ReuseRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/dashboard': typeof DashboardRoute
   '/record': typeof RecordRoute
+  '/records': typeof RecordsRoute
   '/reuse': typeof ReuseRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/dashboard': typeof DashboardRoute
   '/record': typeof RecordRoute
+  '/records': typeof RecordsRoute
   '/reuse': typeof ReuseRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/record' | '/reuse'
+  fullPaths: '/' | '/about' | '/dashboard' | '/record' | '/records' | '/reuse'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/record' | '/reuse'
-  id: '__root__' | '/' | '/dashboard' | '/record' | '/reuse'
+  to: '/' | '/about' | '/dashboard' | '/record' | '/records' | '/reuse'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/dashboard'
+    | '/record'
+    | '/records'
+    | '/reuse'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   DashboardRoute: typeof DashboardRoute
   RecordRoute: typeof RecordRoute
+  RecordsRoute: typeof RecordsRoute
   ReuseRoute: typeof ReuseRoute
 }
 
@@ -76,6 +103,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -92,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RecordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/records': {
+      id: '/records'
+      path: '/records'
+      fullPath: '/records'
+      preLoaderRoute: typeof RecordsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reuse': {
       id: '/reuse'
       path: '/reuse'
@@ -104,8 +145,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   DashboardRoute: DashboardRoute,
   RecordRoute: RecordRoute,
+  RecordsRoute: RecordsRoute,
   ReuseRoute: ReuseRoute,
 }
 export const routeTree = rootRouteImport
