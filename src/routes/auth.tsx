@@ -22,8 +22,8 @@ function Auth(){
   else {const v=credentialsSchema.parse(input);const {error}=await supabase.auth.signInWithPassword(v);if(error)throw error;}}
   catch(e){setError(e instanceof Error?e.message:'Could not complete request.');}finally{setBusy(false);}
  }
- return <Page><BrandClarification /><h1 className="text-2xl font-bold">{mode==='signup'?'Join Avashesh':mode==='reset'?'Reset your password':'Sign in'}</h1>
- <div className="flex flex-wrap gap-2"><Button variant={mode==='login'?'default':'outline'} onClick={()=>{setMode('login');setMessage('');setError('');}}>Log in</Button><Button variant={mode==='signup'?'default':'outline'} onClick={()=>{setMode('signup');setMessage('');setError('');}}>Sign up</Button></div>
+ return <Page><div className="mx-auto max-w-md space-y-6 py-3"><h1 className="text-3xl font-semibold">{mode==='signup'?'Join Avashesh':mode==='reset'?'Reset your password':'Sign in'}</h1><BrandClarification />
+ <div className="grid grid-cols-2 gap-1 rounded-md bg-muted p-1"><Button aria-pressed={mode==='login'} variant={mode==='login'?'default':'ghost'} onClick={()=>{setMode('login');setMessage('');setError('');}}>Log in</Button><Button aria-pressed={mode==='signup'} variant={mode==='signup'?'default':'ghost'} onClick={()=>{setMode('signup');setMessage('');setError('');}}>Sign up</Button></div>
  <form onSubmit={submit} className="space-y-4" noValidate>
  {mode==='signup'&&<><label className="block">Display name<input name="display_name" maxLength={100} className={marketField}/></label><label className="block">Contact number (optional)<input name="contact" type="tel" maxLength={30} className={marketField}/></label><label className="block">Account type<select name="role" defaultValue={chosen==='farmer'?'farmer':'buyer'} className={marketField}><option value="farmer">Farmer / Seller</option><option value="buyer">Buyer</option></select></label></>}
  <label className="block">Email<input type="email" name="email" autoComplete="email" maxLength={255} className={marketField}/></label>
@@ -31,5 +31,5 @@ function Auth(){
  {error&&<p role="alert" className="text-sm text-destructive">{error}</p>}{message&&<p role="status" className="text-sm text-primary">{message}</p>}
  <Button disabled={busy} type="submit" className="w-full">{busy?'Please wait…':mode==='signup'?'Create account':mode==='reset'?'Send reset email':'Sign in'}</Button>
  </form><Button variant="link" onClick={()=>setMode('reset')}>Forgot password?</Button>
- <p className="text-xs text-muted-foreground">Your account name and contact are private. Publishing a listing makes its seller name and supplied phone number public. Email confirmation is required.</p></Page>;
+ <p className="border-t border-border pt-4 text-xs text-muted-foreground">Your account name and contact are private. Publishing a listing makes its seller name and supplied phone number public. Email confirmation is required.</p></div></Page>;
 }

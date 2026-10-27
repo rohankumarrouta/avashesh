@@ -3,6 +3,8 @@ import { Page } from "@/components/SiteHeader";
 import { useRecords } from "@/hooks/use-records";
 import { summarize } from "@/lib/dashboard";
 import { IMPACT_SOURCE } from "@/lib/impact";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, ClipboardPlus, ChartNoAxesCombined } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -28,7 +30,7 @@ function Dashboard() {
 
   return (
     <Page>
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3"><h1 className="flex items-center gap-3 text-3xl font-semibold"><ChartNoAxesCombined className="size-6 text-primary" />Dashboard</h1><Button asChild variant="outline"><Link to="/record"><ClipboardPlus />Add waste</Link></Button></div>
       {s.demoCount > 0 && (
         <p className="rounded-md bg-accent/50 p-3 text-sm">Includes {s.demoCount} SAMPLE records (made-up examples, not real farmers). Remove them on the Records page.</p>
       )}
@@ -37,20 +39,20 @@ function Dashboard() {
         <div className="rounded-lg border border-dashed border-border p-6 text-center">
           <p>No waste recorded yet.</p>
           <div className="mt-3 flex justify-center gap-2">
-            <Link to="/record" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Record waste</Link>
-            <button onClick={loadDemo} className={btn}>Load sample data</button>
+            <Button asChild><Link to="/record">Record waste<ArrowRight /></Link></Button>
+            <Button onClick={loadDemo} variant="outline">Load sample data</Button>
           </div>
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Stat label="Total recorded" value={`${fmt(s.totalKg)} kg`} />
             <Stat label="Records" value={String(s.count)} />
             <Stat label="With a reuse plan" value={`${s.plannedCount} of ${s.count}`} />
             <Stat label="Waste with a plan" value={`${fmt(s.plannedKg)} kg`} />
           </div>
 
-          <section className="rounded-lg border border-border bg-card p-4">
+          <section className="border-t border-border py-5">
             <h2 className="font-semibold">By waste type</h2>
             <ul className="mt-2 space-y-2 text-sm">
               {s.byType.map((t) => (
@@ -64,7 +66,7 @@ function Dashboard() {
             <p className="mt-1 text-sm">{s.byPractice.map((p) => `${p.label}: ${p.count}`).join(" · ")}</p>
           </section>
 
-          <section className="rounded-lg border border-border bg-card p-4 text-sm">
+          <section className="border-t border-border py-5 text-sm">
             <h2 className="font-semibold">Estimated impact (not measured)</h2>
             {s.burningEstimate ? (
               <>
@@ -82,8 +84,8 @@ function Dashboard() {
           </section>
 
           <div className="grid grid-cols-2 gap-2">
-            <Link to="/records" className="rounded-md bg-primary py-3 text-center font-semibold text-primary-foreground">View records</Link>
-            <Link to="/record" className={`${btn} py-3 text-center`}>Add waste</Link>
+            <Button asChild><Link to="/records">View records<ArrowRight /></Link></Button>
+            <Button asChild variant="outline"><Link to="/record"><ClipboardPlus />Add waste</Link></Button>
           </div>
         </>
       )}
@@ -93,9 +95,9 @@ function Dashboard() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-border bg-card p-3">
+    <div className="rounded-md border border-border bg-card p-4">
       <p className="text-xs text-muted-foreground">{label}</p>
-      <p className="text-lg font-bold">{value}</p>
+      <p className="mt-2 text-xl font-bold text-primary">{value}</p>
     </div>
   );
 }
