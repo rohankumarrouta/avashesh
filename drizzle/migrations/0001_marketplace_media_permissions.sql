@@ -1,0 +1,5 @@
+CREATE POLICY waste_photo_insert ON storage.objects FOR INSERT TO authenticated WITH CHECK(bucket_id='waste-photos' AND (storage.foldername(name))[1]=auth.uid()::text AND public.has_market_role('farmer') AND lower(storage.extension(name)) IN ('jpg','jpeg','png','webp'));
+CREATE POLICY waste_photo_read ON storage.objects FOR SELECT TO anon,authenticated USING(bucket_id='waste-photos' AND (EXISTS(SELECT 1 FROM public.listings l WHERE l.photo=name AND l.status='published') OR (storage.foldername(name))[1]=auth.uid()::text));
+CREATE POLICY waste_photo_delete ON storage.objects FOR DELETE TO authenticated USING(bucket_id='waste-photos' AND (storage.foldername(name))[1]=auth.uid()::text);
+CREATE FUNCTION public.validate_market_photo() RETURNS trigger LANGUAGE plpgsql SET search_path=public AS $$ BEGIN IF NEW.photo<>'' AND NOT (NEW.photo ~ ('^'||NEW.seller_id::text||'/[a-zA-Z0-9_-]+\.(jpg|jpeg|png|webp)$')) THEN RAISE EXCEPTION 'Invalid photo path'; END IF; RETURN NEW; END $$;
+CREATE TRIGGER validate_market_photo BEFORE INSERT OR UPDATE ON public.listings FOR EACH ROW EXECUTE FUNCTION public.validate_market_photo();

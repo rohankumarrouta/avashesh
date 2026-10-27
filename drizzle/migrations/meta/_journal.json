@@ -8,6 +8,13 @@
       "when": 1793122065252,
       "tag": "0000_shared_marketplace_accounts",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793122092293,
+      "tag": "0001_marketplace_media_permissions",
+      "breakpoints": true
     }
   ]
 }
