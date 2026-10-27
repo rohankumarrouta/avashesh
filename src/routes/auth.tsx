@@ -8,7 +8,7 @@ import { marketField } from "@/components/MarketplaceShared";
 import { credentialsSchema, signupSchema, safeNext } from "@/lib/account";
 import { supabase } from "@/integrations/supabase/client";
 import { useAccount } from "@/hooks/use-account";
-import { BrandLogo, BrandClarification } from '@/components/BrandLogo';
+import { BrandClarification } from '@/components/BrandLogo';
 export const Route=createFileRoute('/auth')({validateSearch:zodValidator(z.object({next:fallback(z.string(),'').default(''),role:fallback(z.string(),'buyer').default('buyer')})),head:()=>({meta:[{title:'Sign in or join — Avashesh'},{name:'description',content:'Join Avashesh as a Farmer or Buyer.'},{property:'og:title',content:'Sign in or join — Avashesh'},{property:'og:description',content:'Farmer and Buyer accounts for agricultural waste listings.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]}),component:Auth});
 function Auth(){
  const {next,role:chosen}=Route.useSearch(); const {user,role}=useAccount(); const navigate=useNavigate();
@@ -22,7 +22,7 @@ function Auth(){
   else {const v=credentialsSchema.parse(input);const {error}=await supabase.auth.signInWithPassword(v);if(error)throw error;}}
   catch(e){setError(e instanceof Error?e.message:'Could not complete request.');}finally{setBusy(false);}
  }
- return <Page><BrandLogo className="w-full max-w-md" /><BrandClarification /><h1 className="text-2xl font-bold">{mode==='signup'?'Join Avashesh':mode==='reset'?'Reset your password':'Sign in'}</h1>
+ return <Page><BrandClarification /><h1 className="text-2xl font-bold">{mode==='signup'?'Join Avashesh':mode==='reset'?'Reset your password':'Sign in'}</h1>
  <div className="flex flex-wrap gap-2"><Button variant={mode==='login'?'default':'outline'} onClick={()=>{setMode('login');setMessage('');setError('');}}>Log in</Button><Button variant={mode==='signup'?'default':'outline'} onClick={()=>{setMode('signup');setMessage('');setError('');}}>Sign up</Button></div>
  <form onSubmit={submit} className="space-y-4" noValidate>
  {mode==='signup'&&<><label className="block">Display name<input name="display_name" maxLength={100} className={marketField}/></label><label className="block">Contact number (optional)<input name="contact" type="tel" maxLength={30} className={marketField}/></label><label className="block">Account type<select name="role" defaultValue={chosen==='farmer'?'farmer':'buyer'} className={marketField}><option value="farmer">Farmer / Seller</option><option value="buyer">Buyer</option></select></label></>}

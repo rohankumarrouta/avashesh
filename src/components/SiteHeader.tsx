@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { useAccount } from "@/hooks/use-account";
 import { Button } from "@/components/ui/button";
-import { BrandLogo, BrandClarification } from '@/components/BrandLogo';
+import { BrandClarification } from '@/components/BrandLogo';
 
 const links = [
   { to: "/", label: "Home" },
@@ -20,8 +20,9 @@ export function SiteHeader() {
   return (
     <header className="border-b border-border bg-card">
       <div className="mx-auto max-w-3xl px-4 pt-3">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between"><Link to="/" aria-label="Avashesh home" className="block min-w-0 sm:max-w-sm">
-          <BrandLogo className="w-full sm:w-80" />
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between"><Link to="/" aria-label="Avashesh home" className="min-w-0">
+          <span className="block text-xl font-bold tracking-[0.18em] text-primary">AVASHESH</span>
+          <span className="block text-[11px] text-muted-foreground">Waste Less. Create More.</span>
         </Link>
         <div className="flex shrink-0 flex-col items-end gap-1 text-xs sm:flex-row sm:items-center sm:gap-2 sm:text-sm">{user ? <>
           {role && <Link to={role === "farmer" ? "/farmer" : "/buyer"} className="text-primary underline">My account</Link>}
@@ -52,10 +53,8 @@ export function Page({ children }: { children: ReactNode }) {
       <SiteHeader />
       <main className="mx-auto max-w-3xl space-y-5 px-4 py-6">{children}</main>
       <footer className="mx-auto max-w-3xl space-y-3 border-t border-border px-4 py-6 text-xs text-muted-foreground">
-        <Link to="/" aria-label="Avashesh home" className="block w-80 max-w-full"><BrandLogo /></Link>
         <BrandClarification />
         <p>Team Avashesh — student project. Waste Less. Create More.</p>
-        <div aria-hidden="true" className="pointer-events-none flex justify-end pt-2"><BrandLogo decorative className="w-44 opacity-20" /></div>
       </footer>
     </div>
   );
