@@ -4,14 +4,16 @@
 - [x] Label sample data as "SAMPLE"
 - [x] Tests, README, ARCHITECTURE.md, LICENSE, sample JSON
 - [x] Browser check on phone size
-- [ ] Marketplace browse, listing form, details, seller view and local inquiries
-- [ ] Marketplace samples, validation tests and documentation
-- [ ] Verify marketplace create/filter/details/inquiry/delete/refresh and existing features
-- [ ] Replace marketplace localStorage with Lovable Cloud shared listings and inquiries
-- [ ] Email signup/login/logout/reset, Farmer/Buyer profiles and secure roles
-- [ ] Farmer create/edit/publish/delete listings, inquiries and profile dashboard
-- [ ] Buyer published listings, quantity filter, inquiries and history dashboard
-- [ ] Backend permissions, two-account cross-browser tests and documentation
-- [ ] Homepage BUY/SELL primary cards, remove main Marketplace navigation, preserve intended action through login
+- [x] Shared marketplace browse, listing form, details, seller and Buyer inquiries (replaces local demo)
+- [x] Marketplace validation tests/documentation; samples test-only, not public stock
+- [x] Verify create/filter/details/inquiry/delete/refresh and preserved waste/reuse/dashboard flow
+- [x] Cloud shared listings and inquiries, no primary marketplace localStorage
+- [x] Implement email signup/login/logout/reset, secure Farmer/Buyer profiles/roles
+- [x] Farmer create/edit/publish/delete, shared photo, inquiry status and private profile
+- [x] Buyer published listings, quantity/price filters and own inquiry history
+- [x] Backend permissions, two confirmed test accounts cross-browser flow and no security advisor warnings
+- [x] Homepage BUY/SELL cards, no main Marketplace nav, intended action through login
 - [ ] GitHub code sync — requires the user to authorize it in project Git settings
-- [ ] Competition README, technical design, sample data, test cases and MIT copyright placeholder; keep application code intact
+- [x] Competition README, technical design, sample data, test cases and MIT copyright placeholder; application code untouched for this documentation request
+- [ ] Real mailbox signup confirmation/reset completion — needs controlled receiving mailboxes
+- [ ] Published/standalone deployment verification — not requested to deploy; requires deployed target
