@@ -4,14 +4,15 @@ import { useState } from "react";
 import { useAccount } from "@/hooks/use-account";
 import { Button } from "@/components/ui/button";
 import { BrandLogo, BrandClarification } from '@/components/BrandLogo';
+import { Home, ClipboardPlus, Recycle, ChartNoAxesCombined, Files, Info, ArrowUpRight, LogIn } from 'lucide-react';
 
 const links = [
-  { to: "/", label: "Home" },
-  { to: "/record", label: "Record" },
-  { to: "/reuse", label: "Reuse" },
-  { to: "/dashboard", label: "Dashboard" },
-  { to: "/records", label: "Records" },
-  { to: "/about", label: "About" },
+  { to: "/", label: "Home", icon: Home },
+  { to: "/record", label: "Record", icon: ClipboardPlus },
+  { to: "/reuse", label: "Reuse", icon: Recycle },
+  { to: "/dashboard", label: "Dashboard", icon: ChartNoAxesCombined },
+  { to: "/records", label: "Records", icon: Files },
+  { to: "/about", label: "About", icon: Info },
 ] as const;
 
 export function SiteHeader() {
@@ -20,28 +21,29 @@ export function SiteHeader() {
   const isHome = useRouterState({ select: (s) => s.location.pathname === "/" });
   return (
     <header className="border-b border-border bg-card">
-      <div className="mx-auto max-w-3xl px-4 pt-3">
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      <div className="mx-auto max-w-5xl px-4 pt-4 sm:px-8">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between"><Link to="/" aria-label="Avashesh home" className="min-w-0">
-          {isHome ? <BrandLogo className="h-9 w-auto sm:h-11" /> : <>
-            <span className="block text-xl font-bold tracking-[0.18em] text-primary">AVASHESH</span>
+          {isHome ? <BrandLogo className="h-auto w-44 sm:w-52" /> : <>
+            <span className="block text-xl font-bold text-primary">AVASHESH</span>
             <span className="block text-[11px] text-muted-foreground">Waste Less. Create More.</span>
           </>}
         </Link>
         <div className="flex shrink-0 flex-col items-end gap-1 text-xs sm:flex-row sm:items-center sm:gap-2 sm:text-sm">{user ? <>
-          {role && <Link to={role === "farmer" ? "/farmer" : "/buyer"} className="text-primary underline">My account</Link>}
+          {role && <Button asChild variant="outline" size="sm"><Link to={role === "farmer" ? "/farmer" : "/buyer"}>My account<ArrowUpRight /></Link></Button>}
           <Button variant="ghost" size="sm" onClick={() => void logout().catch(() => setError("Could not sign out. Try again."))}>Sign out</Button>
-        </> : <Link to="/auth" search={{ next: "", role: "buyer" }} className="text-primary underline">Sign in</Link>}</div></div>
+        </> : <Button asChild variant="outline" size="sm"><Link to="/auth" search={{ next: "", role: "buyer" }}><LogIn />Sign in</Link></Button>}</div></div>
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
-        <nav className="-mx-1 mt-1 flex flex-wrap text-sm">
+        <nav aria-label="Main navigation" className="-mx-4 mt-4 flex overflow-x-auto px-4 text-sm sm:mx-0 sm:gap-2 sm:px-0">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               activeOptions={{ exact: true }}
-              className="border-b-2 border-transparent px-1.5 py-2 text-muted-foreground"
-              activeProps={{ className: "border-b-2 border-primary px-1.5 py-2 font-semibold text-foreground" }}
+              className="flex min-h-12 shrink-0 items-center gap-2 border-b-2 border-transparent px-3 text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-primary"
+              activeProps={{ className: "flex min-h-12 shrink-0 items-center gap-2 border-b-2 border-primary bg-secondary/50 px-3 font-semibold text-primary" }}
             >
-              {l.label}
+              <l.icon className="size-4" aria-hidden="true" />{l.label}
             </Link>
           ))}
         </nav>
@@ -50,15 +52,15 @@ export function SiteHeader() {
   );
 }
 
-export function Page({ children }: { children: ReactNode }) {
+export function Page({ children, wide = false }: { children: ReactNode; wide?: boolean }) {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <main className="mx-auto max-w-3xl space-y-5 px-4 py-6">{children}</main>
-      <footer className="mx-auto max-w-3xl space-y-3 border-t border-border px-4 py-6 text-xs text-muted-foreground">
+      <main id="main-content" className={`app-content mx-auto space-y-6 px-4 py-8 sm:px-8 sm:py-10 ${wide ? "max-w-5xl" : "max-w-3xl"}`}>{children}</main>
+      <footer className="border-t border-border bg-card px-4 py-8 text-xs text-muted-foreground"><div className="mx-auto flex max-w-5xl flex-col justify-between gap-4 sm:flex-row sm:px-8">
         <BrandClarification />
         <p>Team Avashesh — student project. Waste Less. Create More.</p>
-      </footer>
+      </div></footer>
     </div>
   );
 }

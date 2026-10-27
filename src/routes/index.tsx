@@ -6,6 +6,7 @@ import { PollutionStory, ReuseFlow, EnvironmentalGoals, MaterialOpportunities, P
 import { useAccount } from "@/hooks/use-account";
 import { useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { ArrowUpRight, ShoppingBasket, Sprout, MapPin, ClipboardPlus, Recycle, ChartNoAxesCombined } from 'lucide-react';
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,22 +27,23 @@ function Index() {
   const navigate = useNavigate();
   useEffect(() => { if (!user || !role) return; const next = window.sessionStorage.getItem("avashesh.auth-next"); if (!next) return; window.sessionStorage.removeItem("avashesh.auth-next"); if (next === "/marketplace/sell" && role === "farmer") void navigate({ to: "/marketplace/sell" }); else if (next.startsWith("/marketplace/") && next !== "/marketplace/sell") void navigate({ to: "/marketplace/$listingId", params: { listingId: next.split("/")[2] ?? "" } }); }, [user, role, navigate]);
   return (
-    <Page>
-      <section className="relative isolate -mx-4 overflow-hidden bg-primary px-5 py-7 text-primary-foreground sm:py-10">
+    <Page wide>
+      <section className="relative isolate -mx-4 overflow-hidden bg-hero-shade px-6 py-10 text-hero-foreground sm:-mx-8 sm:px-10 sm:py-14">
         <img src={hero} alt="Paddy straw bales collected in a harvested field" width={1280} height={960} className="absolute inset-0 -z-20 h-full w-full object-cover" />
-        <div className="absolute inset-0 -z-10 bg-primary/85" />
-        <h1 className="text-3xl font-bold">Avashesh</h1>
-        <p className="mt-2 text-lg font-semibold">Waste Less. Create More.</p>
-        <p className="mt-3 max-w-xl text-sm leading-relaxed">Working towards cleaner air by preventing unnecessary agricultural waste burning and promoting reuse.</p>
-        <p className="mt-3 text-xs">Starting with Odisha · Pollution reduction is our goal, not a measured achievement.</p>
+        <div className="absolute inset-0 -z-10 bg-hero-shade/65" />
+        <p className="mb-5 flex items-center gap-2 text-xs font-semibold"><MapPin className="size-4" />Starting with Odisha</p>
+        <h1 className="text-4xl font-semibold sm:text-5xl">Avashesh</h1>
+        <p className="mt-3 text-xl font-medium sm:text-2xl">Waste Less. Create More.</p>
+        <p className="mt-5 max-w-lg text-sm leading-relaxed sm:text-base">Working towards cleaner air by preventing unnecessary agricultural waste burning and promoting reuse.</p>
+        <p className="mt-6 text-xs">Pollution reduction is our goal, not a measured achievement.</p>
       </section>
       <section className="space-y-3">
-        <div className="grid gap-3 sm:grid-cols-2"><Button asChild className="h-auto min-h-12 whitespace-normal px-3 py-3 text-sm"><Link to="/marketplace">BUY AGRICULTURAL WASTE</Link></Button><Button asChild variant="outline" className="h-auto min-h-12 whitespace-normal px-3 py-3 text-sm">{user ? <Link to="/marketplace/sell">SELL AGRICULTURAL WASTE</Link> : <Link to="/auth" search={{next:"/marketplace/sell",role:"farmer"}}>SELL AGRICULTURAL WASTE</Link>}</Button></div>
+        <div className="grid gap-3 sm:grid-cols-2"><Button asChild className="h-auto min-h-20 justify-start whitespace-normal px-5 py-5 text-sm"><Link to="/marketplace"><ShoppingBasket className="mr-2 size-6" /><span className="flex-1">BUY AGRICULTURAL WASTE</span><ArrowUpRight /></Link></Button><Button asChild variant="outline" className="h-auto min-h-20 justify-start whitespace-normal px-5 py-5 text-sm">{user ? <Link to="/marketplace/sell"><Sprout className="mr-2 size-6" /><span className="flex-1">SELL AGRICULTURAL WASTE</span><ArrowUpRight /></Link> : <Link to="/auth" search={{next:"/marketplace/sell",role:"farmer"}}><Sprout className="mr-2 size-6" /><span className="flex-1">SELL AGRICULTURAL WASTE</span><ArrowUpRight /></Link>}</Button></div>
         <p className="text-sm text-muted-foreground">Every agricultural residue deserves a better alternative to burning. Help us turn waste into resources and work towards cleaner air.</p>
       </section>
-      <section className="space-y-2 border-t border-border pt-6"><h2 className="text-xl font-bold">Our mission</h2><p className="text-sm leading-relaxed">{mission}</p></section>
+      <section className="grid gap-4 border-t border-border pt-6 sm:grid-cols-[1fr_2fr]"><h2 className="text-2xl font-semibold">Our mission</h2><p className="text-sm leading-relaxed sm:text-base">{mission}</p></section>
       <PollutionStory/><ReuseFlow/><EnvironmentalGoals/><MaterialOpportunities/><PollutionImpact/>
-      <section className="space-y-3 border-t border-border pt-6"><h2 className="text-xl font-bold">Record and explore reuse</h2><div className="grid gap-2 sm:grid-cols-3"><Button asChild variant="outline"><Link to="/record">Record waste</Link></Button><Button asChild variant="outline"><Link to="/reuse">Explore reuse ideas</Link></Button><Button asChild variant="outline"><Link to="/dashboard">View dashboard</Link></Button></div><p className="text-xs text-muted-foreground">Waste records stay on this device. Marketplace listings and inquiries are shared through signed-in accounts. Suggestions use fixed rules, not AI.</p><Button asChild variant="link"><Link to="/about">About the project</Link></Button></section>
+      <section className="space-y-4 border-t border-border pt-6"><h2 className="text-2xl font-semibold">Record and explore reuse</h2><div className="grid gap-3 sm:grid-cols-3"><Button asChild variant="outline"><Link to="/record"><ClipboardPlus />Record waste</Link></Button><Button asChild variant="outline"><Link to="/reuse"><Recycle />Explore reuse ideas</Link></Button><Button asChild variant="outline"><Link to="/dashboard"><ChartNoAxesCombined />View dashboard</Link></Button></div><p className="text-xs text-muted-foreground">Waste records stay on this device. Marketplace listings and inquiries are shared through signed-in accounts. Suggestions use fixed rules, not AI.</p><Button asChild variant="link"><Link to="/about">About the project<ArrowUpRight /></Link></Button></section>
     </Page>
   );
 }

@@ -1,6 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { Page } from "@/components/SiteHeader";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, ClipboardPlus } from "lucide-react";
 import { useRecords } from "@/hooks/use-records";
 import { LIMITS, ODISHA_DISTRICTS, PRACTICES, todayISO, toKg, validateRecord, WASTE_TYPES, type PracticeId, type RecordInput, type Unit, type WasteTypeId } from "@/lib/waste";
 
@@ -48,7 +50,7 @@ function RecordPage() {
 
   return (
     <Page>
-      <h1 className="text-2xl font-bold">Record waste</h1>
+      <div className="flex items-center gap-3"><span className="flex size-11 shrink-0 items-center justify-center rounded-md bg-secondary text-primary"><ClipboardPlus className="size-5" /></span><h1 className="text-3xl font-semibold">Record waste</h1></div>
       <form onSubmit={submit} noValidate className="space-y-4">
         <label className="block font-medium">Type of waste
           <select className={field} value={wasteType} onChange={(e) => setWasteType(e.target.value as WasteTypeId)}>
@@ -65,7 +67,7 @@ function RecordPage() {
             </select>
           </div>{err("quantityKg")}
         </div>
-        <label className="block font-medium">District (Odisha)
+        <div className="grid gap-4 sm:grid-cols-2"><label className="block font-medium">District (Odisha)
           <select className={field} value={district} onChange={(e) => setDistrict(e.target.value)}>
             <option value="">Select…</option>
             {ODISHA_DISTRICTS.map((d) => <option key={d}>{d}</option>)}
@@ -73,12 +75,12 @@ function RecordPage() {
         </label>
         <label className="block font-medium">Date
           <input type="date" className={field} max={todayISO()} value={date} onChange={(e) => setDate(e.target.value)} />{err("date")}
-        </label>
+        </label></div>
         <fieldset>
           <legend className="font-medium">What usually happens to it?</legend>
           <div className="mt-1 grid grid-cols-2 gap-2">
             {PRACTICES.map((p) => (
-              <label key={p.id} className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm ${practice === p.id ? "border-primary bg-secondary" : "border-border bg-card"}`}>
+              <label key={p.id} className={`flex min-h-12 cursor-pointer items-center gap-3 rounded-md border px-3 py-3 text-sm transition-colors ${practice === p.id ? "border-primary bg-secondary" : "border-border bg-card hover:border-primary"}`}>
                 <input type="radio" name="practice" checked={practice === p.id} onChange={() => setPractice(p.id)} />{p.label}
               </label>
             ))}
@@ -90,7 +92,7 @@ function RecordPage() {
         </label>
         <p className="text-xs text-muted-foreground">Please don't enter your phone number or address. Saved only on this device.</p>
         {err("form")}
-        <button type="submit" className="w-full rounded-md bg-primary py-3 font-semibold text-primary-foreground">Save and see reuse options</button>
+        <Button type="submit" size="lg" className="w-full whitespace-normal">Save and see reuse options<ArrowRight /></Button>
       </form>
     </Page>
   );
