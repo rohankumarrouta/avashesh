@@ -18,3 +18,5 @@
 - Shared marketplace validation and filters live in `src/lib/cloud-marketplace.ts`, writes in `src/lib/marketplace.functions.ts`; why: enforce the same rules client/server and keep waste records isolated.
 - Marketplace uses Cloud authenticated ownership/RLS with roles separate from private profiles; legacy sample JSON is test-only, never seeded publicly; why: protect real cross-user data and avoid fabricated stock.
 - Public marketplace routes use inline sign-in actions; private dashboards use the authenticated layout and account context; why: anonymous browsing must remain available while writes require real auth.
+- Store full locations separately with owner/inquiry-participant SELECT policies and save atomically through an ownership-checked RPC; why: public listing rows must never carry private addresses.
+- Storage reads are owner-only; public media signing accepts a listing ID and verifies a published row before privileged signing; why: preserve published photos without broad cross-user storage access.
