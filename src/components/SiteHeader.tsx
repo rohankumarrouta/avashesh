@@ -23,21 +23,21 @@ export function SiteHeader() {
       <a href="#main-content" className="skip-link">Skip to content</a>
       <div className="mx-auto max-w-5xl px-4 pt-4 sm:px-8">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between"><Link to="/" aria-label="Avashesh home" className="min-w-0">
-          <BrandLogo className="h-auto w-44 sm:w-52" />
+          <BrandLogo className="h-auto w-36 min-[400px]:w-44 sm:w-52" />
         </Link>
         <div className="flex shrink-0 flex-col items-end gap-1 text-xs sm:flex-row sm:items-center sm:gap-2 sm:text-sm">{user ? <>
           {role && <Button asChild variant="outline" size="sm"><Link to={role === "farmer" ? "/farmer" : "/buyer"}>My account<ArrowUpRight /></Link></Button>}
           <Button variant="ghost" size="sm" onClick={() => void logout().catch(() => setError("Could not sign out. Try again."))}>Sign out</Button>
         </> : <Button asChild variant="outline" size="sm"><Link to="/auth" search={{ next: "", role: "buyer" }}><LogIn />Sign in</Link></Button>}</div></div>
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
-        <nav aria-label="Main navigation" className="-mx-4 mt-4 flex overflow-x-auto px-4 text-sm sm:mx-0 sm:gap-2 sm:px-0">
+        <nav aria-label="Main navigation" className="mt-3 grid grid-cols-3 text-xs sm:flex sm:flex-wrap sm:gap-2 sm:text-sm">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               activeOptions={{ exact: true }}
-              className="flex min-h-12 shrink-0 items-center gap-2 border-b-2 border-transparent px-3 text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-primary"
-              activeProps={{ className: "flex min-h-12 shrink-0 items-center gap-2 border-b-2 border-primary bg-secondary/50 px-3 font-semibold text-primary" }}
+              className="flex min-h-11 min-w-0 items-center justify-center gap-1.5 border-b-2 border-transparent px-2 sm:justify-start sm:px-3 text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-primary"
+              activeProps={{ className: "flex min-h-11 min-w-0 items-center justify-center gap-1.5 border-b-2 border-primary bg-secondary/50 px-2 sm:justify-start sm:px-3 font-semibold text-primary" }}
             >
               <l.icon className="size-4" aria-hidden="true" />{l.label}
             </Link>
