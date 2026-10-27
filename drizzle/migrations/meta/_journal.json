@@ -29,6 +29,13 @@
       "when": 1793122745987,
       "tag": "0003_strict_buyer_contact_validation",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793123167459,
+      "tag": "0004_private_listing_locations_and_owner_media",
+      "breakpoints": true
     }
   ]
 }

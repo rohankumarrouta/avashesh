@@ -62,10 +62,34 @@ export type Database = {
           },
         ]
       }
+      listing_locations: {
+        Row: {
+          full_location: string
+          listing_id: string
+        }
+        Insert: {
+          full_location: string
+          listing_id: string
+        }
+        Update: {
+          full_location?: string
+          listing_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "listing_locations_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: true
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       listings: {
         Row: {
           created_at: string
           description: string
+          district: string
           id: string
           is_demo: boolean
           location: string
@@ -75,6 +99,7 @@ export type Database = {
           seller_contact: string
           seller_id: string
           seller_name: string
+          state: string
           status: string
           unit: string
           updated_at: string
@@ -83,6 +108,7 @@ export type Database = {
         Insert: {
           created_at?: string
           description: string
+          district?: string
           id?: string
           is_demo?: boolean
           location: string
@@ -92,6 +118,7 @@ export type Database = {
           seller_contact: string
           seller_id: string
           seller_name: string
+          state?: string
           status?: string
           unit: string
           updated_at?: string
@@ -100,6 +127,7 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string
+          district?: string
           id?: string
           is_demo?: boolean
           location?: string
@@ -109,6 +137,7 @@ export type Database = {
           seller_contact?: string
           seller_id?: string
           seller_name?: string
+          state?: string
           status?: string
           unit?: string
           updated_at?: string
@@ -168,6 +197,10 @@ export type Database = {
       has_market_role: {
         Args: { wanted: Database["public"]["Enums"]["market_role"] }
         Returns: boolean
+      }
+      save_listing_with_location: {
+        Args: { full_location: string; listing_data: Json; listing_id?: string }
+        Returns: string
       }
     }
     Enums: {
