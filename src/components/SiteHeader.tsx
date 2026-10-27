@@ -1,9 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { useAccount } from "@/hooks/use-account";
 import { Button } from "@/components/ui/button";
-import { BrandClarification } from '@/components/BrandLogo';
+import { BrandLogo, BrandClarification } from '@/components/BrandLogo';
 
 const links = [
   { to: "/", label: "Home" },
@@ -17,12 +17,15 @@ const links = [
 export function SiteHeader() {
   const { user, role, logout } = useAccount();
   const [error, setError] = useState("");
+  const isHome = useRouterState({ select: (s) => s.location.pathname === "/" });
   return (
     <header className="border-b border-border bg-card">
       <div className="mx-auto max-w-3xl px-4 pt-3">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between"><Link to="/" aria-label="Avashesh home" className="min-w-0">
-          <span className="block text-xl font-bold tracking-[0.18em] text-primary">AVASHESH</span>
-          <span className="block text-[11px] text-muted-foreground">Waste Less. Create More.</span>
+          {isHome ? <BrandLogo className="h-9 w-auto sm:h-11" /> : <>
+            <span className="block text-xl font-bold tracking-[0.18em] text-primary">AVASHESH</span>
+            <span className="block text-[11px] text-muted-foreground">Waste Less. Create More.</span>
+          </>}
         </Link>
         <div className="flex shrink-0 flex-col items-end gap-1 text-xs sm:flex-row sm:items-center sm:gap-2 sm:text-sm">{user ? <>
           {role && <Link to={role === "farmer" ? "/farmer" : "/buyer"} className="text-primary underline">My account</Link>}

@@ -1,7 +1,7 @@
 import logo from '@/assets/avashesh-leaf-logo.png';
 
 export function BrandLogo({ className = '', decorative = false }: { className?: string; decorative?: boolean }) {
-  return <img src={logo} width={1152} height={576} alt={decorative ? '' : 'AVASHESH — leaf and reuse arrow logo'} aria-hidden={decorative ? true : undefined} className={`h-auto max-w-full object-contain ${className}`} />;
+  return <img src={logo} width={1056} height={301} alt={decorative ? '' : 'AVASHESH — leaf and reuse arrow logo'} aria-hidden={decorative ? true : undefined} className={`max-w-full object-contain ${className}`} />;
 }
 
 export function BrandClarification() {
