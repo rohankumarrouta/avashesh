@@ -4,3 +4,11 @@
 - [x] Label sample data as "SAMPLE"
 - [x] Tests, README, ARCHITECTURE.md, LICENSE, sample JSON
 - [x] Browser check on phone size
+- [ ] Marketplace browse, listing form, details, seller view and local inquiries
+- [ ] Marketplace samples, validation tests and documentation
+- [ ] Verify marketplace create/filter/details/inquiry/delete/refresh and existing features
+- [ ] Replace marketplace localStorage with Lovable Cloud shared listings and inquiries
+- [ ] Email signup/login/logout/reset, Farmer/Buyer profiles and secure roles
+- [ ] Farmer create/edit/publish/delete listings, inquiries and profile dashboard
+- [ ] Buyer published listings, quantity filter, inquiries and history dashboard
+- [ ] Backend permissions, two-account cross-browser tests and documentation

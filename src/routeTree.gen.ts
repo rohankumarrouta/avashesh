@@ -15,6 +15,9 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as RecordRouteImport } from './routes/record'
 import { Route as RecordsRouteImport } from './routes/records'
 import { Route as ReuseRouteImport } from './routes/reuse'
+import { Route as MarketplaceIndexRouteImport } from './routes/marketplace.index'
+import { Route as MarketplaceListingIdRouteImport } from './routes/marketplace.$listingId'
+import { Route as MarketplaceSellRouteImport } from './routes/marketplace.sell'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +49,21 @@ const ReuseRoute = ReuseRouteImport.update({
   path: '/reuse',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketplaceIndexRoute = MarketplaceIndexRouteImport.update({
+  id: '/marketplace/',
+  path: '/marketplace/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketplaceListingIdRoute = MarketplaceListingIdRouteImport.update({
+  id: '/marketplace/$listingId',
+  path: '/marketplace/$listingId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketplaceSellRoute = MarketplaceSellRouteImport.update({
+  id: '/marketplace/sell',
+  path: '/marketplace/sell',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +72,9 @@ export interface FileRoutesByFullPath {
   '/record': typeof RecordRoute
   '/records': typeof RecordsRoute
   '/reuse': typeof ReuseRoute
+  '/marketplace/$listingId': typeof MarketplaceListingIdRoute
+  '/marketplace/sell': typeof MarketplaceSellRoute
+  '/marketplace/': typeof MarketplaceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +83,9 @@ export interface FileRoutesByTo {
   '/record': typeof RecordRoute
   '/records': typeof RecordsRoute
   '/reuse': typeof ReuseRoute
+  '/marketplace/$listingId': typeof MarketplaceListingIdRoute
+  '/marketplace/sell': typeof MarketplaceSellRoute
+  '/marketplace': typeof MarketplaceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,12 +95,33 @@ export interface FileRoutesById {
   '/record': typeof RecordRoute
   '/records': typeof RecordsRoute
   '/reuse': typeof ReuseRoute
+  '/marketplace/$listingId': typeof MarketplaceListingIdRoute
+  '/marketplace/sell': typeof MarketplaceSellRoute
+  '/marketplace/': typeof MarketplaceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/dashboard' | '/record' | '/records' | '/reuse'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/dashboard'
+    | '/record'
+    | '/records'
+    | '/reuse'
+    | '/marketplace/$listingId'
+    | '/marketplace/sell'
+    | '/marketplace/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/dashboard' | '/record' | '/records' | '/reuse'
+  to:
+    | '/'
+    | '/about'
+    | '/dashboard'
+    | '/record'
+    | '/records'
+    | '/reuse'
+    | '/marketplace/$listingId'
+    | '/marketplace/sell'
+    | '/marketplace'
   id:
     | '__root__'
     | '/'
@@ -85,6 +130,9 @@ export interface FileRouteTypes {
     | '/record'
     | '/records'
     | '/reuse'
+    | '/marketplace/$listingId'
+    | '/marketplace/sell'
+    | '/marketplace/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -94,6 +142,9 @@ export interface RootRouteChildren {
   RecordRoute: typeof RecordRoute
   RecordsRoute: typeof RecordsRoute
   ReuseRoute: typeof ReuseRoute
+  MarketplaceListingIdRoute: typeof MarketplaceListingIdRoute
+  MarketplaceSellRoute: typeof MarketplaceSellRoute
+  MarketplaceIndexRoute: typeof MarketplaceIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -140,6 +191,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReuseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/marketplace/': {
+      id: '/marketplace/'
+      path: '/marketplace'
+      fullPath: '/marketplace/'
+      preLoaderRoute: typeof MarketplaceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace/$listingId': {
+      id: '/marketplace/$listingId'
+      path: '/marketplace/$listingId'
+      fullPath: '/marketplace/$listingId'
+      preLoaderRoute: typeof MarketplaceListingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace/sell': {
+      id: '/marketplace/sell'
+      path: '/marketplace/sell'
+      fullPath: '/marketplace/sell'
+      preLoaderRoute: typeof MarketplaceSellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -150,6 +222,9 @@ const rootRouteChildren: RootRouteChildren = {
   RecordRoute: RecordRoute,
   RecordsRoute: RecordsRoute,
   ReuseRoute: ReuseRoute,
+  MarketplaceListingIdRoute: MarketplaceListingIdRoute,
+  MarketplaceSellRoute: MarketplaceSellRoute,
+  MarketplaceIndexRoute: MarketplaceIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

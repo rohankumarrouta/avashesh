@@ -5,6 +5,8 @@ import hero from "@/assets/hero.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Avashesh — Waste Less. Create More." },
       { name: "description", content: "Record agricultural waste like paddy straw and coconut husk, and find practical ways to reuse it instead of burning it." },
       { property: "og:title", content: "Avashesh — Waste Less. Create More." },

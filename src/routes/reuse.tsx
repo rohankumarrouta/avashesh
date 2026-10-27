@@ -10,6 +10,8 @@ export const Route = createFileRoute("/reuse")({
     typeof s["record"] === "string" ? { record: s["record"] } : {},
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Reuse suggestions — Avashesh" },
       { name: "description", content: "Rule-based ideas to reuse paddy straw, coconut husk and other farm waste." },
       { property: "og:title", content: "Reuse suggestions — Avashesh" },
