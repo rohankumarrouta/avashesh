@@ -21,4 +21,4 @@
 - Store full locations separately with owner/inquiry-participant SELECT policies and save atomically through an ownership-checked RPC; why: public listing rows must never carry private addresses.
 - Storage reads are owner-only; public media signing accepts a listing ID and verifies a published row before privileged signing; why: preserve published photos without broad cross-user storage access.
 - Shared mission, goals, material opportunities and pending impact presentation live in MissionSections; why: homepage and About must use consistent claims without changing marketplace or local impact calculations.
-- BrandLogo renders the canonical uploaded asset for all site branding, with a padded favicon derived from it; why: keep the original artwork unchanged and prevent divergent replacements.
+- BrandLogo centralizes site branding; derive the favicon from the selected logo when adopted; why: keep all placements consistent and prevent divergent replacements.
