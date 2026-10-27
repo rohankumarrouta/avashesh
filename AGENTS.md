@@ -12,4 +12,6 @@
 ## Project rules
 - Business logic (validation, emissions math) lives in pure modules in `src/lib/` with tests in `src/test/`; why: keeps rules testable without rendering.
 - Emission factors must cite their source in `src/lib/impact.ts` and README; why: impact claims must be verifiable.
-- User listings persist only in browser localStorage via `src/lib/listings.ts`; why: no backend yet — README must state this until one is added.
+- Waste records persist only in browser localStorage via `src/lib/waste.ts` and `src/hooks/use-records.ts`; why: no backend yet — README must state this until one is added.
+- Reuse suggestions come only from the fixed rules in `src/lib/reuse-rules.ts` and must return their reasons; why: the app must never imply AI.
+- Sample data lives in `src/data/sample-records.json`, is flagged `isDemo` and shown as SAMPLE; why: no fake farmer data.

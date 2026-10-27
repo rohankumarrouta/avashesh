@@ -17,14 +17,14 @@ export function SiteHeader() {
         <Link to="/" className="text-lg font-bold text-primary">
           Avashesh
         </Link>
-        <nav className="-mx-1 mt-1 flex overflow-x-auto whitespace-nowrap text-sm">
+        <nav className="-mx-1 mt-1 flex flex-wrap text-sm">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               activeOptions={{ exact: true }}
-              className="border-b-2 border-transparent px-2 py-2 text-muted-foreground"
-              activeProps={{ className: "border-b-2 border-primary px-2 py-2 font-semibold text-foreground" }}
+              className="border-b-2 border-transparent px-1.5 py-2 text-muted-foreground"
+              activeProps={{ className: "border-b-2 border-primary px-1.5 py-2 font-semibold text-foreground" }}
             >
               {l.label}
             </Link>
