@@ -21,7 +21,6 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 const fmt = (n: number) => n.toLocaleString("en-IN", { maximumFractionDigits: 1 });
-const btn = "rounded-md border border-border bg-card px-3 py-2 text-sm font-medium";
 
 function Dashboard() {
   const { records, ready, loadDemo } = useRecords();

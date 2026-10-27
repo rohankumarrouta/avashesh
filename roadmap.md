@@ -1,5 +1,5 @@
 # Avashesh roadmap
-- [ ] Improve shared navigation, homepage, forms and dashboard presentation; verify existing flows
+- [x] Improve shared navigation, homepage, forms, marketplace states and dashboard presentation; desktop/mobile waste flow and 71 tests passed
 - [x] Update homepage/About with pollution-prevention mission, visual reuse flow, goals and honest impact placeholders
 - [x] Adopt selected leaf/reuse-arrow logo across header, About, login/signup, footer, site watermark and favicon; mobile/desktop checks passed; uploaded logo no longer displayed
 - [x] Fix blocking waste-photo storage access finding without breaking published listing photos
