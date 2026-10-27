@@ -1,25 +1,30 @@
 import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 const links = [
-  { to: "/listings", label: "Listings" },
-  { to: "/post", label: "Post" },
-  { to: "/impact", label: "Impact" },
+  { to: "/", label: "Home" },
+  { to: "/record", label: "Record" },
+  { to: "/reuse", label: "Reuse" },
+  { to: "/dashboard", label: "Dashboard" },
+  { to: "/records", label: "Records" },
+  { to: "/about", label: "About" },
 ] as const;
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-border bg-background/90 backdrop-blur sticky top-0 z-10">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-        <Link to="/" className="font-display text-xl font-semibold text-primary">
+    <header className="border-b border-border bg-card">
+      <div className="mx-auto max-w-3xl px-4 pt-3">
+        <Link to="/" className="text-lg font-bold text-primary">
           Avashesh
         </Link>
-        <nav className="flex gap-1 text-sm">
+        <nav className="-mx-1 mt-1 flex flex-wrap text-sm">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="rounded-full px-3 py-1.5 text-muted-foreground hover:text-foreground"
-              activeProps={{ className: "rounded-full px-3 py-1.5 bg-secondary text-secondary-foreground" }}
+              activeOptions={{ exact: true }}
+              className="border-b-2 border-transparent px-1.5 py-2 text-muted-foreground"
+              activeProps={{ className: "border-b-2 border-primary px-1.5 py-2 font-semibold text-foreground" }}
             >
               {l.label}
             </Link>
@@ -30,10 +35,18 @@ export function SiteHeader() {
   );
 }
 
-export function PrototypeNotice() {
+export function Page({ children }: { children: ReactNode }) {
   return (
-    <p className="rounded-lg bg-accent/40 px-3 py-2 text-xs text-accent-foreground">
-      Prototype: sample listings are fictional. Your posts are saved only in this browser.
-    </p>
+    <div className="min-h-screen">
+      <SiteHeader />
+      <main className="mx-auto max-w-3xl space-y-5 px-4 py-6">{children}</main>
+      <footer className="mx-auto max-w-3xl px-4 pb-8 text-xs text-muted-foreground">
+        Avashesh — student project. Waste Less. Create More.
+      </footer>
+    </div>
   );
+}
+
+export function SampleBadge() {
+  return <span className="rounded bg-accent px-1.5 py-0.5 text-xs font-semibold text-accent-foreground">SAMPLE</span>;
 }

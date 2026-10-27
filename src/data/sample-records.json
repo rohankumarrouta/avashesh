@@ -1,0 +1,7 @@
+[
+  { "id": "demo-1", "wasteType": "paddy_straw", "quantityKg": 1500, "district": "Bargarh", "date": "2026-10-10", "practice": "burning", "plannedReuseId": "incorporate", "notes": "SAMPLE DATA – made-up example", "isDemo": true, "createdAt": "2026-10-10T06:00:00.000Z" },
+  { "id": "demo-2", "wasteType": "coconut_husk", "quantityKg": 300, "district": "Puri", "date": "2026-10-12", "practice": "dumped", "plannedReuseId": "cocopeat", "notes": "SAMPLE DATA – made-up example", "isDemo": true, "createdAt": "2026-10-12T06:00:00.000Z" },
+  { "id": "demo-3", "wasteType": "paddy_straw", "quantityKg": 120, "district": "Cuttack", "date": "2026-10-15", "practice": "left", "plannedReuseId": null, "notes": "SAMPLE DATA – made-up example", "isDemo": true, "createdAt": "2026-10-15T06:00:00.000Z" },
+  { "id": "demo-4", "wasteType": "vegetable_waste", "quantityKg": 40, "district": "Khordha", "date": "2026-10-18", "practice": "dumped", "plannedReuseId": "vermicompost", "notes": "SAMPLE DATA – made-up example", "isDemo": true, "createdAt": "2026-10-18T06:00:00.000Z" },
+  { "id": "demo-5", "wasteType": "groundnut_shells", "quantityKg": 250, "district": "Ganjam", "date": "2026-10-20", "practice": "unsure", "plannedReuseId": null, "notes": "SAMPLE DATA – made-up example", "isDemo": true, "createdAt": "2026-10-20T06:00:00.000Z" }
+]
