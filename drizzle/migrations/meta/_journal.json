@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1793122065252,
+      "tag": "0000_shared_marketplace_accounts",
+      "breakpoints": true
+    }
+  ]
 }

@@ -14,16 +14,164 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      inquiries: {
+        Row: {
+          buyer_id: string
+          buyer_name: string
+          contact: string
+          created_at: string
+          id: string
+          listing_id: string
+          message: string
+          status: string
+        }
+        Insert: {
+          buyer_id: string
+          buyer_name: string
+          contact: string
+          created_at?: string
+          id?: string
+          listing_id: string
+          message: string
+          status?: string
+        }
+        Update: {
+          buyer_id?: string
+          buyer_name?: string
+          contact?: string
+          created_at?: string
+          id?: string
+          listing_id?: string
+          message?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiries_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "inquiries_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      listings: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          is_demo: boolean
+          location: string
+          photo: string
+          price: number
+          quantity: number
+          seller_contact: string
+          seller_id: string
+          seller_name: string
+          status: string
+          unit: string
+          updated_at: string
+          waste_type: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          is_demo?: boolean
+          location: string
+          photo?: string
+          price: number
+          quantity: number
+          seller_contact: string
+          seller_id: string
+          seller_name: string
+          status?: string
+          unit: string
+          updated_at?: string
+          waste_type: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          is_demo?: boolean
+          location?: string
+          photo?: string
+          price?: number
+          quantity?: number
+          seller_contact?: string
+          seller_id?: string
+          seller_name?: string
+          status?: string
+          unit?: string
+          updated_at?: string
+          waste_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "listings_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          contact: string
+          created_at: string
+          display_name: string
+          id: string
+        }
+        Insert: {
+          contact?: string
+          created_at?: string
+          display_name: string
+          id: string
+        }
+        Update: {
+          contact?: string
+          created_at?: string
+          display_name?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          role: Database["public"]["Enums"]["market_role"]
+          user_id: string
+        }
+        Insert: {
+          role: Database["public"]["Enums"]["market_role"]
+          user_id: string
+        }
+        Update: {
+          role?: Database["public"]["Enums"]["market_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_market_role: {
+        Args: { wanted: Database["public"]["Enums"]["market_role"] }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      market_role: "farmer" | "buyer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +298,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      market_role: ["farmer", "buyer"],
+    },
   },
 } as const
