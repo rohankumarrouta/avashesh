@@ -54,35 +54,3 @@ export function PollutionImpact() {
     ['Participating farmers and buyers','Participation reporting pending'],
   ].map(([label,status])=><div key={label} className="grid gap-1 py-3 sm:grid-cols-2"><dt className="font-medium">{label}</dt><dd className="text-muted-foreground">{status}</dd></div>)}</dl><p className="border-l-4 border-primary pl-3 text-sm">Listed or sold kilograms do not automatically equal burning avoided. An estimate needs confirmed reuse, a documented source and evidence of the likely alternative disposal method.</p><p className="text-xs text-muted-foreground">The existing local dashboard shows recorded waste and a labelled planning scenario using published emission factors. A saved reuse plan is not verified reuse or measured impact; sample records are not environmental evidence.</p></section>;
 }
-import reuseMulch from '@/assets/reuse-mulch.jpg';
-import reuseCoir from '@/assets/reuse-coir.jpg';
-import reuseMushroom from '@/assets/reuse-mushroom.jpg';
-import reuseCompost from '@/assets/reuse-compost.jpg';
-import reuseFodder from '@/assets/reuse-fodder.jpg';
-import reuseBriquettes from '@/assets/reuse-briquettes.jpg';
-
-const reuseExamples = [
-  { img: reuseMulch, title: 'Straw mulching', text: 'Paddy straw spread between crop rows keeps soil moist and controls weeds.' },
-  { img: reuseCoir, title: 'Coir products', text: 'Coconut husk fibre is made into rope, mats and gardening material.' },
-  { img: reuseMushroom, title: 'Mushroom growing', text: 'Chopped paddy straw is a common base for oyster and straw mushrooms.' },
-  { img: reuseCompost, title: 'Composting', text: 'Crop residue mixed with cow dung turns into compost for fields.' },
-  { img: reuseFodder, title: 'Cattle fodder', text: 'Dry paddy straw is widely used as feed for cattle.' },
-  { img: reuseBriquettes, title: 'Biomass briquettes', text: 'Residue is pressed into briquettes used as fuel instead of coal or wood.' },
-];
-
-export function ReuseExamples() {
-  return (
-    <section className="space-y-4 border-t border-border pt-6">
-      <h2 className="text-2xl font-semibold">Real-life ways residue is reused</h2>
-      <p className="text-sm text-muted-foreground">These reuse practices are already common in India. Photos are illustrative, not of Avashesh users.</p>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {reuseExamples.map((e) => (
-          <figure key={e.title} className="overflow-hidden rounded-xl border border-border bg-card">
-            <img src={e.img} alt={e.title} width={944} height={704} loading="lazy" className="aspect-[4/3] w-full object-cover" />
-            <figcaption className="p-4"><span className="block font-semibold">{e.title}</span><span className="mt-1 block text-sm text-muted-foreground">{e.text}</span></figcaption>
-          </figure>
-        ))}
-      </div>
-    </section>
-  );
-}
