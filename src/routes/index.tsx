@@ -28,12 +28,11 @@ function Index() {
   useEffect(() => { if (!user || !role) return; const next = window.sessionStorage.getItem("avashesh.auth-next"); if (!next) return; window.sessionStorage.removeItem("avashesh.auth-next"); if (next === "/marketplace/sell" && role === "farmer") void navigate({ to: "/marketplace/sell" }); else if (next.startsWith("/marketplace/") && next !== "/marketplace/sell") void navigate({ to: "/marketplace/$listingId", params: { listingId: next.split("/")[2] ?? "" } }); }, [user, role, navigate]);
   return (
     <Page wide>
-      <section className="relative isolate -mx-4 overflow-hidden bg-hero-shade px-6 py-12 text-hero-foreground sm:-mx-8 sm:rounded-b-3xl sm:px-12 sm:py-20">
+      <section className="relative isolate -mx-4 overflow-hidden bg-hero-shade px-6 py-10 text-hero-foreground sm:-mx-8 sm:px-10 sm:py-14">
         <img src={hero} alt="Paddy straw bales collected in a harvested field" width={1280} height={960} className="absolute inset-0 -z-20 h-full w-full object-cover" />
         <div className="absolute inset-0 -z-10 bg-hero-shade/65" />
-        <span className="inline-flex items-center gap-2 rounded-full bg-background/15 px-3 py-1 text-xs font-medium backdrop-blur-sm"><Recycle className="size-3.5" aria-hidden="true" />Agricultural residue reuse</span>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">Avashesh</h1>
-        <p className="mt-2 text-base font-medium sm:text-lg">Waste Less. Create More.</p>
+        <h1 className="text-4xl font-semibold sm:text-5xl">Avashesh</h1>
+        <p className="mt-3 text-xl font-medium sm:text-2xl">Waste Less. Create More.</p>
         <p className="mt-5 max-w-lg text-sm leading-relaxed sm:text-base">Working towards cleaner air by preventing unnecessary agricultural waste burning and promoting reuse.</p>
         <div className="mt-6 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/marketplace">Browse listings<ArrowUpRight /></Link></Button><Button asChild size="lg" variant="secondary"><Link to="/record">Record waste</Link></Button></div>
         <p className="mt-5 text-xs opacity-90">Pollution reduction is our goal, not a measured achievement.</p>
@@ -46,23 +45,23 @@ function Index() {
         <p className="text-sm text-muted-foreground">Every agricultural residue deserves a better alternative to burning. Help us turn waste into resources and work towards cleaner air.</p>
       </section>
       <section className="space-y-4 border-t border-border pt-6">
-        <h2 className="text-xl font-semibold">How it works</h2>
+        <h2 className="text-2xl font-semibold">How it works</h2>
         <ol className="grid gap-3 sm:grid-cols-3">
           {[["Farmer posts residue","Add type, quantity, district and a photo."],["Buyer sends inquiry","Buyers browse listings and contact the seller."],["Residue gets reused","Straw or husk goes to reuse instead of burning."]].map(([t,d],i)=>(
-            <li key={t} className="flex gap-3 rounded-xl border border-border bg-card p-4 shadow-sm transition-shadow hover:shadow-md"><span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">{i+1}</span><span><span className="block font-semibold">{t}</span><span className="mt-1 block text-sm text-muted-foreground">{d}</span></span></li>
+            <li key={t} className="flex gap-3 rounded-xl border border-border bg-card p-4"><span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">{i+1}</span><span><span className="block font-semibold">{t}</span><span className="mt-1 block text-sm text-muted-foreground">{d}</span></span></li>
           ))}
         </ol>
       </section>
       <section className="space-y-4 border-t border-border pt-6">
-        <h2 className="text-xl font-semibold">Who it's for</h2>
+        <h2 className="text-2xl font-semibold">Who it's for</h2>
         <div className="grid gap-3 sm:grid-cols-3">
           {[[Sprout,"Farmers","List paddy straw, coconut husk or other residue instead of burning it."],[ShoppingBasket,"Buyers","Find residue for mushrooms, coir, compost, fodder or biomass use."],[Recycle,"Anyone curious","Record waste on this device and explore simple reuse ideas."]].map(([Icon,t,d])=>{const I=Icon as typeof Sprout;return(
-            <div key={t as string} className="rounded-xl border border-border bg-card p-5 shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md"><span className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary"><I className="size-5" aria-hidden="true" /></span><h3 className="mt-3 font-semibold">{t as string}</h3><p className="mt-1 text-sm text-muted-foreground">{d as string}</p></div>)})}
+            <div key={t as string} className="rounded-xl border border-border bg-card p-5 shadow-sm"><span className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary"><I className="size-5" aria-hidden="true" /></span><h3 className="mt-3 font-semibold">{t as string}</h3><p className="mt-1 text-sm text-muted-foreground">{d as string}</p></div>)})}
         </div>
       </section>
-      <section className="grid gap-4 border-t border-border pt-6 sm:grid-cols-[1fr_2fr]"><h2 className="text-xl font-semibold">Our mission</h2><p className="text-sm leading-relaxed sm:text-base">{mission}</p></section>
+      <section className="grid gap-4 border-t border-border pt-6 sm:grid-cols-[1fr_2fr]"><h2 className="text-2xl font-semibold">Our mission</h2><p className="text-sm leading-relaxed sm:text-base">{mission}</p></section>
       <PollutionStory/><ReuseFlow/><EnvironmentalGoals/><MaterialOpportunities/><PollutionImpact/>
-      <section className="space-y-4 border-t border-border pt-6"><h2 className="text-xl font-semibold">Record and explore reuse</h2><div className="grid gap-3 sm:grid-cols-3"><Button asChild variant="outline"><Link to="/record"><ClipboardPlus />Record waste</Link></Button><Button asChild variant="outline"><Link to="/reuse"><Recycle />Explore reuse ideas</Link></Button><Button asChild variant="outline"><Link to="/dashboard"><ChartNoAxesCombined />View dashboard</Link></Button></div><p className="text-xs text-muted-foreground">Waste records stay on this device. Marketplace listings and inquiries are shared through signed-in accounts. Suggestions use fixed rules, not AI.</p><Button asChild variant="link"><Link to="/about">About the project<ArrowUpRight /></Link></Button></section>
+      <section className="space-y-4 border-t border-border pt-6"><h2 className="text-2xl font-semibold">Record and explore reuse</h2><div className="grid gap-3 sm:grid-cols-3"><Button asChild variant="outline"><Link to="/record"><ClipboardPlus />Record waste</Link></Button><Button asChild variant="outline"><Link to="/reuse"><Recycle />Explore reuse ideas</Link></Button><Button asChild variant="outline"><Link to="/dashboard"><ChartNoAxesCombined />View dashboard</Link></Button></div><p className="text-xs text-muted-foreground">Waste records stay on this device. Marketplace listings and inquiries are shared through signed-in accounts. Suggestions use fixed rules, not AI.</p><Button asChild variant="link"><Link to="/about">About the project<ArrowUpRight /></Link></Button></section>
       <section className="rounded-2xl bg-primary px-6 py-8 text-center text-primary-foreground sm:px-10">
         <h2 className="text-xl font-semibold">Have residue after harvest?</h2>
         <p className="mx-auto mt-2 max-w-md text-sm opacity-90">Find a buyer on the marketplace or record it to explore reuse ideas instead of burning.</p>
