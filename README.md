@@ -1,5 +1,11 @@
 # Avashesh — Waste Less. Create More.
 
+Prepared for the **My Bharat Code for Social Cause** competition by **Team Avashesh**.
+
+## Problem statement and solution
+
+Agricultural residues can be left unused or burned when people lack accessible reuse guidance or ways to find interested buyers. Avashesh explores this problem starting with Odisha: record waste, review transparent reuse options, and publish agricultural material listings that Buyers can discover and inquire about. These are project goals, not evidence of increased income or reduced pollution.
+
 Avashesh (अवशेष, "residue") is a student project that helps people record agricultural
 waste — like paddy straw and coconut husk — and explore practical ways to reuse it instead
 of burning it or leaving it unused. We are starting with Odisha.
@@ -37,9 +43,35 @@ bun run dev        # or npm run dev
 bun run test       # or npm test
 ```
 
+Open the address printed by Vite (the managed preview uses port 8080). Use a current Bun installation; `bun.lock` records dependencies. `bun run build` creates the production build; `bun run preview` previews that output. These are the existing scripts, not proof an independent deployment was verified.
+
 ## Setup configuration
 
 The connected Lovable environment provisions runtime variables. For an independent source checkout, configure `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` for the same backend; never commit private keys. Apply the tracked Drizzle migrations and create the private `waste-photos` bucket (500 KB/file) with its recorded storage policies. Enable email/password auth and configure allowed auth redirect origins. The managed preview supplies these automatically. Email confirmation remains on.
+
+### Environment variables (names only)
+
+| Variable | Actual purpose |
+|---|---|
+| `VITE_SUPABASE_URL` | Browser-accessible backend URL used by generated client |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Browser publishable key; not a private secret |
+| `VITE_SUPABASE_PROJECT_ID` | Generated Cloud project configuration identifier |
+| `SUPABASE_URL` | Server runtime backend URL |
+| `SUPABASE_PUBLISHABLE_KEY` | Server user-scoped client configuration |
+| `SUPABASE_SERVICE_ROLE_KEY` | Generated privileged server client; not used by ordinary marketplace operations; server-only, never commit or expose |
+| `LOVABLE_DB_MIGRATION_URL` | Connection consumed by `drizzle.config.ts` for migration tooling, not a browser variable |
+
+No AI, payment or GitHub API key is required by the application. Do not copy managed secret values into repository docs. Local `.env` files must not be committed; the current `.gitignore` does not explicitly exclude `.env`, so keep configuration outside source control or add an ignore rule before your own Git submission.
+
+### Actual backend configuration
+
+The connected project already has the four tables, auth trigger and RLS policies in `drizzle/migrations/0000` through `0003`. For a fresh independent backend, apply those SQL files in order using its database migration tools, preserving grants and policies. Create `waste-photos` through its Storage API as a **private** bucket with a 500 KB/file limit before exercising uploads. The storage policies are in migration `0001`. `drizzle/schema.ts` is intentionally not the source of truth; do not run an empty schema push. There is no repository database-migration script, one-command standalone installer or offline backend.
+
+### Deployment
+
+For the existing Lovable project, use **Publish** after checking the preview. On desktop it is at the top right; on mobile use the project menu → Publish. This documentation does not claim publishing occurred. Configure the production origin and password-reset URL in the backend's authentication redirect allow-list, keep server-only configuration private, then repeat the test checklist against the published origin.
+
+Outside Lovable, this is a full-stack TanStack Start application, not a static-only SPA. Use compatible hosting for its configured server runtime and supply the backend environment above. Standalone deployment and mailbox redirect behavior are **pending verification**; no unsupported hosting command is presented as tested.
 
 ## Waste records & privacy
 
@@ -102,14 +134,14 @@ N₂O 265 (IPCC AR5). Example: 1000 kg → 1609.15 kg CO₂e. A plan is not proo
 
 ## Verification and remaining checks
 
-Two separate browser contexts with admin-created, confirmed test Farmer/Buyer accounts verified login/logout/refresh, draft hiding, publishing, cross-browser listing visibility, combined filters, inquiry delivery/readback/status, editing, deletion and Buyer denial. Direct database requests confirmed private-profile isolation and blocked listing/role edits. Test fixtures were removed.
+65 automated tests passed on 27 October 2026. Two separate browser contexts with admin-created, confirmed test Farmer/Buyer accounts verified login/logout/refresh, draft hiding, publishing, cross-browser listing/photo visibility, combined filters, inquiry delivery/readback/status, profile update, editing, sold hiding, deletion and Buyer denial. Direct database requests confirmed private-profile isolation and blocked listing/role edits. Test fixtures were removed. The database security advisor returned no warnings; this is not a full penetration-test claim.
 
 Public signup was exercised with a reserved test email and correctly rejected by the email provider. Real mailbox signup confirmation and emailed password-reset completion remain **unverified**; confirmation was not disabled. Password recovery is implemented, but actual email delivery needs a real mailbox. Published deployment has not been tested or changed.
 
-See `docs/ARCHITECTURE.md` for the technical design.
+Competition documents: [Technical design](docs/TECHNICAL_DESIGN.md), [Sample data](docs/SAMPLE_DATA.md), [Test cases](docs/TEST_CASES.md). [Architecture notes](docs/ARCHITECTURE.md) retain supporting details.
 
 ## License
 
 MIT — see [LICENSE](./LICENSE).
 
-Copyright (c) 2026 Team Avashesh.
+The LICENSE contains a copyright-holder placeholder as requested. Replace it with the actual rights holder before submission. MIT is appropriate only if the team owns or has permission to release its original code under those terms; it does not relicense third-party dependencies or media. Dependency/media licensing and competition eligibility terms remain your responsibility to review. Project credit: Team Avashesh.
