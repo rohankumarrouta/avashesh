@@ -12,3 +12,4 @@
 - [ ] Farmer create/edit/publish/delete listings, inquiries and profile dashboard
 - [ ] Buyer published listings, quantity filter, inquiries and history dashboard
 - [ ] Backend permissions, two-account cross-browser tests and documentation
+- [ ] Homepage BUY/SELL primary cards, remove main Marketplace navigation, preserve intended action through login
