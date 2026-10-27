@@ -12,8 +12,9 @@
 ## Project rules
 - Business logic (validation, emissions math) lives in pure modules in `src/lib/` with tests in `src/test/`; why: keeps rules testable without rendering.
 - Emission factors must cite their source in `src/lib/impact.ts` and README; why: impact claims must be verifiable.
-- Waste records persist only in browser localStorage via `src/lib/waste.ts` and `src/hooks/use-records.ts`; why: no backend yet — README must state this until one is added.
+- Waste records persist only in browser localStorage via `src/lib/waste.ts` and `src/hooks/use-records.ts`; why: preserve existing waste features independently of the Cloud marketplace.
 - Reuse suggestions come only from the fixed rules in `src/lib/reuse-rules.ts` and must return their reasons; why: the app must never imply AI.
 - Sample data lives in `src/data/sample-records.json`, is flagged `isDemo` and shown as SAMPLE; why: no fake farmer data.
-- Marketplace validation and mutations live in `src/lib/marketplace.ts`, with storage in `src/hooks/use-marketplace.ts` under a separate localStorage key; why: test mutations and keep waste records isolated.
-- Marketplace ownership is a browser-local identifier, not authorization; samples live in `src/data/sample-listings.json` without contact numbers; why: the prototype must not imply accounts or real sellers.
+- Shared marketplace validation and filters live in `src/lib/cloud-marketplace.ts`, writes in `src/lib/marketplace.functions.ts`; why: enforce the same rules client/server and keep waste records isolated.
+- Marketplace uses Cloud authenticated ownership/RLS with roles separate from private profiles; legacy sample JSON is test-only, never seeded publicly; why: protect real cross-user data and avoid fabricated stock.
+- Public marketplace routes use inline sign-in actions; private dashboards use the authenticated layout and account context; why: anonymous browsing must remain available while writes require real auth.
