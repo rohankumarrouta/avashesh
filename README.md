@@ -18,12 +18,12 @@ of burning it or leaving it unused. We are starting with Odisha.
 
 | Page | What it does |
 |---|---|
-| Home `/` | Primary Buy Waste and Sell Waste actions, plus existing reuse/record tools |
+| Home `/` | AVASHESH logo in the top-left corner (front page only; other pages show the plain text name), primary Buy Waste and Sell Waste actions, mission sections, plus existing reuse/record tools |
 | Record `/record` | Enter waste type, quantity (kg / quintal / tonne), Odisha district, date, current handling, notes |
 | Reuse `/reuse` | Ranked reuse options with the reasons and steps; "Plan this option" saves your choice. Without a record, explore any waste type + quantity |
 | Dashboard `/dashboard` | Total recorded, number of records, plans made, breakdown by waste type and handling, estimated emissions |
 | Records `/records` | View, delete, export as JSON, load/remove sample data, delete all |
-| About `/about` | Idea, purpose, what works, future plans, honest limits |
+| About `/about` | Pollution-prevention mission, how farmers and buyers connect, goals, material opportunities, honest limits; impact reporting is labelled pending |
 | Buy Waste `/marketplace` | Published shared listings; search and type/location/quantity/price filters, no login required to browse |
 | Sell `/marketplace/sell` | Seller name, Indian mobile number, waste type, quantity/unit, asking price per unit, public district/state, private full location, description, optional photo |
 | Listing `/marketplace/$listingId` | Shared details, supplied phone/WhatsApp links, Buyer-only inquiry submission |
