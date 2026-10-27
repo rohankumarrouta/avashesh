@@ -13,3 +13,5 @@
 - [ ] Buyer published listings, quantity filter, inquiries and history dashboard
 - [ ] Backend permissions, two-account cross-browser tests and documentation
 - [ ] Homepage BUY/SELL primary cards, remove main Marketplace navigation, preserve intended action through login
+- [ ] GitHub code sync — requires the user to authorize it in project Git settings
+- [ ] Competition README, technical design, sample data, test cases and MIT copyright placeholder; keep application code intact
