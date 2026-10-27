@@ -12,7 +12,7 @@ describe("record validation", () => {
   it("only accepts Odisha districts", () => expect(validateRecord({ ...ok, district: "Mumbai" }, T)["district"]).toBeDefined());
   it("rejects future dates", () => expect(validateRecord({ ...ok, date: "2026-10-28" }, T)["date"]).toBeDefined());
   it("rejects unknown waste type and missing practice", () => {
-    const e = validateRecord({ ...ok, wasteType: "plastic" as never, practice: undefined }, T);
+    const e = validateRecord({ ...ok, wasteType: "plastic" as never, practice: "nope" as never }, T);
     expect(e["wasteType"]).toBeDefined();
     expect(e["practice"]).toBeDefined();
   });
