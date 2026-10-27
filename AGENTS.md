@@ -15,3 +15,5 @@
 - Waste records persist only in browser localStorage via `src/lib/waste.ts` and `src/hooks/use-records.ts`; why: no backend yet — README must state this until one is added.
 - Reuse suggestions come only from the fixed rules in `src/lib/reuse-rules.ts` and must return their reasons; why: the app must never imply AI.
 - Sample data lives in `src/data/sample-records.json`, is flagged `isDemo` and shown as SAMPLE; why: no fake farmer data.
+- Marketplace validation and mutations live in `src/lib/marketplace.ts`, with storage in `src/hooks/use-marketplace.ts` under a separate localStorage key; why: test mutations and keep waste records isolated.
+- Marketplace ownership is a browser-local identifier, not authorization; samples live in `src/data/sample-listings.json` without contact numbers; why: the prototype must not imply accounts or real sellers.

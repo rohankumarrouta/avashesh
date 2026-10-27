@@ -15,6 +15,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as RecordRouteImport } from './routes/record'
 import { Route as RecordsRouteImport } from './routes/records'
 import { Route as ReuseRouteImport } from './routes/reuse'
+import { Route as MarketplaceIndexRouteImport } from './routes/marketplace.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const ReuseRoute = ReuseRouteImport.update({
   path: '/reuse',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketplaceIndexRoute = MarketplaceIndexRouteImport.update({
+  id: '/marketplace/',
+  path: '/marketplace/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/record': typeof RecordRoute
   '/records': typeof RecordsRoute
   '/reuse': typeof ReuseRoute
+  '/marketplace/': typeof MarketplaceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/record': typeof RecordRoute
   '/records': typeof RecordsRoute
   '/reuse': typeof ReuseRoute
+  '/marketplace': typeof MarketplaceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,12 +79,27 @@ export interface FileRoutesById {
   '/record': typeof RecordRoute
   '/records': typeof RecordsRoute
   '/reuse': typeof ReuseRoute
+  '/marketplace/': typeof MarketplaceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/dashboard' | '/record' | '/records' | '/reuse'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/dashboard'
+    | '/record'
+    | '/records'
+    | '/reuse'
+    | '/marketplace/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/dashboard' | '/record' | '/records' | '/reuse'
+  to:
+    | '/'
+    | '/about'
+    | '/dashboard'
+    | '/record'
+    | '/records'
+    | '/reuse'
+    | '/marketplace'
   id:
     | '__root__'
     | '/'
@@ -85,6 +108,7 @@ export interface FileRouteTypes {
     | '/record'
     | '/records'
     | '/reuse'
+    | '/marketplace/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -94,6 +118,7 @@ export interface RootRouteChildren {
   RecordRoute: typeof RecordRoute
   RecordsRoute: typeof RecordsRoute
   ReuseRoute: typeof ReuseRoute
+  MarketplaceIndexRoute: typeof MarketplaceIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -140,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReuseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/marketplace/': {
+      id: '/marketplace/'
+      path: '/marketplace'
+      fullPath: '/marketplace/'
+      preLoaderRoute: typeof MarketplaceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -150,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   RecordRoute: RecordRoute,
   RecordsRoute: RecordsRoute,
   ReuseRoute: ReuseRoute,
+  MarketplaceIndexRoute: MarketplaceIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
