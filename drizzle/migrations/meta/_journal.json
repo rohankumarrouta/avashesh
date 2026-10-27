@@ -36,6 +36,13 @@
       "when": 1793123167459,
       "tag": "0004_private_listing_locations_and_owner_media",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793123461548,
+      "tag": "0005_resolve_private_location_save_conflict",
+      "breakpoints": true
     }
   ]
 }
