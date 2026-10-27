@@ -4,11 +4,17 @@ Project credit: Team Avashesh. Verification date: **27 October 2026**. No passwo
 
 ## Recorded results
 
-- `bunx vitest run`: **65 tests passed across 7 files**.
+- `bunx vitest run`: **71 tests passed across 7 files** after the location/photo privacy changes.
 - Latest managed preview check: **build OK**.
 - Database security advisor after grant tightening: **no warnings** (not a full security audit).
 - Two independent browser contexts exercised real shared data with administratively created/confirmed test Farmer and Buyer accounts; fixtures were removed afterward.
 - Public signup with a reserved test domain was correctly rejected. Real mailbox confirmation and password-reset completion are **not verified**.
+
+## Location and photo privacy recheck
+
+On 27 October 2026, fresh confirmed evaluation Farmer/Buyer accounts in separate browsers verified draft/create/edit/publish, public district/state filtering, inquiry submission/status, reload persistence, sold/delete and ownership denials. The full-location field was absent from anonymous listing responses and Buyer reads before inquiry, appeared for that Buyer after submission, and persisted after refresh. Anonymous published-photo rendering succeeded while direct Buyer storage signing was denied. No page errors were observed; temporary accounts, listings, inquiries and photos were removed. The basic security recheck found no issues; it does not include deep code analysis.
+
+New unit cases assert district/state-only public area/search, mandatory separated location fields, seller-bound published photo paths, and denial of public signing for draft/sold/deleted photos. Calling or opening WhatsApp alone does not unlock full location. Existing free-text locations are preserved privately; sellers supply district/state explicitly rather than the app guessing them.
 
 ## End-to-end checklist
 

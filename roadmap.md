@@ -1,6 +1,6 @@
 # Avashesh roadmap
-- [ ] Fix blocking waste-photo storage access finding without breaking published listing photos
-- [ ] Show district/state publicly; reveal full location only to the owner and buyers who submitted an inquiry
+- [x] Fix blocking waste-photo storage access finding without breaking published listing photos
+- [x] Show district/state publicly; reveal full location only to the owner and buyers who submitted an inquiry
 - [x] Home, Record, Reuse suggestions, Dashboard pages
 - [x] Separate Waste Records page (view/delete) and About page (from uploaded brief)
 - [x] Label sample data as "SAMPLE"
