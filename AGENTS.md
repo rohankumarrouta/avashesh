@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Business logic (validation, emissions math) lives in pure modules in `src/lib/` with tests in `src/test/`; why: keeps rules testable without rendering.
+- Emission factors must cite their source in `src/lib/impact.ts` and README; why: impact claims must be verifiable.
+- User listings persist only in browser localStorage via `src/lib/listings.ts`; why: no backend yet — README must state this until one is added.
