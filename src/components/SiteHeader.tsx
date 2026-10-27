@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { useAccount } from "@/hooks/use-account";
 import { Button } from "@/components/ui/button";
+import { BrandLogo, BrandClarification } from '@/components/BrandLogo';
 
 const links = [
   { to: "/", label: "Home" },
@@ -19,10 +20,10 @@ export function SiteHeader() {
   return (
     <header className="border-b border-border bg-card">
       <div className="mx-auto max-w-3xl px-4 pt-3">
-        <div className="flex flex-wrap items-center justify-between gap-2"><Link to="/" className="text-lg font-bold text-primary">
-          Avashesh
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between"><Link to="/" aria-label="Avashesh home" className="block min-w-0 sm:max-w-sm">
+          <BrandLogo className="w-full sm:w-80" />
         </Link>
-        <div className="flex items-center gap-2 text-sm">{user ? <>
+        <div className="flex shrink-0 flex-col items-end gap-1 text-xs sm:flex-row sm:items-center sm:gap-2 sm:text-sm">{user ? <>
           {role && <Link to={role === "farmer" ? "/farmer" : "/buyer"} className="text-primary underline">My account</Link>}
           <Button variant="ghost" size="sm" onClick={() => void logout().catch(() => setError("Could not sign out. Try again."))}>Sign out</Button>
         </> : <Link to="/auth" search={{ next: "", role: "buyer" }} className="text-primary underline">Sign in</Link>}</div></div>
@@ -50,8 +51,11 @@ export function Page({ children }: { children: ReactNode }) {
     <div className="min-h-screen">
       <SiteHeader />
       <main className="mx-auto max-w-3xl space-y-5 px-4 py-6">{children}</main>
-      <footer className="mx-auto max-w-3xl px-4 pb-8 text-xs text-muted-foreground">
-        Avashesh — student project. Waste Less. Create More.
+      <footer className="mx-auto max-w-3xl space-y-3 border-t border-border px-4 py-6 text-xs text-muted-foreground">
+        <Link to="/" aria-label="Avashesh home" className="block w-80 max-w-full"><BrandLogo /></Link>
+        <BrandClarification />
+        <p>Team Avashesh — student project. Waste Less. Create More.</p>
+        <div aria-hidden="true" className="pointer-events-none flex justify-end pt-2"><BrandLogo decorative className="w-44 opacity-20" /></div>
       </footer>
     </div>
   );

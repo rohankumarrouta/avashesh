@@ -3,6 +3,7 @@ import { Page } from "@/components/SiteHeader";
 import type { ReactNode } from "react";
 import { Button } from '@/components/ui/button';
 import { mission, EnvironmentalGoals, MaterialOpportunities, PollutionImpact } from '@/components/MissionSections';
+import { BrandLogo, BrandClarification } from '@/components/BrandLogo';
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -21,6 +22,8 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <Page>
+      <BrandLogo className="w-full max-w-lg" />
+      <BrandClarification />
       <h1 className="text-2xl font-bold">About Avashesh</h1>
       <p className="text-sm italic text-muted-foreground">Avashesh (अवशेष) means "residue". Waste Less. Create More.</p>
       <Section title="Our mission">
@@ -28,6 +31,9 @@ function About() {
       </Section>
       <Section title="The problem we want to solve">
         Open burning of agricultural residues releases smoke and particulate matter that can contribute to air pollution and harm health. Some residues are discarded despite potential reuse. Farmers need accessible, affordable and practical alternatives. We aim to make materials easier to discover, exchange and reuse, starting with Odisha.
+      </Section>
+      <Section title="From residues to resources">
+        Farmers can list paddy straw, coconut husk and other suitable agricultural by-products. Buyers discover these materials and contact sellers about potential reuse. Practical alternatives to burning may create additional income opportunities for farmers and keep resources in use within a circular economy. Suitability depends on material quality, local facilities and safety requirements. Our long-term goal is to contribute to cleaner air and less agricultural waste; these benefits have not yet been verified.
       </Section>
       <Section title="What works today">
         <ul className="list-disc pl-5">
