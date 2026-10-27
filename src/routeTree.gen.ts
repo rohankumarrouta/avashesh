@@ -10,11 +10,16 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as RecordRouteImport } from './routes/record'
 import { Route as RecordsRouteImport } from './routes/records'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ReuseRouteImport } from './routes/reuse'
+import { Route as AuthenticatedBuyerRouteImport } from './routes/_authenticated/buyer'
+import { Route as AuthenticatedFarmerRouteImport } from './routes/_authenticated/farmer'
 import { Route as MarketplaceIndexRouteImport } from './routes/marketplace.index'
 import { Route as MarketplaceListingIdRouteImport } from './routes/marketplace.$listingId'
 import { Route as MarketplaceSellRouteImport } from './routes/marketplace.sell'
@@ -24,9 +29,18 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -44,10 +58,25 @@ const RecordsRoute = RecordsRouteImport.update({
   path: '/records',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReuseRoute = ReuseRouteImport.update({
   id: '/reuse',
   path: '/reuse',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedBuyerRoute = AuthenticatedBuyerRouteImport.update({
+  id: '/buyer',
+  path: '/buyer',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFarmerRoute = AuthenticatedFarmerRouteImport.update({
+  id: '/farmer',
+  path: '/farmer',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const MarketplaceIndexRoute = MarketplaceIndexRouteImport.update({
   id: '/marketplace/',
@@ -68,10 +97,14 @@ const MarketplaceSellRoute = MarketplaceSellRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/record': typeof RecordRoute
   '/records': typeof RecordsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/reuse': typeof ReuseRoute
+  '/buyer': typeof AuthenticatedBuyerRoute
+  '/farmer': typeof AuthenticatedFarmerRoute
   '/marketplace/$listingId': typeof MarketplaceListingIdRoute
   '/marketplace/sell': typeof MarketplaceSellRoute
   '/marketplace/': typeof MarketplaceIndexRoute
@@ -79,10 +112,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/record': typeof RecordRoute
   '/records': typeof RecordsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/reuse': typeof ReuseRoute
+  '/buyer': typeof AuthenticatedBuyerRoute
+  '/farmer': typeof AuthenticatedFarmerRoute
   '/marketplace/$listingId': typeof MarketplaceListingIdRoute
   '/marketplace/sell': typeof MarketplaceSellRoute
   '/marketplace': typeof MarketplaceIndexRoute
@@ -90,11 +127,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/record': typeof RecordRoute
   '/records': typeof RecordsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/reuse': typeof ReuseRoute
+  '/_authenticated/buyer': typeof AuthenticatedBuyerRoute
+  '/_authenticated/farmer': typeof AuthenticatedFarmerRoute
   '/marketplace/$listingId': typeof MarketplaceListingIdRoute
   '/marketplace/sell': typeof MarketplaceSellRoute
   '/marketplace/': typeof MarketplaceIndexRoute
@@ -104,10 +146,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/dashboard'
     | '/record'
     | '/records'
+    | '/reset-password'
     | '/reuse'
+    | '/buyer'
+    | '/farmer'
     | '/marketplace/$listingId'
     | '/marketplace/sell'
     | '/marketplace/'
@@ -115,21 +161,30 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/dashboard'
     | '/record'
     | '/records'
+    | '/reset-password'
     | '/reuse'
+    | '/buyer'
+    | '/farmer'
     | '/marketplace/$listingId'
     | '/marketplace/sell'
     | '/marketplace'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
+    | '/auth'
     | '/dashboard'
     | '/record'
     | '/records'
+    | '/reset-password'
     | '/reuse'
+    | '/_authenticated/buyer'
+    | '/_authenticated/farmer'
     | '/marketplace/$listingId'
     | '/marketplace/sell'
     | '/marketplace/'
@@ -137,10 +192,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRoute
   RecordRoute: typeof RecordRoute
   RecordsRoute: typeof RecordsRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   ReuseRoute: typeof ReuseRoute
   MarketplaceListingIdRoute: typeof MarketplaceListingIdRoute
   MarketplaceSellRoute: typeof MarketplaceSellRoute
@@ -156,11 +214,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -184,12 +256,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RecordsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reuse': {
       id: '/reuse'
       path: '/reuse'
       fullPath: '/reuse'
       preLoaderRoute: typeof ReuseRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/buyer': {
+      id: '/_authenticated/buyer'
+      path: '/buyer'
+      fullPath: '/buyer'
+      preLoaderRoute: typeof AuthenticatedBuyerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/farmer': {
+      id: '/_authenticated/farmer'
+      path: '/farmer'
+      fullPath: '/farmer'
+      preLoaderRoute: typeof AuthenticatedFarmerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/marketplace/': {
       id: '/marketplace/'
@@ -215,12 +308,28 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedBuyerRoute: typeof AuthenticatedBuyerRoute
+  AuthenticatedFarmerRoute: typeof AuthenticatedFarmerRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedBuyerRoute: AuthenticatedBuyerRoute,
+  AuthenticatedFarmerRoute: AuthenticatedFarmerRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   DashboardRoute: DashboardRoute,
   RecordRoute: RecordRoute,
   RecordsRoute: RecordsRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   ReuseRoute: ReuseRoute,
   MarketplaceListingIdRoute: MarketplaceListingIdRoute,
   MarketplaceSellRoute: MarketplaceSellRoute,
