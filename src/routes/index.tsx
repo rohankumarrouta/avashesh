@@ -35,11 +35,23 @@ function Index() {
         <h1 className="text-4xl font-semibold sm:text-5xl">Avashesh</h1>
         <p className="mt-3 text-xl font-medium sm:text-2xl">Waste Less. Create More.</p>
         <p className="mt-5 max-w-lg text-sm leading-relaxed sm:text-base">Working towards cleaner air by preventing unnecessary agricultural waste burning and promoting reuse.</p>
-        <p className="mt-6 text-xs">Pollution reduction is our goal, not a measured achievement.</p>
+        <div className="mt-6 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/marketplace">Browse listings<ArrowUpRight /></Link></Button><Button asChild size="lg" variant="secondary"><Link to="/record">Record waste</Link></Button></div>
+        <p className="mt-5 text-xs opacity-90">Pollution reduction is our goal, not a measured achievement.</p>
       </section>
       <section className="space-y-3">
-        <div className="grid gap-3 sm:grid-cols-2"><Button asChild className="h-auto min-h-20 justify-start whitespace-normal px-5 py-5 text-sm"><Link to="/marketplace"><ShoppingBasket className="mr-2 size-6" /><span className="flex-1">BUY AGRICULTURAL WASTE</span><ArrowUpRight /></Link></Button><Button asChild variant="outline" className="h-auto min-h-20 justify-start whitespace-normal px-5 py-5 text-sm">{user ? <Link to="/marketplace/sell"><Sprout className="mr-2 size-6" /><span className="flex-1">SELL AGRICULTURAL WASTE</span><ArrowUpRight /></Link> : <Link to="/auth" search={{next:"/marketplace/sell",role:"farmer"}}><Sprout className="mr-2 size-6" /><span className="flex-1">SELL AGRICULTURAL WASTE</span><ArrowUpRight /></Link>}</Button></div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Button asChild className="h-auto min-h-24 justify-start whitespace-normal rounded-xl px-5 py-5 text-left shadow-sm"><Link to="/marketplace"><ShoppingBasket className="mr-3 size-7 shrink-0" /><span className="flex-1"><span className="block text-sm font-bold tracking-wide">BUY AGRICULTURAL WASTE</span><span className="mt-1 block text-xs font-normal opacity-90">Browse straw, husk and residue listings</span></span><ArrowUpRight className="shrink-0" /></Link></Button>
+          <Button asChild variant="outline" className="h-auto min-h-24 justify-start whitespace-normal rounded-xl border-2 border-primary px-5 py-5 text-left shadow-sm">{user ? <Link to="/marketplace/sell"><Sprout className="mr-3 size-7 shrink-0 text-primary" /><span className="flex-1"><span className="block text-sm font-bold tracking-wide">SELL AGRICULTURAL WASTE</span><span className="mt-1 block text-xs font-normal text-muted-foreground">Post your residue for buyers to find</span></span><ArrowUpRight className="shrink-0" /></Link> : <Link to="/auth" search={{next:"/marketplace/sell",role:"farmer"}}><Sprout className="mr-3 size-7 shrink-0 text-primary" /><span className="flex-1"><span className="block text-sm font-bold tracking-wide">SELL AGRICULTURAL WASTE</span><span className="mt-1 block text-xs font-normal text-muted-foreground">Post your residue for buyers to find</span></span><ArrowUpRight className="shrink-0" /></Link>}</Button>
+        </div>
         <p className="text-sm text-muted-foreground">Every agricultural residue deserves a better alternative to burning. Help us turn waste into resources and work towards cleaner air.</p>
+      </section>
+      <section className="space-y-4 border-t border-border pt-6">
+        <h2 className="text-2xl font-semibold">How it works</h2>
+        <ol className="grid gap-3 sm:grid-cols-3">
+          {[["Farmer posts residue","Add type, quantity, district and a photo."],["Buyer sends inquiry","Buyers browse listings and contact the seller."],["Residue gets reused","Straw or husk goes to reuse instead of burning."]].map(([t,d],i)=>(
+            <li key={t} className="flex gap-3 rounded-xl border border-border bg-card p-4"><span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">{i+1}</span><span><span className="block font-semibold">{t}</span><span className="mt-1 block text-sm text-muted-foreground">{d}</span></span></li>
+          ))}
+        </ol>
       </section>
       <section className="grid gap-4 border-t border-border pt-6 sm:grid-cols-[1fr_2fr]"><h2 className="text-2xl font-semibold">Our mission</h2><p className="text-sm leading-relaxed sm:text-base">{mission}</p></section>
       <PollutionStory/><ReuseFlow/><EnvironmentalGoals/><MaterialOpportunities/><PollutionImpact/>
