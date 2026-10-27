@@ -55,7 +55,7 @@ export function Page({ children, wide = false }: { children: ReactNode; wide?: b
       <main id="main-content" className={`app-content mx-auto space-y-6 px-4 py-8 sm:px-8 sm:py-10 ${wide ? "max-w-5xl" : "max-w-3xl"}`}>{children}</main>
       <footer className="border-t border-border bg-card px-4 py-8 text-xs text-muted-foreground"><div className="mx-auto flex max-w-5xl flex-col justify-between gap-4 sm:flex-row sm:px-8">
         <BrandClarification />
-        <p>Team Avashesh — student project. Waste Less. Create More.</p>
+        <div className="space-y-2"><nav aria-label="Footer" className="flex flex-wrap gap-x-4 gap-y-2"><Link to="/marketplace" className="hover:text-primary">Marketplace</Link><Link to="/record" className="hover:text-primary">Record waste</Link><Link to="/dashboard" className="hover:text-primary">Dashboard</Link><Link to="/about" className="hover:text-primary">About</Link></nav><p>Team Avashesh — student project. Waste Less. Create More.</p></div>
       </div></footer>
     </div>
   );

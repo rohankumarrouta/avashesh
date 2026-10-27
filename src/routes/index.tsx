@@ -52,6 +52,13 @@ function Index() {
           ))}
         </ol>
       </section>
+      <section className="space-y-4 border-t border-border pt-6">
+        <h2 className="text-2xl font-semibold">Who it's for</h2>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {[[Sprout,"Farmers","List paddy straw, coconut husk or other residue instead of burning it."],[ShoppingBasket,"Buyers","Find residue for mushrooms, coir, compost, fodder or biomass use."],[Recycle,"Anyone curious","Record waste on this device and explore simple reuse ideas."]].map(([Icon,t,d])=>{const I=Icon as typeof Sprout;return(
+            <div key={t as string} className="rounded-xl border border-border bg-card p-5 shadow-sm"><span className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary"><I className="size-5" aria-hidden="true" /></span><h3 className="mt-3 font-semibold">{t as string}</h3><p className="mt-1 text-sm text-muted-foreground">{d as string}</p></div>)})}
+        </div>
+      </section>
       <section className="grid gap-4 border-t border-border pt-6 sm:grid-cols-[1fr_2fr]"><h2 className="text-2xl font-semibold">Our mission</h2><p className="text-sm leading-relaxed sm:text-base">{mission}</p></section>
       <PollutionStory/><ReuseFlow/><EnvironmentalGoals/><MaterialOpportunities/><PollutionImpact/>
       <section className="space-y-4 border-t border-border pt-6"><h2 className="text-2xl font-semibold">Record and explore reuse</h2><div className="grid gap-3 sm:grid-cols-3"><Button asChild variant="outline"><Link to="/record"><ClipboardPlus />Record waste</Link></Button><Button asChild variant="outline"><Link to="/reuse"><Recycle />Explore reuse ideas</Link></Button><Button asChild variant="outline"><Link to="/dashboard"><ChartNoAxesCombined />View dashboard</Link></Button></div><p className="text-xs text-muted-foreground">Waste records stay on this device. Marketplace listings and inquiries are shared through signed-in accounts. Suggestions use fixed rules, not AI.</p><Button asChild variant="link"><Link to="/about">About the project<ArrowUpRight /></Link></Button></section>
