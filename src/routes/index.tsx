@@ -1,6 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Page } from "@/components/SiteHeader";
 import hero from "@/assets/hero.jpg";
+import { Button } from "@/components/ui/button";
+import { Sprout, Tractor } from "lucide-react";
+import { useAccount } from "@/hooks/use-account";
+import { useEffect } from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,6 +22,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { user, role } = useAccount();
+  const navigate = useNavigate();
+  useEffect(() => { if (!user || !role) return; const next = window.sessionStorage.getItem("avashesh.auth-next"); if (!next) return; window.sessionStorage.removeItem("avashesh.auth-next"); if (next === "/marketplace/sell" && role === "farmer") void navigate({ to: "/marketplace/sell" }); else if (next.startsWith("/marketplace/") && next !== "/marketplace/sell") void navigate({ to: "/marketplace/$listingId", params: { listingId: next.split("/")[2] ?? "" } }); }, [user, role, navigate]);
   return (
     <Page>
       <img src={hero} alt="Paddy straw bales in a harvested field" width={1280} height={960} className="aspect-[16/9] w-full rounded-lg object-cover" />
@@ -26,6 +34,23 @@ function Index() {
           Avashesh helps you record agricultural waste — like paddy straw and coconut husk — and see simple ways to reuse it instead of burning or throwing it away.
         </p>
       </div>
+      <section className="space-y-3">
+        <h2 className="text-xl font-bold">Turn Agricultural Waste Into Opportunity</h2>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <article className="flex flex-col items-start gap-3 rounded-md border border-border bg-card p-5">
+            <Sprout className="size-9 text-primary" aria-hidden="true" />
+            <h3 className="font-semibold">BUY AGRICULTURAL WASTE</h3>
+            <p className="text-sm text-muted-foreground">Find agricultural waste and raw materials available from farmers.</p>
+            <Button asChild className="mt-auto w-full"><Link to="/marketplace">Buy Waste</Link></Button>
+          </article>
+          <article className="flex flex-col items-start gap-3 rounded-md border border-primary bg-secondary p-5">
+            <Tractor className="size-9 text-primary" aria-hidden="true" />
+            <h3 className="font-semibold">SELL AGRICULTURAL WASTE</h3>
+            <p className="text-sm text-muted-foreground">List your paddy straw, coconut husk and other agricultural waste for buyers.</p>
+            <Button asChild className="mt-auto w-full">{user ? <Link to="/marketplace/sell">Sell Waste</Link> : <Link to="/auth" search={{next:"/marketplace/sell",role:"farmer"}}>Sell Waste</Link>}</Button>
+          </article>
+        </div>
+      </section>
       <div className="grid gap-2 sm:grid-cols-3">
         <Link to="/record" className="rounded-md bg-primary px-4 py-3 text-center font-semibold text-primary-foreground">Record waste</Link>
         <Link to="/reuse" className="rounded-md border border-border bg-card px-4 py-3 text-center font-semibold">Explore reuse ideas</Link>

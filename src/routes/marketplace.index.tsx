@@ -1,77 +1,19 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Plus, Trash2 } from "lucide-react";
-import { Page, SampleBadge } from "@/components/SiteHeader";
-import { Button } from "@/components/ui/button";
-import { ContactSeller, MarketplaceNotice, marketField, formatPrice } from "@/components/MarketplaceShared";
-import { useMarketplace } from "@/hooks/use-marketplace";
-import { filterListings, MARKET_TYPES, marketLabel, pricePerKg } from "@/lib/marketplace";
-
-export const Route = createFileRoute("/marketplace/")({
-  head: () => ({ meta: [
-    { title: "Agricultural waste marketplace — Avashesh" },
-    { name: "description", content: "Browse sample agricultural waste listings and try selling and inquiries in Avashesh’s browser-only marketplace demo." },
-    { property: "og:title", content: "Agricultural waste marketplace — Avashesh" },
-    { property: "og:description", content: "A transparent local marketplace prototype for agricultural waste." },
-    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ] }), component: Marketplace,
-});
-const emptyFilters = { search: "", wasteType: "", location: "", min: "", max: "" };
-function Marketplace() {
-  const { state, ready, error, remove, removeSamples, restoreSamples, clear } = useMarketplace();
-  const [view, setView] = useState<"buyer" | "seller">("buyer");
-  const [filters, setFilters] = useState(emptyFilters);
-  const listings = state?.listings ?? [];
-  const own = listings.filter((l) => !l.isDemo && l.ownerId === state?.ownerId);
-  const shown = view === "buyer" ? filterListings(listings, filters) : own;
-  const invalidPrice = (filters.min !== "" && (!Number.isFinite(Number(filters.min)) || Number(filters.min) < 0)) || (filters.max !== "" && (!Number.isFinite(Number(filters.max)) || Number(filters.max) < Number(filters.min)));
-  return <Page>
-    <div className="flex flex-wrap items-center justify-between gap-3"><h1 className="text-2xl font-bold">Marketplace</h1><Button asChild><Link to="/marketplace/sell"><Plus />Sell Your Waste</Link></Button></div>
-    <MarketplaceNotice />
-    <div className="flex gap-2" role="group" aria-label="Marketplace view">
-      <Button variant={view === "buyer" ? "default" : "outline"} aria-pressed={view === "buyer"} onClick={() => setView("buyer")}>Buyer</Button>
-      <Button variant={view === "seller" ? "default" : "outline"} aria-pressed={view === "seller"} onClick={() => setView("seller")}>My listings & inquiries</Button>
-    </div>
-    {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
-    {view === "buyer" ? <section className="space-y-3 border-b border-border pb-5">
-      <label className="block text-sm font-medium">Search listings<input type="search" className={marketField} maxLength={120} placeholder="Waste type, place or description" value={filters.search} onChange={(e) => setFilters({ ...filters, search: e.target.value })} /></label>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <label className="text-sm font-medium">Waste type<select className={marketField} value={filters.wasteType} onChange={(e) => setFilters({ ...filters, wasteType: e.target.value })}><option value="">All types</option>{MARKET_TYPES.map((t) => <option key={t.id} value={t.id}>{t.label}</option>)}</select></label>
-        <label className="text-sm font-medium">Location<input className={marketField} maxLength={120} placeholder="Town or district" value={filters.location} onChange={(e) => setFilters({ ...filters, location: e.target.value })} /></label>
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        <label className="text-sm font-medium">Min price (₹/kg)<input type="number" min="0" step="any" className={marketField} value={filters.min} onChange={(e) => setFilters({ ...filters, min: e.target.value })} /></label>
-        <label className="text-sm font-medium">Max price (₹/kg)<input type="number" min="0" step="any" className={marketField} value={filters.max} onChange={(e) => setFilters({ ...filters, max: e.target.value })} /></label>
-      </div>
-      {invalidPrice && <p role="alert" className="text-sm text-destructive">Enter non-negative prices with maximum at least minimum.</p>}
-      <Button variant="ghost" onClick={() => setFilters(emptyFilters)}>Reset filters</Button>
-    </section> : <p className="text-sm text-muted-foreground">Only listings created in this browser appear here. There are no seller accounts; anyone using this browser can manage these listings and see inquiries.</p>}
-    {!ready ? <p>Loading marketplace…</p> : state && <>
-      <p className="text-sm text-muted-foreground">{shown.length} {view === "buyer" ? "available listings" : "listings created here"}</p>
-      {shown.length === 0 && <p>{view === "buyer" ? "No listings match. Try changing your filters or add a listing." : "You have not created any listings in this browser yet."}</p>}
-      <div className="grid gap-3 sm:grid-cols-2">
-        {shown.map((l) => {
-          const inquiries = state.inquiries.filter((i) => i.listingId === l.id);
-          return <article key={l.id} className="min-w-0 space-y-3 rounded-md border border-border bg-card p-4">
-            {l.photo && <img src={l.photo} alt={`${marketLabel(l.wasteType)} supplied by seller`} className="aspect-[4/3] w-full rounded-md object-cover" />}
-            <div className="flex flex-wrap items-center gap-2"><h2 className="font-semibold">{marketLabel(l.wasteType)}</h2>{l.isDemo && <SampleBadge />}</div>
-            <p>{formatPrice(l.quantity)} {l.unit} available</p>
-            <p className="font-semibold">₹{formatPrice(l.price)} / {l.unit} <span className="text-xs font-normal text-muted-foreground">(₹{formatPrice(pricePerKg(l))}/kg)</span></p>
-            <p className="break-words text-sm text-muted-foreground">{l.location}</p>
-            <Button asChild variant="outline" className="w-full"><Link to="/marketplace/$listingId" params={{ listingId: l.id }}>View details & express interest</Link></Button>
-            {view === "buyer" && <ContactSeller listing={l} />}
-            {view === "seller" && <>
-              <h3 className="border-t border-border pt-3 text-sm font-semibold">Inquiries ({inquiries.length})</h3>
-              {inquiries.length === 0 ? <p className="text-sm text-muted-foreground">No inquiries saved here yet.</p> : <ul className="space-y-3 text-sm">{inquiries.map((i) => <li key={i.id} className="space-y-1 break-words"><strong>{i.buyerName}</strong><p>{i.contact}</p><p className="whitespace-pre-wrap">{i.message}</p><p className="text-xs text-muted-foreground">{i.createdAt.slice(0, 10)} · Local demo inquiry</p></li>)}</ul>}
-              <Button variant="destructive" onClick={() => window.confirm("Delete this listing and its inquiries from this browser?") && remove(l.id)}><Trash2 />Delete listing</Button>
-            </>}
-          </article>;
-        })}
-      </div>
-      <div className="flex flex-wrap gap-2 border-t border-border pt-4">
-        {listings.some((l) => l.isDemo) ? <Button variant="outline" onClick={removeSamples}>Remove sample listings</Button> : <Button variant="outline" onClick={restoreSamples}>Restore sample listings</Button>}
-        {(listings.length > 0 || state.inquiries.length > 0) && <Button variant="outline" onClick={() => window.confirm("Delete all marketplace listings and inquiries in this browser? Waste records are not affected.") && clear()}><Trash2 />Clear marketplace data</Button>}
-      </div>
-    </>}
-  </Page>;
+import { createFileRoute, Link, ClientOnly, useNavigate } from '@tanstack/react-router';
+import { Suspense } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { z } from 'zod';
+import { fallback,zodValidator } from '@tanstack/zod-adapter';
+import { Page } from '@/components/SiteHeader';
+import { Button } from '@/components/ui/button';
+import { marketField,formatPrice } from '@/components/MarketplaceShared';
+import { MARKET_TYPES,marketLabel } from '@/lib/marketplace';
+import { cloudPriceKg,filterCloudListings } from '@/lib/cloud-marketplace';
+import { publishedListingsOptions } from '@/lib/cloud-queries';
+const defaults={q:'',type:'',location:'',min:'',max:'',quantity:''};
+export const Route=createFileRoute('/marketplace/')({validateSearch:zodValidator(z.object({q:fallback(z.string(),'').default(''),type:fallback(z.string(),'').default(''),location:fallback(z.string(),'').default(''),min:fallback(z.string(),'').default(''),max:fallback(z.string(),'').default(''),quantity:fallback(z.string(),'').default('')})),head:()=>({meta:[{title:'Buy agricultural waste — Avashesh'},{name:'description',content:'Browse published agricultural waste listings from Avashesh sellers.'},{property:'og:title',content:'Buy agricultural waste — Avashesh'},{property:'og:description',content:'Available agricultural residue listings from a shared marketplace.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]}),errorComponent:({error})=><Page><p role="alert">{error instanceof Error ? error.message : "Could not load listings."}</p><Button onClick={()=>window.location.reload()}>Try again</Button></Page>,component:Marketplace});
+function Marketplace(){return <Page><h1 className="text-2xl font-bold">Buy agricultural waste</h1><p className="text-sm text-muted-foreground">Published seller listings. Seller identity, material quality and asking prices are not independently verified. No payments are processed.</p><ClientOnly fallback={<p>Loading listings…</p>}><Suspense fallback={<p>Loading listings…</p>}><Browse/></Suspense></ClientOnly></Page>;}
+function Browse(){const {data}=useSuspenseQuery(publishedListingsOptions);const filters=Route.useSearch(),navigate=useNavigate({from:'/marketplace/'});const shown=filterCloudListings(data,filters);
+ function set(key:keyof typeof defaults,value:string){void navigate({search:prev=>({...prev,[key]:value}),replace:true});}
+ return <><section className="space-y-3 border-b border-border pb-4"><label className="block">Search listings<input type="search" aria-label="Search listings" className={marketField} maxLength={120} value={filters.q} onChange={e=>set('q',e.target.value)}/></label><div className="grid gap-3 sm:grid-cols-2"><label>Waste type<select aria-label="Waste type" className={marketField} value={filters.type} onChange={e=>set('type',e.target.value)}><option value="">All types</option>{MARKET_TYPES.map(t=><option value={t.id} key={t.id}>{t.label}</option>)}</select></label><label>Location<input aria-label="Location" className={marketField} value={filters.location} maxLength={120} onChange={e=>set('location',e.target.value)}/></label></div><div className="grid grid-cols-2 gap-3">{(['min','max','quantity'] as const).map(key=><label key={key}>{key==='quantity'?'Min quantity (kg)':key==='min'?'Min price (₹/kg)':'Max price (₹/kg)'}<input aria-label={key==='quantity'?'Min quantity (kg)':key==='min'?'Min price (₹/kg)':'Max price (₹/kg)'} type="number" min="0" step="any" className={marketField} value={filters[key]} onChange={e=>set(key,e.target.value)}/></label>)}</div><Button variant="ghost" onClick={()=>void navigate({search:defaults})}>Reset filters</Button></section>
+ <p className="text-sm">{shown.length} available listings</p>{!shown.length&&<p>No published listings match your search yet.</p>}<div className="grid gap-3 sm:grid-cols-2">{shown.map(l=><article key={l.id} className="min-w-0 space-y-2 rounded-md border border-border bg-card p-4"><h2 className="font-semibold">{marketLabel(l.waste_type)}</h2><p>{formatPrice(l.quantity)} {l.unit} available</p><p>₹{formatPrice(l.price)} / {l.unit} <span className="text-xs text-muted-foreground">(₹{formatPrice(cloudPriceKg(l))}/kg)</span></p><p className="break-words text-sm">{l.location} · {l.seller_name}</p><p className="text-xs text-primary">Available · Published</p><Button asChild variant="outline"><Link to="/marketplace/$listingId" params={{listingId:l.id}}>View details & inquire</Link></Button></article>)}</div></>;
 }

@@ -1,0 +1,11 @@
+REVOKE ALL ON FUNCTION public.market_signup() FROM anon, authenticated;
+REVOKE ALL ON FUNCTION public.has_market_role(public.market_role) FROM anon;
+ALTER FUNCTION public.has_market_role(public.market_role) SECURITY INVOKER;
+REVOKE INSERT, UPDATE, DELETE ON public.user_roles FROM anon,authenticated;
+REVOKE INSERT, DELETE ON public.profiles FROM anon,authenticated;
+REVOKE ALL ON FUNCTION public.listing_identity_guard() FROM PUBLIC,anon,authenticated;
+REVOKE ALL ON FUNCTION public.inquiry_guard() FROM PUBLIC,anon,authenticated;
+REVOKE ALL ON FUNCTION public.validate_market_photo() FROM PUBLIC,anon,authenticated;
+CREATE FUNCTION public.profile_contact_guard() RETURNS trigger LANGUAGE plpgsql SET search_path=public AS $$ BEGIN IF NEW.contact<>'' AND NOT (NEW.contact ~ '^(\+91[ -]?)?[6-9][0-9 -]{9,18}$') THEN RAISE EXCEPTION 'Invalid profile mobile number'; END IF; RETURN NEW; END $$;
+REVOKE ALL ON FUNCTION public.profile_contact_guard() FROM PUBLIC,anon,authenticated;
+CREATE TRIGGER profile_contact_validation BEFORE INSERT OR UPDATE ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.profile_contact_guard();

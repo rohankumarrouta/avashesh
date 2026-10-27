@@ -1,5 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { useState } from "react";
+import { useAccount } from "@/hooks/use-account";
+import { Button } from "@/components/ui/button";
 
 const links = [
   { to: "/", label: "Home" },
@@ -7,17 +10,23 @@ const links = [
   { to: "/reuse", label: "Reuse" },
   { to: "/dashboard", label: "Dashboard" },
   { to: "/records", label: "Records" },
-  { to: "/marketplace", label: "Marketplace" },
   { to: "/about", label: "About" },
 ] as const;
 
 export function SiteHeader() {
+  const { user, role, logout } = useAccount();
+  const [error, setError] = useState("");
   return (
     <header className="border-b border-border bg-card">
       <div className="mx-auto max-w-3xl px-4 pt-3">
-        <Link to="/" className="text-lg font-bold text-primary">
+        <div className="flex flex-wrap items-center justify-between gap-2"><Link to="/" className="text-lg font-bold text-primary">
           Avashesh
         </Link>
+        <div className="flex items-center gap-2 text-sm">{user ? <>
+          {role && <Link to={role === "farmer" ? "/farmer" : "/buyer"} className="text-primary underline">My account</Link>}
+          <Button variant="ghost" size="sm" onClick={() => void logout().catch(() => setError("Could not sign out. Try again."))}>Sign out</Button>
+        </> : <Link to="/auth" search={{ next: "", role: "buyer" }} className="text-primary underline">Sign in</Link>}</div></div>
+        {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
         <nav className="-mx-1 mt-1 flex flex-wrap text-sm">
           {links.map((l) => (
             <Link

@@ -1,0 +1,3 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { AccountDashboard } from '@/components/AccountDashboard';
+export const Route=createFileRoute('/_authenticated/farmer')({head:()=>({meta:[{title:'Farmer dashboard — Avashesh'},{name:'description',content:'Manage your listings and buyer inquiries.'},{property:'og:title',content:'Farmer dashboard — Avashesh'},{property:'og:description',content:'Private farmer listings and inquiries.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]}),component:()=> <AccountDashboard expected="farmer"/>});

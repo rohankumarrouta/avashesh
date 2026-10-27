@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1793122065252,
+      "tag": "0000_shared_marketplace_accounts",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793122092293,
+      "tag": "0001_marketplace_media_permissions",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793122573228,
+      "tag": "0002_tighten_marketplace_function_grants",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793122745987,
+      "tag": "0003_strict_buyer_contact_validation",
+      "breakpoints": true
+    }
+  ]
+}
