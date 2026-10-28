@@ -18,6 +18,8 @@ export default defineConfig({
       VitePWA({
         // The service worker is generated at build time and registered only from
         // src/pwa/register-sw.ts, which refuses to run in dev/Lovable preview.
+        // This project's served files are emitted to dist/client, not dist.
+        outDir: "dist/client",
         registerType: "autoUpdate",
         injectRegister: null,
         devOptions: { enabled: false },
