@@ -52,9 +52,13 @@ export function registerAppServiceWorker(): void {
     void unregisterAppWorkers();
     return;
   }
-  window.addEventListener("load", () => {
+  const register = () => {
     navigator.serviceWorker.register(SW_URL, { scope: "/" }).catch(() => {
       // Offline support is an enhancement; the app still works online.
     });
-  });
+  };
+  // React mounts after the page has often finished loading, so waiting for the
+  // load event alone would mean the worker is never registered.
+  if (document.readyState === "complete") register();
+  else window.addEventListener("load", register, { once: true });
 }
