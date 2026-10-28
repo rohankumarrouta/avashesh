@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AccountProvider } from "@/hooks/use-account";
+import { registerAppServiceWorker } from "@/pwa/register-sw";
 
 function NotFoundComponent() {
   return (
@@ -83,9 +84,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Crop residue marketplace prototype." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "theme-color", content: "#2C5C2F" },
     ],
     links: [
       { rel: 'icon', href: '/favicon.png', type: 'image/png' },
+      { rel: 'apple-touch-icon', href: '/icons/apple-touch-icon.png' },
+      { rel: 'manifest', href: '/manifest.webmanifest' },
       {
         rel: "stylesheet",
         href: appCss,
@@ -117,6 +121,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    registerAppServiceWorker();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
