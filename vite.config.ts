@@ -48,14 +48,38 @@ export default defineConfig({
         },
         workbox: {
           globPatterns: ["**/*.{js,css,html,webmanifest,png,jpg,jpeg,svg,woff,woff2}"],
-          // Navigations are fetched from the network first; this page is the last
-          // resort when the device is offline and the page was never opened before.
-          navigateFallback: "/offline.html",
-          navigateFallbackDenylist: [/^\/~oauth/, /^\/api\//, /^\/\.well-known\//],
           cleanupOutdatedCaches: true,
           dontCacheBustURLsMatching: /\.[a-f0-9]{8,}\.(js|css)$/,
           maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
           runtimeCaching: [
+            {
+              // Pages always come from the network while a connection exists. The
+              // copy is kept so a page already opened can still be read offline.
+              urlPattern: ({ request, sameOrigin }) => sameOrigin && request.mode === "navigate",
+              handler: async (options) => {
+                const cache = await caches.open("avashesh-pages");
+                try {
+                  const response = await fetch(options.request);
+                  if (response.ok) {
+                    try {
+                      await cache.put(options.request, response.clone());
+                    } catch {
+                      // A page that cannot be stored is still served normally.
+                    }
+                  }
+                  return response;
+                } catch {
+                  const saved = await cache.match(options.request);
+                  if (saved) return saved;
+                  const offlinePage = await caches.match("/offline.html");
+                  if (offlinePage) return offlinePage;
+                  return new Response("You are offline.", {
+                    status: 503,
+                    headers: { "content-type": "text/plain" },
+                  });
+                }
+              },
+            },
             {
               // Same-origin hashed build files are immutable, so they may be cached hard.
               urlPattern: ({ url, sameOrigin }) =>
