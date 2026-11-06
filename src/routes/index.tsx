@@ -210,8 +210,8 @@ function Index() {
                 {i + 1}
               </span>
               <span>
-                <span className="block font-semibold">{t(title)}</span>
-                <span className="mt-1 block text-sm text-muted-foreground">{t(d)}</span>
+                <span className="block font-semibold">{t(title ?? "")}</span>
+                <span className="mt-1 block text-sm text-muted-foreground">{t(d ?? "")}</span>
               </span>
             </li>
           ))}
