@@ -16,22 +16,22 @@ TanStack Start serves the pages. Waste records retain browser-only persistence; 
 
 ## Modules
 
-| File | Responsibility |
-|---|---|
-| `src/lib/waste.ts` | Waste types, practices, Odisha districts, units, `WasteRecord` type, validation, safe parse/load/save |
-| `src/lib/reuse-rules.ts` | List of reuse options and the deterministic `recommend()` scoring with reasons |
-| `src/lib/dashboard.ts` | `summarize()` — totals, breakdowns, estimate input |
-| `src/lib/impact.ts` | IPCC emission factors and `estimateAvoidedEmissions()` |
-| `src/hooks/use-records.ts` | React hook: add, delete, set plan, load/remove sample data, clear all |
-| `src/data/sample-records.json` | Made-up sample records (`isDemo: true`) |
-| `src/routes/*.tsx` | Home, Record, Reuse, Dashboard, Records, About pages |
-| `src/lib/marketplace.ts` | Zod schemas, pure listing/inquiry mutations, normalized INR/kg filters, safe contact links, state parsing |
-| `src/lib/cloud-marketplace.ts`, `marketplace.functions.ts` | Shared listing schemas, pure filters and authenticated validated writes |
-| `src/hooks/use-account.tsx` | Session subscription, private profile/role reads and ordered sign-out |
-| `src/lib/cloud-queries.ts` | Published listing reads (paged in 500-row batches), details |
-| `src/data/sample-listings.json` | Legacy fictional test fixture, never seeded into the shared marketplace |
-| `src/components/MarketplaceShared.tsx` | Shared prototype notice, contact actions and field styling |
-| `src/routes/marketplace.*.tsx` | Buyer/seller views, sell form and details/inquiry page |
+| File                                                       | Responsibility                                                                                            |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `src/lib/waste.ts`                                         | Waste types, practices, Odisha districts, units, `WasteRecord` type, validation, safe parse/load/save     |
+| `src/lib/reuse-rules.ts`                                   | List of reuse options and the deterministic `recommend()` scoring with reasons                            |
+| `src/lib/dashboard.ts`                                     | `summarize()` — totals, breakdowns, estimate input                                                        |
+| `src/lib/impact.ts`                                        | IPCC emission factors and `estimateAvoidedEmissions()`                                                    |
+| `src/hooks/use-records.ts`                                 | React hook: add, delete, set plan, load/remove sample data, clear all                                     |
+| `src/data/sample-records.json`                             | Made-up sample records (`isDemo: true`)                                                                   |
+| `src/routes/*.tsx`                                         | Home, Record, Reuse, Dashboard, Records, About pages                                                      |
+| `src/lib/marketplace.ts`                                   | Zod schemas, pure listing/inquiry mutations, normalized INR/kg filters, safe contact links, state parsing |
+| `src/lib/cloud-marketplace.ts`, `marketplace.functions.ts` | Shared listing schemas, pure filters and authenticated validated writes                                   |
+| `src/hooks/use-account.tsx`                                | Session subscription, private profile/role reads and ordered sign-out                                     |
+| `src/lib/cloud-queries.ts`                                 | Published listing reads (paged in 500-row batches), details                                               |
+| `src/data/sample-listings.json`                            | Legacy fictional test fixture, never seeded into the shared marketplace                                   |
+| `src/components/MarketplaceShared.tsx`                     | Shared prototype notice, contact actions and field styling                                                |
+| `src/routes/marketplace.*.tsx`                             | Buyer/seller views, sell form and details/inquiry page                                                    |
 
 ## Data model
 

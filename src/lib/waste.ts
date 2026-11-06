@@ -20,10 +20,36 @@ export const PRACTICES = [
 export type PracticeId = (typeof PRACTICES)[number]["id"];
 
 export const ODISHA_DISTRICTS = [
-  "Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak", "Boudh", "Cuttack", "Deogarh",
-  "Dhenkanal", "Gajapati", "Ganjam", "Jagatsinghpur", "Jajpur", "Jharsuguda", "Kalahandi",
-  "Kandhamal", "Kendrapara", "Kendujhar", "Khordha", "Koraput", "Malkangiri", "Mayurbhanj",
-  "Nabarangpur", "Nayagarh", "Nuapada", "Puri", "Rayagada", "Sambalpur", "Subarnapur", "Sundargarh",
+  "Angul",
+  "Balangir",
+  "Balasore",
+  "Bargarh",
+  "Bhadrak",
+  "Boudh",
+  "Cuttack",
+  "Deogarh",
+  "Dhenkanal",
+  "Gajapati",
+  "Ganjam",
+  "Jagatsinghpur",
+  "Jajpur",
+  "Jharsuguda",
+  "Kalahandi",
+  "Kandhamal",
+  "Kendrapara",
+  "Kendujhar",
+  "Khordha",
+  "Koraput",
+  "Malkangiri",
+  "Mayurbhanj",
+  "Nabarangpur",
+  "Nayagarh",
+  "Nuapada",
+  "Puri",
+  "Rayagada",
+  "Sambalpur",
+  "Subarnapur",
+  "Sundargarh",
 ] as const;
 
 export type Unit = "kg" | "quintal" | "tonne";
@@ -42,7 +68,10 @@ export interface WasteRecord {
   createdAt: string;
 }
 
-export type RecordInput = Pick<WasteRecord, "wasteType" | "quantityKg" | "district" | "date" | "practice" | "notes">;
+export type RecordInput = Pick<
+  WasteRecord,
+  "wasteType" | "quantityKg" | "district" | "date" | "practice" | "notes"
+>;
 
 export const LIMITS = { maxKg: 1_000_000, maxNotes: 300 } as const;
 export const STORAGE_KEY = "avashesh.records.v1";
@@ -65,19 +94,27 @@ export function todayISO(now = new Date()): string {
   return now.toISOString().slice(0, 10);
 }
 
-export function validateRecord(input: Partial<RecordInput>, today = todayISO()): Record<string, string> {
+export function validateRecord(
+  input: Partial<RecordInput>,
+  today = todayISO(),
+): Record<string, string> {
   const e: Record<string, string> = {};
   if (!WASTE_TYPES.some((w) => w.id === input.wasteType)) e["wasteType"] = "Choose a waste type.";
   const q = input.quantityKg;
-  if (typeof q !== "number" || !Number.isFinite(q) || q <= 0) e["quantityKg"] = "Enter a quantity greater than 0.";
-  else if (q > LIMITS.maxKg) e["quantityKg"] = "That is more than 1,000 tonnes. Please check the amount.";
+  if (typeof q !== "number" || !Number.isFinite(q) || q <= 0)
+    e["quantityKg"] = "Enter a quantity greater than 0.";
+  else if (q > LIMITS.maxKg)
+    e["quantityKg"] = "That is more than 1,000 tonnes. Please check the amount.";
   if (!ODISHA_DISTRICTS.includes((input.district ?? "") as (typeof ODISHA_DISTRICTS)[number]))
     e["district"] = "Choose a district.";
   const d = input.date ?? "";
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || Number.isNaN(Date.parse(d))) e["date"] = "Enter a valid date.";
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || Number.isNaN(Date.parse(d)))
+    e["date"] = "Enter a valid date.";
   else if (d > today) e["date"] = "Date cannot be in the future.";
-  if (!PRACTICES.some((p) => p.id === input.practice)) e["practice"] = "Choose what usually happens to it.";
-  if ((input.notes ?? "").length > LIMITS.maxNotes) e["notes"] = `Keep notes under ${LIMITS.maxNotes} characters.`;
+  if (!PRACTICES.some((p) => p.id === input.practice))
+    e["practice"] = "Choose what usually happens to it.";
+  if ((input.notes ?? "").length > LIMITS.maxNotes)
+    e["notes"] = `Keep notes under ${LIMITS.maxNotes} characters.`;
   return e;
 }
 

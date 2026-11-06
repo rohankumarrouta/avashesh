@@ -39,13 +39,13 @@ Existing waste recording is intentionally still local, separate from shared mark
 
 ## Database schema (actual)
 
-| Table | Columns and relationships |
-|---|---|
-| `profiles` | `id` UUID PK references auth user (cascade), `display_name`, `contact`, `created_at` |
-| `user_roles` | `user_id` UUID PK references auth user (cascade), `role` enum `market_role`: farmer/buyer |
-| `listings` | UUID `id`, `seller_id` references profiles, `waste_type`, `quantity`, `unit`, `price`, `district`, `state`, deprecated sanitized `location`, `description`, `photo`, `seller_name`, `seller_contact`, `status`, `is_demo`, `created_at`, `updated_at` |
-| `listing_locations` | `listing_id` UUID PK references listings (cascade), `full_location`; owner and inquiry-participant reads only |
-| `inquiries` | UUID `id`, `listing_id` references listings (cascade on hard delete), `buyer_id` references profiles, `buyer_name`, `contact`, `message`, `status`, `created_at` |
+| Table               | Columns and relationships                                                                                                                                                                                                                             |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `profiles`          | `id` UUID PK references auth user (cascade), `display_name`, `contact`, `created_at`                                                                                                                                                                  |
+| `user_roles`        | `user_id` UUID PK references auth user (cascade), `role` enum `market_role`: farmer/buyer                                                                                                                                                             |
+| `listings`          | UUID `id`, `seller_id` references profiles, `waste_type`, `quantity`, `unit`, `price`, `district`, `state`, deprecated sanitized `location`, `description`, `photo`, `seller_name`, `seller_contact`, `status`, `is_demo`, `created_at`, `updated_at` |
+| `listing_locations` | `listing_id` UUID PK references listings (cascade), `full_location`; owner and inquiry-participant reads only                                                                                                                                         |
+| `inquiries`         | UUID `id`, `listing_id` references listings (cascade on hard delete), `buyer_id` references profiles, `buyer_name`, `contact`, `message`, `status`, `created_at`                                                                                      |
 
 Listing statuses: draft/published/sold/deleted. Inquiry statuses: new/read/closed. `is_demo` is constrained false for shared listings; no sample rows are seeded. Table grants, indexes, triggers and policies are tracked in `drizzle/migrations/`. Bucket creation is a Storage API operation, not a migration insert.
 

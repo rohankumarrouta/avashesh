@@ -16,20 +16,20 @@ of burning it or leaving it unused. We are starting with Odisha.
 
 ## Implemented features
 
-| Page | What it does |
-|---|---|
-| Home `/` | AVASHESH logo in the top-left corner (front page only; other pages show the plain text name), primary Buy Waste and Sell Waste actions, mission sections, plus existing reuse/record tools |
-| Record `/record` | Enter waste type, quantity (kg / quintal / tonne), Odisha district, date, current handling, notes |
-| Reuse `/reuse` | Ranked reuse options with the reasons and steps; "Plan this option" saves your choice. Without a record, explore any waste type + quantity |
-| Dashboard `/dashboard` | Total recorded, number of records, plans made, breakdown by waste type and handling, estimated emissions |
-| Records `/records` | View, delete, export as JSON, load/remove sample data, delete all |
-| About `/about` | Pollution-prevention mission, how farmers and buyers connect, goals, material opportunities, honest limits; impact reporting is labelled pending |
-| Buy Waste `/marketplace` | Published shared listings; search and type/location/quantity/price filters, no login required to browse |
-| Sell `/marketplace/sell` | Seller name, Indian mobile number, waste type, quantity/unit, asking price per unit, public district/state, private full location, description, optional photo |
-| Listing `/marketplace/$listingId` | Shared details, supplied phone/WhatsApp links, Buyer-only inquiry submission |
-| Auth `/auth`, `/reset-password` | Email signup/login/logout and password recovery; Farmer/Buyer signup |
-| Farmer `/farmer` | Own listings, create/edit/publish/unavailable/delete, inquiries/status and private profile |
-| Buyer `/buyer` | Own inquiry history/status and private profile |
+| Page                              | What it does                                                                                                                                                                               |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Home `/`                          | AVASHESH logo in the top-left corner (front page only; other pages show the plain text name), primary Buy Waste and Sell Waste actions, mission sections, plus existing reuse/record tools |
+| Record `/record`                  | Enter waste type, quantity (kg / quintal / tonne), Odisha district, date, current handling, notes                                                                                          |
+| Reuse `/reuse`                    | Ranked reuse options with the reasons and steps; "Plan this option" saves your choice. Without a record, explore any waste type + quantity                                                 |
+| Dashboard `/dashboard`            | Total recorded, number of records, plans made, breakdown by waste type and handling, estimated emissions                                                                                   |
+| Records `/records`                | View, delete, export as JSON, load/remove sample data, delete all                                                                                                                          |
+| About `/about`                    | Pollution-prevention mission, how farmers and buyers connect, goals, material opportunities, honest limits; impact reporting is labelled pending                                           |
+| Buy Waste `/marketplace`          | Published shared listings; search and type/location/quantity/price filters, no login required to browse                                                                                    |
+| Sell `/marketplace/sell`          | Seller name, Indian mobile number, waste type, quantity/unit, asking price per unit, public district/state, private full location, description, optional photo                             |
+| Listing `/marketplace/$listingId` | Shared details, supplied phone/WhatsApp links, Buyer-only inquiry submission                                                                                                               |
+| Auth `/auth`, `/reset-password`   | Email signup/login/logout and password recovery; Farmer/Buyer signup                                                                                                                       |
+| Farmer `/farmer`                  | Own listings, create/edit/publish/unavailable/delete, inquiries/status and private profile                                                                                                 |
+| Buyer `/buyer`                    | Own inquiry history/status and private profile                                                                                                                                             |
 
 ## Tech stack (actual)
 
@@ -51,15 +51,15 @@ The connected Lovable environment provisions runtime variables. For an independe
 
 ### Environment variables (names only)
 
-| Variable | Actual purpose |
-|---|---|
-| `VITE_SUPABASE_URL` | Browser-accessible backend URL used by generated client |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | Browser publishable key; not a private secret |
-| `VITE_SUPABASE_PROJECT_ID` | Generated Cloud project configuration identifier |
-| `SUPABASE_URL` | Server runtime backend URL |
-| `SUPABASE_PUBLISHABLE_KEY` | Server user-scoped client configuration |
-| `SUPABASE_SERVICE_ROLE_KEY` | Generated privileged server client; used only to sign a photo path from an independently verified published listing; server-only, never commit or expose |
-| `LOVABLE_DB_MIGRATION_URL` | Connection consumed by `drizzle.config.ts` for migration tooling, not a browser variable |
+| Variable                        | Actual purpose                                                                                                                                           |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `VITE_SUPABASE_URL`             | Browser-accessible backend URL used by generated client                                                                                                  |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Browser publishable key; not a private secret                                                                                                            |
+| `VITE_SUPABASE_PROJECT_ID`      | Generated Cloud project configuration identifier                                                                                                         |
+| `SUPABASE_URL`                  | Server runtime backend URL                                                                                                                               |
+| `SUPABASE_PUBLISHABLE_KEY`      | Server user-scoped client configuration                                                                                                                  |
+| `SUPABASE_SERVICE_ROLE_KEY`     | Generated privileged server client; used only to sign a photo path from an independently verified published listing; server-only, never commit or expose |
+| `LOVABLE_DB_MIGRATION_URL`      | Connection consumed by `drizzle.config.ts` for migration tooling, not a browser variable                                                                 |
 
 No AI, payment or GitHub API key is required by the application. Do not copy managed secret values into repository docs. Local `.env` files must not be committed; the current `.gitignore` does not explicitly exclude `.env`, so keep configuration outside source control or add an ignore rule before your own Git submission.
 
@@ -126,6 +126,7 @@ N₂O 265 (IPCC AR5). Example: 1000 kg → 1609.15 kg CO₂e. A plan is not proo
 ## Tests
 
 `bun run test` runs the tests in `src/test/`:
+
 - `waste.test.ts` — quantity limits, Odisha districts, future dates, notes length, units, corrupt storage
 - `reuse-rules.test.ts` — size limits, minimum quantities, burning bonus, sort order, reasons
 - `dashboard.test.ts` — totals, breakdown, which records count toward the estimate

@@ -1,4 +1,5 @@
 <!-- LOVABLE:BEGIN -->
+
 > [!IMPORTANT]
 > This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
 > published git history — force pushing, or rebasing/amending/squashing commits
@@ -7,9 +8,11 @@
 >
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
+
 <!-- LOVABLE:END -->
 
 ## Project rules
+
 - Shared page layout and navigation live in SiteHeader with presentation tokens in src/styles.css; why: keep all screens consistent without changing marketplace or waste logic.
 - Business logic (validation, emissions math) lives in pure modules in `src/lib/` with tests in `src/test/`; why: keeps rules testable without rendering.
 - Emission factors must cite their source in `src/lib/impact.ts` and README; why: impact claims must be verifiable.

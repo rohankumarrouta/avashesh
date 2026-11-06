@@ -1,8 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
 import sample from "@/data/sample-records.json";
-import { createRecord, loadRecords, parseRecords, saveRecords, type RecordInput, type WasteRecord } from "@/lib/waste";
+import {
+  createRecord,
+  loadRecords,
+  parseRecords,
+  saveRecords,
+  type RecordInput,
+  type WasteRecord,
+} from "@/lib/waste";
 
-export const DEMO_RECORDS: WasteRecord[] = parseRecords(JSON.stringify(sample)).map((r) => ({ ...r, isDemo: true }));
+export const DEMO_RECORDS: WasteRecord[] = parseRecords(JSON.stringify(sample)).map((r) => ({
+  ...r,
+  isDemo: true,
+}));
 
 /** All record reads/writes go through localStorage so every page sees the same data. */
 export function useRecords() {
@@ -23,12 +33,18 @@ export function useRecords() {
     return ok;
   }, []);
 
-  const add = useCallback((input: RecordInput) => {
-    const rec = createRecord(input);
-    return commit([rec, ...loadRecords()]) ? rec : null;
-  }, [commit]);
+  const add = useCallback(
+    (input: RecordInput) => {
+      const rec = createRecord(input);
+      return commit([rec, ...loadRecords()]) ? rec : null;
+    },
+    [commit],
+  );
 
-  const remove = useCallback((id: string) => commit(loadRecords().filter((r) => r.id !== id)), [commit]);
+  const remove = useCallback(
+    (id: string) => commit(loadRecords().filter((r) => r.id !== id)),
+    [commit],
+  );
 
   const setPlan = useCallback(
     (id: string, reuseId: string | null) =>

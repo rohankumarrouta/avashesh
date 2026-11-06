@@ -9,11 +9,7 @@
 
 const SW_URL = "/sw.js";
 
-const REFUSED_SUFFIXES = [
-  ".lovableproject.com",
-  ".lovableproject-dev.com",
-  ".beta.lovable.dev",
-];
+const REFUSED_SUFFIXES = [".lovableproject.com", ".lovableproject-dev.com", ".beta.lovable.dev"];
 const REFUSED_HOSTS = ["lovableproject.com", "lovableproject-dev.com", "beta.lovable.dev"];
 
 const PREVIEW_HOST_SUFFIXES = [".lovable.app", ".gpt-eng.com", ".gptengineer.run"];
@@ -32,8 +28,8 @@ async function unregisterAppWorkers(): Promise<void> {
   if (!("serviceWorker" in navigator)) return;
   const registrations = await navigator.serviceWorker.getRegistrations();
   const appWorkers = registrations.filter((registration) =>
-    [registration.active, registration.installing, registration.waiting].some(
-      (worker) => worker?.scriptURL.endsWith(SW_URL),
+    [registration.active, registration.installing, registration.waiting].some((worker) =>
+      worker?.scriptURL.endsWith(SW_URL),
     ),
   );
   await Promise.allSettled(appWorkers.map((registration) => registration.unregister()));

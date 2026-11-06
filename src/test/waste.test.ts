@@ -1,22 +1,36 @@
 import { describe, expect, it } from "vitest";
 import { createRecord, parseRecords, toKg, validateRecord, type RecordInput } from "@/lib/waste";
 
-const ok: RecordInput = { wasteType: "paddy_straw", quantityKg: 500, district: "Cuttack", date: "2026-10-01", practice: "burning", notes: "" };
+const ok: RecordInput = {
+  wasteType: "paddy_straw",
+  quantityKg: 500,
+  district: "Cuttack",
+  date: "2026-10-01",
+  practice: "burning",
+  notes: "",
+};
 const T = "2026-10-27";
 
 describe("record validation", () => {
   it("accepts a valid record", () => expect(validateRecord(ok, T)).toEqual({}));
   it("rejects 0, negative, NaN and over 1,000 tonnes", () => {
-    for (const q of [0, -1, NaN, 1_000_001]) expect(validateRecord({ ...ok, quantityKg: q }, T)["quantityKg"]).toBeDefined();
+    for (const q of [0, -1, NaN, 1_000_001])
+      expect(validateRecord({ ...ok, quantityKg: q }, T)["quantityKg"]).toBeDefined();
   });
-  it("only accepts Odisha districts", () => expect(validateRecord({ ...ok, district: "Mumbai" }, T)["district"]).toBeDefined());
-  it("rejects future dates", () => expect(validateRecord({ ...ok, date: "2026-10-28" }, T)["date"]).toBeDefined());
+  it("only accepts Odisha districts", () =>
+    expect(validateRecord({ ...ok, district: "Mumbai" }, T)["district"]).toBeDefined());
+  it("rejects future dates", () =>
+    expect(validateRecord({ ...ok, date: "2026-10-28" }, T)["date"]).toBeDefined());
   it("rejects unknown waste type and missing practice", () => {
-    const e = validateRecord({ ...ok, wasteType: "plastic" as never, practice: "nope" as never }, T);
+    const e = validateRecord(
+      { ...ok, wasteType: "plastic" as never, practice: "nope" as never },
+      T,
+    );
     expect(e["wasteType"]).toBeDefined();
     expect(e["practice"]).toBeDefined();
   });
-  it("rejects notes over 300 characters", () => expect(validateRecord({ ...ok, notes: "x".repeat(301) }, T)["notes"]).toBeDefined());
+  it("rejects notes over 300 characters", () =>
+    expect(validateRecord({ ...ok, notes: "x".repeat(301) }, T)["notes"]).toBeDefined());
 });
 
 describe("units", () => {

@@ -87,16 +87,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#2C5C2F" },
     ],
     links: [
-      { rel: 'icon', href: '/favicon.png', type: 'image/png' },
-      { rel: 'apple-touch-icon', href: '/icons/apple-touch-icon.png' },
-      { rel: 'manifest', href: '/manifest.webmanifest' },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/icons/apple-touch-icon.png" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
       {
         rel: "stylesheet",
         href: appCss,
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -128,7 +131,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <AccountProvider><Outlet /></AccountProvider>
+      <AccountProvider>
+        <Outlet />
+      </AccountProvider>
     </QueryClientProvider>
   );
 }

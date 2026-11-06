@@ -32,9 +32,11 @@ export function summarize(records: WasteRecord[]): Summary {
     }))
       .filter((t) => t.kg > 0)
       .sort((a, b) => b.kg - a.kg),
-    byPractice: PRACTICES.map((p) => ({ id: p.id, label: p.label, count: records.filter((r) => r.practice === p.id).length })).filter(
-      (p) => p.count > 0,
-    ),
+    byPractice: PRACTICES.map((p) => ({
+      id: p.id,
+      label: p.label,
+      count: records.filter((r) => r.practice === p.id).length,
+    })).filter((p) => p.count > 0),
     plannedCount: planned.length,
     plannedKg: planned.reduce((s, r) => s + r.quantityKg, 0),
     burningWithPlanKg,
