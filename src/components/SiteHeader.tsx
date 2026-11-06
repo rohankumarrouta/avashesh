@@ -142,6 +142,9 @@ export function Page({ children, wide = false }: { children: ReactNode; wide?: b
               </Link>
             </nav>
             <p>Team Avashesh — student project. Waste Less. Create More.</p>
+            <p>
+              Contact: <a href="mailto:avashesh000@gmail.com" className="break-all underline underline-offset-4 transition-colors hover:text-primary">avashesh000@gmail.com</a>
+            </p>
           </div>
         </div>
       </footer>
