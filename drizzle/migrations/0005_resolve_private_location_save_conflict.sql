@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION public.save_listing_with_location(listing_data jsonb, full_location text, listing_id uuid DEFAULT NULL) RETURNS uuid LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$ DECLARE caller uuid := auth.uid(); saved_id uuid; BEGIN
+IF caller IS NULL OR NOT EXISTS (SELECT 1 FROM public.user_roles r WHERE r.user_id = caller AND r.role = 'farmer') THEN RAISE EXCEPTION 'Only Farmers can save listings'; END IF;
+IF char_length(trim(full_location)) NOT BETWEEN 1 AND 120 OR char_length(trim(COALESCE(listing_data->>'district',''))) NOT BETWEEN 1 AND 100 OR char_length(trim(COALESCE(listing_data->>'state',''))) NOT BETWEEN 1 AND 100 THEN RAISE EXCEPTION 'Location fields required'; END IF;
+IF listing_id IS NULL THEN
+INSERT INTO public.listings(seller_id,waste_type,quantity,unit,price,location,district,state,description,photo,seller_name,seller_contact,status) VALUES(caller,listing_data->>'waste_type',(listing_data->>'quantity')::numeric,listing_data->>'unit',(listing_data->>'price')::numeric,'Public area',trim(listing_data->>'district'),trim(listing_data->>'state'),listing_data->>'description',COALESCE(listing_data->>'photo',''),listing_data->>'seller_name',listing_data->>'seller_contact',listing_data->>'status') RETURNING id INTO saved_id;
+ELSE
+UPDATE public.listings SET waste_type=listing_data->>'waste_type',quantity=(listing_data->>'quantity')::numeric,unit=listing_data->>'unit',price=(listing_data->>'price')::numeric,district=trim(listing_data->>'district'),state=trim(listing_data->>'state'),description=listing_data->>'description',photo=COALESCE(listing_data->>'photo',''),seller_name=listing_data->>'seller_name',seller_contact=listing_data->>'seller_contact',status=listing_data->>'status' WHERE id=listing_id AND seller_id=caller RETURNING id INTO saved_id;
+IF saved_id IS NULL THEN RAISE EXCEPTION 'Listing not yours'; END IF;
+END IF;
+INSERT INTO public.listing_locations(listing_id,full_location) VALUES(saved_id,trim(full_location)) ON CONFLICT ON CONSTRAINT listing_locations_pkey DO UPDATE SET full_location=EXCLUDED.full_location;
+RETURN saved_id; END $$;
+REVOKE ALL ON FUNCTION public.guard_public_listing_location() FROM PUBLIC,anon,authenticated;

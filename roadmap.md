@@ -1,0 +1,26 @@
+# Avashesh roadmap
+
+- [x] Improve shared navigation, homepage, forms, marketplace states and dashboard presentation; desktop/mobile waste flow and 71 tests passed
+- [x] Update homepage/About with pollution-prevention mission, visual reuse flow, goals and honest impact placeholders
+- [x] Adopt selected leaf/reuse-arrow logo across header, About, login/signup, footer, site watermark and favicon; mobile/desktop checks passed; uploaded logo no longer displayed
+- [x] Fix blocking waste-photo storage access finding without breaking published listing photos
+- [x] Show district/state publicly; reveal full location only to the owner and buyers who submitted an inquiry
+- [x] Home, Record, Reuse suggestions, Dashboard pages
+- [x] Separate Waste Records page (view/delete) and About page (from uploaded brief)
+- [x] Label sample data as "SAMPLE"
+- [x] Tests, README, ARCHITECTURE.md, LICENSE, sample JSON
+- [x] Browser check on phone size
+- [x] Shared marketplace browse, listing form, details, seller and Buyer inquiries (replaces local demo)
+- [x] Marketplace validation tests/documentation; samples test-only, not public stock
+- [x] Verify create/filter/details/inquiry/delete/refresh and preserved waste/reuse/dashboard flow
+- [x] Cloud shared listings and inquiries, no primary marketplace localStorage
+- [x] Implement email signup/login/logout/reset, secure Farmer/Buyer profiles/roles
+- [x] Farmer create/edit/publish/delete, shared photo, inquiry status and private profile
+- [x] Buyer published listings, quantity/price filters and own inquiry history
+- [x] Backend permissions, two confirmed test accounts cross-browser flow and no security advisor warnings
+- [x] Homepage BUY/SELL cards, no main Marketplace nav, intended action through login
+- [ ] GitHub code sync — requires the user to authorize it in project Git settings
+- [x] Competition README, technical design, sample data, test cases and MIT copyright placeholder; application code untouched for this documentation request
+- [ ] Real mailbox signup confirmation/reset completion — needs controlled receiving mailboxes
+- [ ] Published/standalone deployment verification — not requested to deploy; requires deployed target
+- [x] Homepage: Buy/Sell labels large, other text smaller
