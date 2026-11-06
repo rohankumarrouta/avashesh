@@ -18,14 +18,14 @@ export default defineConfig({
     // builds never ship without them. These values are safe to expose.
     define: {
       "import.meta.env.VITE_SUPABASE_URL": JSON.stringify(
-        process.env.VITE_SUPABASE_URL || "https://tdzzfmgzatcqusdsuhfx.supabase.co",
+        process.env["VITE_SUPABASE_URL"] || "https://tdzzfmgzatcqusdsuhfx.supabase.co",
       ),
       "import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY": JSON.stringify(
-        process.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+        process.env["VITE_SUPABASE_PUBLISHABLE_KEY"] ||
           "sb_publishable_aB0YpDGiDjZ5uxCJxo785A_b5qnLm7A",
       ),
       "import.meta.env.VITE_SUPABASE_PROJECT_ID": JSON.stringify(
-        process.env.VITE_SUPABASE_PROJECT_ID || "tdzzfmgzatcqusdsuhfx",
+        process.env["VITE_SUPABASE_PROJECT_ID"] || "tdzzfmgzatcqusdsuhfx",
       ),
     },
     plugins: [
