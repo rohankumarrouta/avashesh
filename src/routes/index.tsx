@@ -115,14 +115,6 @@ function Index() {
         </div>
       </section>
 
-      {/* Impact Dashboard Live Metrics Banner */}
-      <ImpactMetricsBanner />
-
-      {/* Segmented Dual Role-Based Onboarding Switcher */}
-      <RoleOnboardingSwitcher />
-
-      {/* Odisha Regional Pilot Summary with Interactive District Map */}
-      <OdishaPilotSummary />
       <section className="space-y-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <Button
@@ -194,6 +186,14 @@ function Index() {
           into resources and work towards cleaner air.
         </p>
       </section>
+      {/* Impact Dashboard Live Metrics Banner */}
+      <ImpactMetricsBanner />
+
+      {/* Segmented Dual Role-Based Onboarding Switcher */}
+      <RoleOnboardingSwitcher />
+
+      {/* Odisha Regional Pilot Summary with Interactive District Map */}
+      <OdishaPilotSummary />
       <section className="space-y-4 border-t border-border pt-6">
         <h2 className="text-2xl font-bold tracking-tight">How it works</h2>
         <ol className="grid gap-4 sm:grid-cols-3">
