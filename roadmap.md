@@ -19,7 +19,8 @@
 - [x] Buyer published listings, quantity/price filters and own inquiry history
 - [x] Backend permissions, two confirmed test accounts cross-browser flow and no security advisor warnings
 - [x] Homepage BUY/SELL cards, no main Marketplace nav, intended action through login
-- [ ] GitHub code sync — requires the user to authorize it in project Git settings
+- [x] GitHub code sync — repository configured and pushed to https://github.com/rohankumarrouta/avashesh
+- [x] Competition-ready UI: live impact telemetry banner, regional pilot map (Cuttack, Puri, Bargarh, Sambalpur), dual-action role onboarding switcher, rural USSD/WhatsApp listing accessibility, marketplace filter tags, and micro-interactions
 - [x] Competition README, technical design, sample data, test cases and MIT copyright placeholder; application code untouched for this documentation request
 - [ ] Real mailbox signup confirmation/reset completion — needs controlled receiving mailboxes
 - [ ] Published/standalone deployment verification — not requested to deploy; requires deployed target
