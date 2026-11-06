@@ -8,7 +8,7 @@ import { profileSchema } from "@/lib/account";
 import { z } from "zod";
 export const saveCloudListing = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) =>
+  .validator((input) =>
     z.object({ id: z.string().uuid().optional(), listing: cloudListingSchema }).parse(input),
   )
   .handler(async ({ data, context }) => {
@@ -33,7 +33,7 @@ export const saveCloudListing = createServerFn({ method: "POST" })
     return { id: result.data };
   });
 export const getPublishedListingPhoto = createServerFn({ method: "GET" })
-  .inputValidator((input) => z.object({ listingId: z.string().uuid() }).parse(input))
+  .validator((input) => z.object({ listingId: z.string().uuid() }).parse(input))
   .handler(async ({ data }) => {
     const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
     const url = process.env["SUPABASE_URL"];
@@ -69,7 +69,7 @@ export const getPublishedListingPhoto = createServerFn({ method: "GET" })
   });
 export const sendCloudInquiry = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) =>
+  .validator((input) =>
     z.object({ listingId: z.string().uuid(), inquiry: inquiryInputSchema }).parse(input),
   )
   .handler(async ({ data, context }) => {
@@ -89,7 +89,7 @@ export const sendCloudInquiry = createServerFn({ method: "POST" })
   });
 export const updateCloudProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) => profileSchema.parse(input))
+  .validator((input) => profileSchema.parse(input))
   .handler(async ({ data, context }) => {
     const contact = data.contact ? (normalizePhone(data.contact) ?? "") : "";
     const { error } = await context.supabase

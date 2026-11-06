@@ -2,7 +2,6 @@ import { createFileRoute, Link, ClientOnly, useNavigate } from "@tanstack/react-
 import { Suspense } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
-import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { Page } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 import { marketField, formatPrice } from "@/components/MarketplaceShared";
@@ -40,17 +39,15 @@ const defaults = {
 };
 
 export const Route = createFileRoute("/marketplace/")({
-  validateSearch: zodValidator(
-    z.object({
-      q: fallback(z.string(), "").default(""),
-      type: fallback(z.string(), "").default(""),
-      location: fallback(z.string(), "").default(""),
-      min: fallback(z.string(), "").default(""),
-      max: fallback(z.string(), "").default(""),
-      quantity: fallback(z.string(), "").default(""),
-      pickup: fallback(z.string(), "").default(""),
-    }),
-  ),
+  validateSearch: z.object({
+      q: z.string().default("").catch(""),
+      type: z.string().default("").catch(""),
+      location: z.string().default("").catch(""),
+      min: z.string().default("").catch(""),
+      max: z.string().default("").catch(""),
+      quantity: z.string().default("").catch(""),
+      pickup: z.string().default("").catch(""),
+  }),
   head: () => ({
     meta: [
       { title: "Buy agricultural waste — Avashesh" },
