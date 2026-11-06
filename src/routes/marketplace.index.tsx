@@ -40,13 +40,13 @@ const defaults = {
 
 export const Route = createFileRoute("/marketplace/")({
   validateSearch: z.object({
-      q: z.string().catch(""),
-      type: z.string().catch(""),
-      location: z.string().catch(""),
-      min: z.string().catch(""),
-      max: z.string().catch(""),
-      quantity: z.string().catch(""),
-      pickup: z.string().catch(""),
+      q: z.string().default("").catch(""),
+      type: z.string().default("").catch(""),
+      location: z.string().default("").catch(""),
+      min: z.string().default("").catch(""),
+      max: z.string().default("").catch(""),
+      quantity: z.string().default("").catch(""),
+      pickup: z.string().default("").catch(""),
   }),
   head: () => ({
     meta: [
