@@ -9,6 +9,7 @@ import {
   MaterialOpportunities,
   mission,
 } from "@/components/MissionSections";
+import { ImpactMetricsBanner } from "@/components/ImpactMetricsBanner";
 import { OdishaPilotSummary } from "@/components/OdishaPilotSummary";
 import { RoleOnboardingSwitcher } from "@/components/RoleOnboardingSwitcher";
 import { ReuseCatalogExplorer } from "@/components/ReuseCatalogExplorer";
@@ -113,6 +114,9 @@ function Index() {
           <span>Zero Middleman Farmgate Transactions</span>
         </div>
       </section>
+
+      {/* Impact Dashboard Live Metrics Banner */}
+      <ImpactMetricsBanner />
 
       {/* Segmented Dual Role-Based Onboarding Switcher */}
       <RoleOnboardingSwitcher />
