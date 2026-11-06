@@ -90,7 +90,7 @@ const pilotDistricts: DistrictPilot[] = [
 
 export function OdishaPilotSummary() {
   const [selectedId, setSelectedId] = useState<string>("cuttack");
-  const selected = pilotDistricts.find((d) => d.id === selectedId) ?? pilotDistricts[0];
+  const selected = pilotDistricts.find((d) => d.id === selectedId) ?? pilotDistricts[0]!;
 
   return (
     <section className="space-y-6 border-t border-border pt-8">
@@ -160,18 +160,18 @@ export function OdishaPilotSummary() {
 
               {/* Connecting logistics lines between hubs */}
               <line
-                x1={`${pilotDistricts[0].coordinates.x * 3.6}`}
-                y1={`${pilotDistricts[0].coordinates.y * 3}`}
-                x2={`${pilotDistricts[1].coordinates.x * 3.6}`}
-                y2={`${pilotDistricts[1].coordinates.y * 3}`}
+                x1={`${pilotDistricts[0]!.coordinates.x * 3.6}`}
+                y1={`${pilotDistricts[0]!.coordinates.y * 3}`}
+                x2={`${pilotDistricts[1]!.coordinates.x * 3.6}`}
+                y2={`${pilotDistricts[1]!.coordinates.y * 3}`}
                 className="stroke-emerald-500/40 stroke-1"
                 strokeDasharray="3 3"
               />
               <line
-                x1={`${pilotDistricts[0].coordinates.x * 3.6}`}
-                y1={`${pilotDistricts[0].coordinates.y * 3}`}
-                x2={`${pilotDistricts[2].coordinates.x * 3.6}`}
-                y2={`${pilotDistricts[2].coordinates.y * 3}`}
+                x1={`${pilotDistricts[0]!.coordinates.x * 3.6}`}
+                y1={`${pilotDistricts[0]!.coordinates.y * 3}`}
+                x2={`${pilotDistricts[2]!.coordinates.x * 3.6}`}
+                y2={`${pilotDistricts[2]!.coordinates.y * 3}`}
                 className="stroke-emerald-500/40 stroke-1"
                 strokeDasharray="3 3"
               />
