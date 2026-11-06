@@ -13,6 +13,7 @@ import {
 import { ImpactMetricsBanner } from "@/components/ImpactMetricsBanner";
 import { OdishaPilotSummary } from "@/components/OdishaPilotSummary";
 import { RoleOnboardingSwitcher } from "@/components/RoleOnboardingSwitcher";
+import { ReuseCatalogExplorer } from "@/components/ReuseCatalogExplorer";
 import { useAccount } from "@/hooks/use-account";
 import { useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
@@ -262,6 +263,9 @@ function Index() {
       <EnvironmentalGoals />
       <MaterialOpportunities />
       <PollutionImpact />
+
+      {/* Interactive 100+ Reuse Catalog Explorer */}
+      <ReuseCatalogExplorer />
       <section className="space-y-4 border-t border-border pt-6">
         <h2 className="text-2xl font-bold tracking-tight">Record and explore reuse</h2>
         <div className="grid gap-3 sm:grid-cols-3">

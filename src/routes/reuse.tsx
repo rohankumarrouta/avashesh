@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useRecords } from "@/hooks/use-records";
 import { recommend, type RecommendationResult } from "@/lib/reuse-rules";
 import { practiceLabel, WASTE_TYPES, wasteLabel, type WasteTypeId } from "@/lib/waste";
+import { ReuseCatalogExplorer } from "@/components/ReuseCatalogExplorer";
 import {
   Recycle,
   Sprout,
@@ -167,6 +168,8 @@ function ReusePage() {
         </Link>
         .
       </div>
+
+      <ReuseCatalogExplorer />
     </Page>
   );
 }

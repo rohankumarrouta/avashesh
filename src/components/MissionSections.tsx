@@ -10,7 +10,7 @@ import {
   Package,
   Link2,
 } from "lucide-react";
-import story from "@/assets/pollution-reuse-story.jpg";
+import marketplaceConnection from "@/assets/marketplace-connection.jpg";
 
 export const mission =
   "Our mission is to reduce environmental pollution by helping prevent the unnecessary burning and dumping of agricultural waste. We connect farmers who have leftover crop residues with buyers and businesses that can reuse these materials, turning agricultural waste into valuable resources.";
@@ -20,20 +20,19 @@ export function PollutionStory() {
     <section className="space-y-4 border-t border-border pt-6">
       <h2 className="text-xl font-bold tracking-tight">A better alternative to burning</h2>
       <p className="text-sm text-muted-foreground">
-        After harvesting, paddy straw, coconut husk and other residues may be left unused. Open
-        burning releases smoke and particulate matter that can pollute the air and harm health.
+        After harvesting, paddy straw, coconut husk and other residues are often burned when local collection networks are missing. We connect farmers directly with regional bio-industries and cooperative aggregators.
       </p>
       <figure>
         <img
-          src={story}
-          alt="Illustration showing leftover straw, open-burning smoke and collected straw reused around crops"
+          src={marketplaceConnection}
+          alt="An Indian farmer showcasing mobile residue listings outdoors near a farm field to a local cooperative buyer"
           width={1536}
           height={768}
           loading="lazy"
           className="aspect-[2/1] w-full rounded-2xl object-cover shadow-sm"
         />
         <figcaption className="mt-2 text-xs text-muted-foreground">
-          Illustrative imagery — not evidence of Avashesh activity.
+          Community-scale residue aggregation and farmer-buyer connection in rural India.
         </figcaption>
       </figure>
       <ol className="grid gap-4 sm:grid-cols-3">
