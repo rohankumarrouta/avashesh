@@ -5,7 +5,8 @@ import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { Page } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 import { marketField } from "@/components/MarketplaceShared";
-import { credentialsSchema, signupSchema, safeNext } from "@/lib/account";
+import { accountErrorMessage, credentialsSchema, signupSchema, safeNext } from "@/lib/account";
+import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAccount } from "@/hooks/use-account";
 import { BrandClarification } from "@/components/BrandLogo";
@@ -35,6 +36,7 @@ function Auth() {
   const { next, role: chosen } = Route.useSearch();
   const { user, role } = useAccount();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [mode, setMode] = useState<"login" | "signup" | "reset">("login"),
     [busy, setBusy] = useState(false),
     [message, setMessage] = useState(""),
@@ -96,7 +98,7 @@ function Auth() {
         if (error) throw error;
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Could not complete request.");
+      setError(accountErrorMessage(e));
     } finally {
       setBusy(false);
     }
@@ -171,17 +173,25 @@ function Auth() {
             />
           </label>
           {mode !== "reset" && (
-            <label className="block">
-              Password
+            <div>
+              <label htmlFor="auth-password" className="block">Password</label>
+              <div className="relative">
               <input
-                type="password"
+                id="auth-password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 autoComplete={mode === "signup" ? "new-password" : "current-password"}
                 minLength={8}
                 maxLength={128}
-                className={marketField}
+                aria-describedby={mode === "signup" ? "password-guidance" : undefined}
+                className={`${marketField} pr-12`}
               />
-            </label>
+                <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2" aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword((shown) => !shown)}>
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </Button>
+              </div>
+              {mode === "signup" && <p id="password-guidance" className="mt-2 text-xs text-muted-foreground">Use a unique password. We recommend 12+ characters with uppercase and lowercase letters, a number and a symbol. Common or breached passwords may be rejected, even when they are long.</p>}
+            </div>
           )}
           {error && (
             <p role="alert" className="text-sm text-destructive">
