@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useAccount } from "@/hooks/use-account";
 import { Button } from "@/components/ui/button";
 import { BrandLogo, BrandClarification } from "@/components/BrandLogo";
-import { LANGS, setLang, useLang, useT, type Lang } from "@/lib/i18n";
 import {
   Home,
   ClipboardPlus,
@@ -28,12 +27,10 @@ const links = [
 export function SiteHeader() {
   const { user, role, logout } = useAccount();
   const [error, setError] = useState("");
-  const t = useT();
-  const lang = useLang();
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-card/90 backdrop-blur-md transition-all">
       <a href="#main-content" className="skip-link">
-        {t("Skip to content")}
+        Skip to content
       </a>
       <div className="mx-auto max-w-5xl px-4 pt-3.5 sm:px-8">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between">
@@ -45,18 +42,6 @@ export function SiteHeader() {
             <BrandLogo className="h-auto w-40 sm:w-48" />
           </Link>
           <div className="flex shrink-0 flex-col items-end gap-1.5 text-xs sm:flex-row sm:items-center sm:gap-2 sm:text-sm">
-            <select
-              aria-label={t("Language")}
-              value={lang}
-              onChange={(e) => setLang(e.target.value as Lang)}
-              className="h-8 rounded-full border border-input bg-card px-2.5 text-xs font-medium text-foreground shadow-xs focus:outline-none focus:ring-2 focus:ring-ring sm:text-sm"
-            >
-              {LANGS.map((l) => (
-                <option key={l.code} value={l.code}>
-                  {l.label}
-                </option>
-              ))}
-            </select>
             {user ? (
               <>
                 {role && (
@@ -67,7 +52,7 @@ export function SiteHeader() {
                     className="rounded-full shadow-xs hover:border-primary"
                   >
                     <Link to={role === "farmer" ? "/farmer" : "/buyer"}>
-                      {t("My account")}
+                      My account
                       <ArrowUpRight className="size-3.5" />
                     </Link>
                   </Button>
@@ -80,7 +65,7 @@ export function SiteHeader() {
                     void logout().catch(() => setError("Could not sign out. Try again."))
                   }
                 >
-                  {t("Sign out")}
+                  Sign out
                 </Button>
               </>
             ) : (
@@ -92,7 +77,7 @@ export function SiteHeader() {
               >
                 <Link to="/auth" search={{ next: "", role: "buyer" }}>
                   <LogIn className="size-3.5" />
-                  {t("Sign in")}
+                  Sign in
                 </Link>
               </Button>
             )}
@@ -119,7 +104,7 @@ export function SiteHeader() {
               }}
             >
               <l.icon className="size-4 shrink-0" aria-hidden="true" />
-              <span>{t(l.label)}</span>
+              <span>{l.label}</span>
             </Link>
           ))}
         </nav>
@@ -129,7 +114,6 @@ export function SiteHeader() {
 }
 
 export function Page({ children, wide = false }: { children: ReactNode; wide?: boolean }) {
-  const t = useT();
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
@@ -145,21 +129,21 @@ export function Page({ children, wide = false }: { children: ReactNode; wide?: b
           <div className="space-y-2">
             <nav aria-label="Footer" className="flex flex-wrap gap-x-4 gap-y-2">
               <Link to="/marketplace" className="transition-colors hover:text-primary">
-                {t("Marketplace")}
+                Marketplace
               </Link>
               <Link to="/record" className="transition-colors hover:text-primary">
-                {t("Record waste")}
+                Record waste
               </Link>
               <Link to="/dashboard" className="transition-colors hover:text-primary">
-                {t("Dashboard")}
+                Dashboard
               </Link>
               <Link to="/about" className="transition-colors hover:text-primary">
-                {t("About")}
+                About
               </Link>
             </nav>
-            <p>{t("Team Avashesh — student project. Waste Less. Create More.")}</p>
+            <p>Team Avashesh — student project. Waste Less. Create More.</p>
             <p>
-              {t("Contact:")} <a href="mailto:avashesh000@gmail.com" className="break-all underline underline-offset-4 transition-colors hover:text-primary">avashesh000@gmail.com</a>
+              Contact: <a href="mailto:avashesh000@gmail.com" className="break-all underline underline-offset-4 transition-colors hover:text-primary">avashesh000@gmail.com</a>
             </p>
           </div>
         </div>
