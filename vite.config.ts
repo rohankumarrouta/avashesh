@@ -14,6 +14,20 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
+    // Public (publishable) backend settings baked in as a fallback so published
+    // builds never ship without them. These values are safe to expose.
+    define: {
+      "import.meta.env.VITE_SUPABASE_URL": JSON.stringify(
+        process.env.VITE_SUPABASE_URL || "https://tdzzfmgzatcqusdsuhfx.supabase.co",
+      ),
+      "import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY": JSON.stringify(
+        process.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+          "sb_publishable_aB0YpDGiDjZ5uxCJxo785A_b5qnLm7A",
+      ),
+      "import.meta.env.VITE_SUPABASE_PROJECT_ID": JSON.stringify(
+        process.env.VITE_SUPABASE_PROJECT_ID || "tdzzfmgzatcqusdsuhfx",
+      ),
+    },
     plugins: [
       VitePWA({
         // The service worker is generated at build time and registered only from
