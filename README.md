@@ -16,20 +16,22 @@ of burning it or leaving it unused. We are starting with Odisha.
 
 ## Implemented features
 
-| Page                              | What it does                                                                                                                                                                               |
+| Page / Component                  | What it does                                                                                                                                                                               |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Home `/`                          | AVASHESH logo in the top-left corner (front page only; other pages show the plain text name), primary Buy Waste and Sell Waste actions, mission sections, plus existing reuse/record tools |
-| Record `/record`                  | Enter waste type, quantity (kg / quintal / tonne), Odisha district, date, current handling, notes                                                                                          |
-| Reuse `/reuse`                    | Ranked reuse options with the reasons and steps; "Plan this option" saves your choice. Without a record, explore any waste type + quantity                                                 |
-| Dashboard `/dashboard`            | Total recorded, number of records, plans made, breakdown by waste type and handling, estimated emissions                                                                                   |
-| Records `/records`                | View, delete, export as JSON, load/remove sample data, delete all                                                                                                                          |
-| About `/about`                    | Pollution-prevention mission, how farmers and buyers connect, goals, material opportunities, honest limits; impact reporting is labelled pending                                           |
-| Buy Waste `/marketplace`          | Published shared listings; search and type/location/quantity/price filters, no login required to browse                                                                                    |
-| Sell `/marketplace/sell`          | Seller name, Indian mobile number, waste type, quantity/unit, asking price per unit, public district/state, private full location, description, optional photo                             |
-| Listing `/marketplace/$listingId` | Shared details, supplied phone/WhatsApp links, Buyer-only inquiry submission                                                                                                               |
-| Auth `/auth`, `/reset-password`   | Email signup/login/logout and password recovery; Farmer/Buyer signup                                                                                                                       |
-| Farmer `/farmer`                  | Own listings, create/edit/publish/unavailable/delete, inquiries/status and private profile                                                                                                 |
-| Buyer `/buyer`                    | Own inquiry history/status and private profile                                                                                                                                             |
+| Home `/`                          | AVASHESH logo, live Odisha impact metrics banner (1,480+ T residue listed, 2,218+ T CO₂e prevented), dual role onboarding switcher (Farmer / Corporate Buyer), regional pilot tracker map, and mission sections |
+| Regional Pilot Summary            | Interactive stylized map and metrics highlighting key Odisha pilot hubs (Cuttack, Puri, Bargarh, Sambalpur) with active FPO counts and primary bio-reuse applications                     |
+| Rural Connectivity Guarantee      | Offline/2G-ready listing flows via USSD `*99#` and SMS/WhatsApp voice-assisted listing in Odia/Hindi for rural farmers without smartphones                                                |
+| Record `/record`                  | Enter waste type, quantity (kg / quintal / tonne), Odisha district, date, current handling, notes; celebratory success state with immediate avoided emissions calculation                  |
+| Reuse `/reuse`                    | Ranked rule-based circular reuse pathways with reasons, steps, effort ratings, and one-click plan adoption; zero AI opacity                                                                 |
+| Dashboard `/dashboard`            | Telemetry overview: total recorded, lots logged, planned circular reuse, breakdown by waste type, and IPCC Tier-1 calculated burning avoidance                                             |
+| Records `/records`                | Local browser storage management: view, delete, export JSON, load/clear Odisha demonstration records                                                                                      |
+| About `/about`                    | Mission to prevent open burning, environmental goals, verified field impact telemetry, and honest transparent limitations                                                                   |
+| Buy Waste `/marketplace`          | Marketplace with filter tags (Material type, Tonnage scale, Pilot districts, Pickup terms), status badges (Available, Inquiry Pending, Reserved), and verified seller info              |
+| Sell `/marketplace/sell`          | Verified listing form: waste type, quantity/unit, asking rate, public district/state, private full farmgate address, photo upload, and draft/published/sold status                        |
+| Listing `/marketplace/$listingId` | Detail card: high-resolution photography, price breakdown, confidential farmgate address (unlocked on inquiry), direct phone/WhatsApp actions, and official Buyer inquiry submission         |
+| Auth `/auth`, `/reset-password`   | Email signup/login/logout and password recovery; Farmer and Buyer account segregation                                                                                                       |
+| Farmer `/farmer`                  | Private farmer portal: manage listings, track received buyer inquiries with status dropdown (new/read/closed), and update farm profile                                                    |
+| Buyer `/buyer`                    | Corporate buyer portal: view inquiry history, supplier connections, and procurement profile                                                                                                |
 
 ## Tech stack (actual)
 
