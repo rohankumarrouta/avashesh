@@ -7,7 +7,6 @@ import {
   ReuseFlow,
   EnvironmentalGoals,
   MaterialOpportunities,
-  PollutionImpact,
   mission,
 } from "@/components/MissionSections";
 import { ImpactMetricsBanner } from "@/components/ImpactMetricsBanner";
@@ -262,7 +261,6 @@ function Index() {
       <ReuseFlow />
       <EnvironmentalGoals />
       <MaterialOpportunities />
-      <PollutionImpact />
 
       {/* Interactive 100+ Reuse Catalog Explorer */}
       <ReuseCatalogExplorer />
