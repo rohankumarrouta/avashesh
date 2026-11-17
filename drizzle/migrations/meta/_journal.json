@@ -43,6 +43,13 @@
       "when": 1793123461548,
       "tag": "0005_resolve_private_location_save_conflict",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794931773288,
+      "tag": "0006_revoke_location_on_closed_inquiry",
+      "breakpoints": true
     }
   ]
 }
